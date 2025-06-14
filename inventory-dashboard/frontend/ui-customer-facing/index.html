@@ -3,295 +3,415 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Whiteway Motors - Products</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Whiteway Motors - Spare Parts Catalog</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome CDN for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5;
+        }
+        .product-card {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .btn-primary {
+            background-color: #3B82F6; /* Blue-600 */
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem; /* rounded-md */
+            transition: background-color 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #2563EB; /* Blue-700 */
+        }
+        .price-input {
+            border: 1px solid #D1D5DB; /* Gray-300 */
+            border-radius: 0.375rem; /* rounded-md */
+            padding: 0.5rem;
+            width: 100%;
+        }
+        .sidebar-section-title {
+            font-weight: 600; /* semi-bold */
+            margin-bottom: 0.75rem; /* mb-3 */
+            color: #1F2937; /* Gray-900 */
+        }
+        .checkbox-container {
+            display: block;
+            position: relative;
+            padding-left: 1.75rem; /* pl-7 */
+            margin-bottom: 0.5rem; /* mb-2 */
+            cursor: pointer;
+            font-size: 0.875rem; /* text-sm */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 1.25rem; /* h-5 */
+            width: 1.25rem; /* w-5 */
+            background-color: #eee;
+            border-radius: 0.25rem; /* rounded */
+            border: 1px solid #D1D5DB; /* Gray-300 */
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #3B82F6; /* Blue-600 */
+            border-color: #3B82F6;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 0.45rem; /* Adjusted for better centering */
+            top: 0.2rem; /* Adjusted for better centering */
+            width: 0.25rem;
+            height: 0.6rem;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+
+    </style>
 </head>
 <body>
-    <header>
-        <div class="logo">Whiteway Motors</div>
-        <nav>
-            <a href="#" data-modal-target="dashboard-modal">Dashboard</a>
-            <a class="active" href="#">Products</a>
-            <a href="#" data-modal-target="orders-modal">Orders</a>
-        </nav>
-        <div class="search-profile">
-            <div class="search-bar-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" placeholder="Search by name, category, or specifications" />
+
+    <!-- Header / Navigation Bar -->
+    <header class="bg-white shadow-sm py-4 px-6 flex items-center justify-between sticky top-0 z-50 rounded-b-lg">
+        <div class="flex items-center space-x-8">
+            <h1 class="text-xl font-semibold text-gray-800">Whiteway Motors</h1>
+            <nav class="hidden md:flex space-x-6 text-gray-600">
+                <a href="#" class="hover:text-blue-600 transition-colors">Home</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">Categories</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">Orders</a>
+                <a href="#" class="hover:text-blue-600 transition-colors">Support</a>
+            </nav>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="relative">
+                <input type="text" placeholder="Search parts..." class="bg-gray-100 rounded-md py-2 pl-10 pr-4 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
             </div>
-            <div class="profile">
-                <p>John Smith<br><span>Inventory Manager</span></p>
-                <i class="fas fa-user-circle profile-icon"></i>
-            </div>
+            <i class="fas fa-user-circle text-gray-600 text-2xl cursor-pointer hover:text-blue-600 transition-colors"></i>
+            <i class="fas fa-shopping-cart text-gray-600 text-2xl cursor-pointer hover:text-blue-600 transition-colors"></i>
         </div>
     </header>
 
-    <main>
-        <aside class="sidebar">
-            <h3>Categories</h3>
-            <ul>
-                <li><label><input type="checkbox"> Engine Parts</label></li>
-                <li><label><input type="checkbox"> Transmission</label></li>
-                <li><label><input type="checkbox"> Brake Systems</label></li>
-                <li><label><input type="checkbox"> Suspension</label></li>
-                <li><label><input type="checkbox"> Electrical</label></li>
-                <li><label><input type="checkbox"> Body Parts</label></li>
-                <li><label><input type="checkbox"> Fluid Systems</label></li>
-                <li><label><input type="checkbox"> Tools & Equipment</label></li>
-                <li><label><input type="checkbox"> Mechanical Parts</label></li>
-                <li><label><input type="checkbox"> Electrical Components</label></li>
-                <li><label><input type="checkbox"> Hardware</label></li>
-                <li><label><input type="checkbox"> Tools</label></li>
-                <li><label><input type="checkbox"> Safety Equipment</label></li>
-            </ul>
-
-            <h3>Price Range</h3>
-            <div class="price-range-display">
-                <span>$0</span>
-                <span>$1000</span>
+    <!-- Main Content Area -->
+    <main class="flex flex-col md:flex-row p-6 bg-gray-50 min-h-screen">
+        <!-- Left Sidebar - Filters -->
+        <aside class="w-full md:w-1/4 bg-white p-6 rounded-lg shadow-md md:mr-6 mb-6 md:mb-0">
+            <h2 class="text-lg font-bold text-gray-800 mb-4">Categories</h2>
+            <div class="space-y-3">
+                <!-- Checkbox filters for categories -->
+                <label class="checkbox-container">
+                    Engine Parts
+                    <input type="checkbox" checked="checked">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Transmission
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Brake Systems
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Suspension
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Electrical
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Body Parts
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Fluid Systems
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Tools & Equipment
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
             </div>
-            <input type="range" min="0" max="1000" value="0">
-            <input type="range" min="0" max="1000" value="1000">
 
-            <button class="apply-filters">Apply</button>
+            <h2 class="sidebar-section-title mt-6">Price Range</h2>
+            <div class="flex items-center space-x-2 mb-4">
+                <input type="number" placeholder="Min" class="price-input" min="0">
+                <span>-</span>
+                <input type="number" placeholder="Max" class="price-input">
+            </div>
+            <button class="btn-primary w-full mb-6">Apply</button>
 
+            <h2 class="sidebar-section-title">Availability</h2>
+            <div class="space-y-3 mb-6">
+                <label class="checkbox-container">
+                    In Stock Only
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
 
-            <h3>Availability</h3>
-            <ul>
-                <li><label><input type="checkbox"> In Stock Only</label></li>
-            </ul>
-
-            <h3>Status</h3>
-            <ul>
-                <li><label><input type="checkbox"><span class="dot green"></span> In Stock</label></li>
-                <li><label><input type="checkbox"><span class="dot yellow"></span> Low Stock</label></li>
-                <li><label><input type="checkbox"><span class="dot red"></span> Out of Stock</label></li>
-            </ul>
-
-            <h3>Stock Level</h3>
-            <ul>
-                <li><label><input type="checkbox"> 0–10 units</label></li>
-                <li><label><input type="checkbox"> 11–50 units</label></li>
-                <li><label><input type="checkbox"> 51–100 units</label></li>
-                <li><label><input type="checkbox"> 100+ units</label></li>
-            </ul>
-
-            <h3>Brand</h3>
-            <ul>
-                <li><label><input type="checkbox"> Brand A</label></li>
-                <li><label><input type="checkbox"> Brand B</label></li>
-                <li><label><input type="checkbox"> Brand C</label></li>
-                <li><label><input type="checkbox"> Brand D</label></li>
-            </ul>
+            <h2 class="sidebar-section-title">Brand</h2>
+            <div class="space-y-3">
+                <label class="checkbox-container">
+                    Brand A
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Brand B
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Brand C
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <label class="checkbox-container">
+                    Brand D
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+            </div>
         </aside>
 
-        <section class="products-section">
-            <div class="top-bar">
-                <h2>All Products <span class="product-count">(8 items)</span></h2>
-                <div class="view-options">
-                    <div class="grid-list-toggle">
-                        <button class="grid-view active"><i class="fas fa-th-large"></i></button>
-                        <button class="list-view"><i class="fas fa-list"></i></button>
+        <!-- Right Content Area - Product Catalog -->
+        <section class="w-full md:w-3/4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Spare Parts Catalog</h2>
+                <div class="flex items-center space-x-4">
+                    <div class="flex space-x-2 text-gray-500">
+                        <i class="fas fa-th-large text-xl cursor-pointer text-blue-600"></i>
+                        <i class="fas fa-list text-xl cursor-pointer hover:text-blue-600"></i>
                     </div>
-                    <select class="items-per-page">
-                        <option value="10">10 per page</option>
-                        <option value="20">20 per page</option>
-                        <option value="50">50 per page</option>
-                    </select>
-                    <select class="sort-by">
-                        <option value="featured">Sort by: Featured</option>
-                        <option value="price-asc">Price: Low to High</option>
-                        <option value="price-desc">Price: High to Low</option>
-                        <option value="name-asc">Name: A-Z</option>
-                        <option value="name-desc">Name: Z-A</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="product-grid">
-                <div class="card" data-category="Mechanical Parts" data-price="129.99" data-status="in-stock" data-stock="45">
-                    <img src="https://via.placeholder.com/200x150?text=Product+1" alt="Product">
-                    <p class="code">BE-2023-001</p>
-                    <h4>Industrial Bearing</h4>
-                    <p class="category">Mechanical Parts</p>
-                    <p class="price">$129.99</p>
-                    <p class="stock in-stock">In Stock</p>
-                    <p class="units">Stock: 45</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
-                    </div>
-                </div>
-
-                <div class="card" data-category="Electrical Components" data-price="299.99" data-status="low-stock" data-stock="12">
-                    <img src="https://via.placeholder.com/200x150?text=Product+2" alt="Product">
-                    <p class="code">EM-2023-002</p>
-                    <h4>Electric Motor</h4>
-                    <p class="category">Electrical Components</p>
-                    <p class="price">$299.99</p>
-                    <p class="stock low-stock">Low Stock</p>
-                    <p class="units">Stock: 12</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
-                    </div>
-                </div>
-
-                <div class="card" data-category="Safety Equipment" data-price="49.99" data-status="out-stock" data-stock="0">
-                    <img src="https://via.placeholder.com/200x150?text=Product+3" alt="Product">
-                    <p class="code">SH-2023-003</p>
-                    <h4>Safety Helmet</h4>
-                    <p class="category">Safety Equipment</p>
-                    <p class="price">$49.99</p>
-                    <p class="stock out-stock">Out of Stock</p>
-                    <p class="units">Stock: 0</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
-                    </div>
-                </div>
-
-                <div class="card" data-category="Tools" data-price="249.99" data-status="low-stock" data-stock="8">
-                    <img src="https://via.placeholder.com/200x150?text=Product+4" alt="Product">
-                    <p class="code">PT-2023-004</p>
-                    <h4>Power Tool Set</h4>
-                    <p class="category">Tools</p>
-                    <p class="price">$249.99</p>
-                    <p class="stock low-stock">Low Stock</p>
-                    <p class="units">Stock: 8</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
-                    </div>
-                </div>
-
-                <div class="card" data-category="Hardware" data-price="19.99" data-status="in-stock" data-stock="156">
-                    <img src="https://via.placeholder.com/200x150?text=Product+5" alt="Product">
-                    <p class="code">SB-2023-005</p>
-                    <h4>Steel Bracket</h4>
-                    <p class="category">Hardware</p>
-                    <p class="price">$19.99</p>
-                    <p class="stock in-stock">In Stock</p>
-                    <p class="units">Stock: 156</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
-                    </div>
-                </div>
-
-                <div class="card" data-category="Electrical Components" data-price="89.99" data-status="in-stock" data-stock="23">
-                    <img src="https://via.placeholder.com/200x150?text=Product+6" alt="Product">
-                    <p class="code">CB-2023-006</p>
-                    <h4>Circuit Board</h4>
-                    <p class="category">Electrical Components</p>
-                    <p class="price">$89.99</p>
-                    <p class="stock in-stock">In Stock</p>
-                    <p class="units">Stock: 23</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
-                    </div>
-                </div>
-
-                <div class="card" data-category="Mechanical Parts" data-price="79.99" data-status="low-stock" data-stock="5">
-                    <img src="https://via.placeholder.com/200x150?text=Product+7" alt="Product">
-                    <p class="code">IF-2023-007</p>
-                    <h4>Industrial Filter</h4>
-                    <p class="category">Mechanical Parts</p>
-                    <p class="price">$79.99</p>
-                    <p class="stock low-stock">Low Stock</p>
-                    <p class="units">Stock: 5</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
-                    </div>
-                </div>
-
-                <div class="card" data-category="Safety Equipment" data-price="24.99" data-status="out-stock" data-stock="0">
-                    <img src="https://via.placeholder.com/200x150?text=Product+8" alt="Product">
-                    <p class="code">SG-2023-008</p>
-                    <h4>Safety Gloves</h4>
-                    <p class="category">Safety Equipment</p>
-                    <p class="price">$24.99</p>
-                    <p class="stock out-stock">Out of Stock</p>
-                    <p class="units">Stock: 0</p>
-                    <div class="card-actions">
-                        <i class="fas fa-pencil-alt"></i>
-                        <i class="fas fa-trash-alt"></i>
-                        <i class="fas fa-eye"></i>
+                    <div class="relative">
+                        <select class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded-md leading-tight focus:outline-none focus:bg-white focus:border-blue-500 transition-colors">
+                            <option>Sort by: Featured</option>
+                            <option>Price: Low to High</option>
+                            <option>Price: High to Low</option>
+                            <option>Newest Arrivals</option>
+                        </select>
+                        <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="pagination-footer">
-                <p class="showing-items">Showing 1-8 of 24 items</p>
-                <div class="pagination">
-                    <button><i class="fas fa-chevron-left"></i></button>
-                    <button class="active">1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button><i class="fas fa-chevron-right"></i></button>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Product Card 1 -->
+                <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+1" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">BP-2023-456</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Premium Brake Pad Set</h3>
+                        <p class="text-sm text-gray-600 mb-3">High-performance brake pads for improved stopping power.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$89.00</span>
+                        <span class="text-green-600 text-sm">In Stock</span>
+                        <button class="btn-primary"><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
                 </div>
+
+                <!-- Product Card 2 -->
+                <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+2" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">DF-2023-789</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Oil Filter Premium</h3>
+                        <p class="text-sm text-gray-600 mb-3">Extended life oil filter for better engine protection.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$12.99</span>
+                        <span class="text-green-600 text-sm">In Stock</span>
+                        <button class="btn-primary"><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 3 -->
+                <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+3" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">AF-2023-123</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Air Filter Element</h3>
+                        <p class="text-sm text-gray-600 mb-3">High-flow air filter for optimal engine performance.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$24.99</span>
+                        <span class="text-red-600 text-sm">Out of Stock</span>
+                        <button class="btn-primary" disabled><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 4 -->
+                <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+4" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">SP-2023-456</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Spark Plug Set</h3>
+                        <p class="text-sm text-gray-600 mb-3">Platinum tipped spark plugs for better combustion.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$34.99</span>
+                        <span class="text-green-600 text-sm">In Stock</span>
+                        <button class="btn-primary"><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
+                </div>
+
+                 <!-- Product Card 5 -->
+                 <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+5" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">FF-2023-789</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Fuel Filter Premium</h3>
+                        <p class="text-sm text-gray-600 mb-3">High-quality fuel filter for clean fuel delivery.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$19.99</span>
+                        <span class="text-green-600 text-sm">In Stock</span>
+                        <button class="btn-primary"><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 6 -->
+                <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+6" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">TB-2023-123</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Timing Belt Kit</h3>
+                        <p class="text-sm text-gray-600 mb-3">Complete timing belt kit with tensioner.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$149.99</span>
+                        <span class="text-green-600 text-sm">In Stock</span>
+                        <button class="btn-primary"><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
+                </div>
+
+                 <!-- Product Card 7 -->
+                 <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+7" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">PS-2023-456</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Power Steering Pump</h3>
+                        <p class="text-sm text-gray-600 mb-3">Heavy-duty power steering pump.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$299.99</span>
+                        <span class="text-red-600 text-sm">Out of Stock</span>
+                        <button class="btn-primary" disabled><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
+                </div>
+
+                <!-- Product Card 8 -->
+                <div class="product-card bg-white p-4 rounded-lg flex flex-col justify-between">
+                    <img src="https://placehold.co/300x200/E0E7FF/3B82F6?text=Product+Image+8" alt="Product Image" class="w-full h-auto object-cover mb-4 rounded-md">
+                    <div>
+                        <p class="text-sm text-gray-500">BJ-2023-789</p>
+                        <h3 class="text-md font-semibold text-gray-800 mb-2">Ball Joint Set</h3>
+                        <p class="text-sm text-gray-600 mb-3">Premium ball joint set for better handling.</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-gray-900">$89.99</span>
+                        <span class="text-green-600 text-sm">In Stock</span>
+                        <button class="btn-primary"><i class="fas fa-shopping-cart mr-2"></i>Add to Cart</button>
+                    </div>
+                </div>
+
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-section about-us">
-            <h4>PartsPro</h4>
-            <p>Your trusted source for quality auto parts and professional service.</p>
-            <div class="social-icons">
-                <i class="fab fa-facebook-f"></i>
-                <i class="fab fa-twitter"></i>
-                <i class="fab fa-instagram"></i>
-                <i class="fab fa-linkedin-in"></i>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-300 py-10 px-6 mt-6 rounded-t-lg">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">PartsPro</h3>
+                <p class="text-sm mb-4">Your trusted source for quality auto parts and professional service.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">Quick Links</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><a href="#" class="hover:text-blue-400 transition-colors">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition-colors">Contact</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition-colors">FAQs</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition-colors">Shipping Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">Contact Info</h3>
+                <ul class="space-y-2 text-sm">
+                    <li><i class="fas fa-map-marker-alt mr-2"></i>123 Parts Street, Auto City, AC 12345</li>
+                    <li><i class="fas fa-phone mr-2"></i>+1 (555) 123-4567</li>
+                    <li><i class="fas fa-envelope mr-2"></i>support@partspro.com</li>
+                </ul>
+            </div>
+            <div>
+                <h3 class="text-white text-lg font-semibold mb-4">Newsletter</h3>
+                <p class="text-sm mb-4">Subscribe to our newsletter for updates and exclusive offers.</p>
+                <div class="flex">
+                    <input type="email" placeholder="Your email" class="flex-grow py-2 px-4 rounded-l-md bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button class="bg-blue-600 text-white py-2 px-4 rounded-r-md hover:bg-blue-700 transition-colors">Subscribe</button>
+                </div>
             </div>
         </div>
-        <div class="footer-section quick-links">
-            <h4>Quick Links</h4>
-            <ul>
-                <li>About Us</li>
-                <li>Contact</li>
-                <li>FAQs</li>
-                <li>Shipping Policy</li>
-            </ul>
-        </div>
-        <div class="footer-section contact-info">
-            <h4>Contact Info</h4>
-            <p><i class="fas fa-map-marker-alt"></i> 123 Parts Street, Auto City, AC 12345</p>
-            <p><i class="fas fa-phone-alt"></i> +1 (555) 123-4567</p>
-            <p><i class="fas fa-envelope"></i> support@partspro.com</p>
-        </div>
-        <div class="footer-section newsletter">
-            <h4>Newsletter</h4>
-            <p>Subscribe to our newsletter for updates and exclusive offers.</p>
-            <div class="newsletter-form">
-                <input type="email" placeholder="Your email">
-                <button>Subscribe</button>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2024 PartsPro. All rights reserved.</p>
+        <div class="text-center text-gray-500 text-sm mt-8">
+            &copy; 2024 PartsPro. All rights reserved.
         </div>
     </footer>
 
-    <div id="modal-backdrop" class="modal-backdrop">
-        <div id="dynamic-modal" class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2 id="modal-title"></h2>
-            <div id="modal-body-content">
-                </div>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
 </body>
 </html>
