@@ -1,0 +1,517 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-blue: #3a7afe;
+    --dark-blue: #2c68e1;
+    --light-grey-bg: #f5f6fa;
+    --text-color: #333;
+    --secondary-text-color: #666;
+    --border-color: #e0e0e0;
+    --card-bg: #fff;
+    --sidebar-bg: #fff;
+    --sidebar-active-bg: #e6f0ff;
+    --sidebar-active-color: var(--primary-blue);
+    --header-bg: #fff;
+
+    /* Toggle switch colors */
+    --toggle-bg: #ccc;
+    --toggle-checked-bg: var(--primary-blue);
+    --toggle-slider-bg: #fff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--light-grey-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.dashboard-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Top Navigation Bar (Shared from previous UIs) */
+.top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.top-nav-left .logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-blue);
+}
+
+.top-nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.icon-button {
+    font-size: 20px;
+    color: var(--secondary-text-color);
+    margin-right: 25px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.icon-button:hover {
+    color: var(--primary-blue);
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+    object-fit: cover;
+}
+
+.user-profile span {
+    font-weight: 500;
+    margin-right: 10px;
+}
+
+.user-profile i {
+    font-size: 14px;
+    color: var(--secondary-text-color);
+}
+
+/* Main Content Wrapper (Side Nav + Main Content) (Shared from previous UIs) */
+.main-content-wrapper {
+    display: flex;
+    flex: 1;
+}
+
+/* Side Navigation Bar (Settings Specific) */
+.side-nav {
+    width: 250px;
+    background-color: var(--sidebar-bg);
+    padding: 20px 0;
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.03);
+    flex-shrink: 0; /* Prevent it from shrinking */
+}
+
+.settings-side-nav .settings-header {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-color);
+    padding: 0 25px 20px;
+}
+
+.side-nav ul {
+    list-style: none;
+}
+
+.side-nav li {
+    margin-bottom: 5px;
+}
+
+.side-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    color: var(--secondary-text-color);
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    border-left: 4px solid transparent;
+}
+
+.side-nav a i {
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+.side-nav li.active a,
+.side-nav a:hover {
+    background-color: var(--sidebar-active-bg);
+    color: var(--sidebar-active-color);
+    border-left-color: var(--sidebar-active-color);
+}
+
+/* Main Content Area (Settings Specific) */
+.main-content.settings-content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 30px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-blue);
+    color: #fff;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-blue);
+}
+
+.settings-section {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.03);
+    margin-bottom: 30px;
+}
+
+.settings-section h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 25px;
+}
+
+.form-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 25px;
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.form-group {
+    flex: 1; /* Allows form groups to take equal space */
+    min-width: 250px; /* Minimum width before wrapping */
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--secondary-text-color);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"] {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 15px;
+    color: var(--text-color);
+    background-color: #f8f9fa; /* Light background for readonly/default inputs */
+    outline: none;
+}
+
+/* Specific styling for the 'Change Password' link */
+.btn-text-link {
+    display: inline-block;
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-size: 14px;
+    margin-top: 10px; /* Space from label */
+    transition: color 0.2s ease;
+}
+
+.btn-text-link:hover {
+    color: var(--dark-blue);
+}
+
+.description {
+    font-size: 13px;
+    color: #999;
+    margin-top: 4px;
+}
+
+/* Toggle Switch Styling */
+.toggle-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color); /* Separator */
+}
+
+.toggle-group:last-of-type {
+    border-bottom: none; /* No border for the last toggle in a section */
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.toggle-group .toggle-label {
+    flex-grow: 1;
+}
+
+.toggle-group .toggle-label label {
+    margin-bottom: 0; /* Remove default label margin */
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 45px;
+    height: 25px;
+    margin-left: 20px; /* Space between label and switch */
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--toggle-bg);
+    transition: .4s;
+    border-radius: 25px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 19px;
+    width: 19px;
+    left: 3px;
+    bottom: 3px;
+    background-color: var(--toggle-slider-bg);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: var(--toggle-checked-bg);
+}
+
+input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+/* Dropdown/Select Styling */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.form-group select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 15px;
+    color: var(--text-color);
+    background-color: var(--input-bg, #fff); /* Fallback to white if input-bg is not set */
+    outline: none;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.form-group select:focus {
+    border-color: var(--primary-blue);
+}
+
+.select-arrow {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-text-color);
+    pointer-events: none; /* Make sure clicks go to the select */
+    font-size: 14px;
+}
+
+/* Divider for sub-sections like Access Control, Maintenance Schedule */
+.form-group.divider {
+    border-top: 1px solid var(--border-color);
+    padding-top: 25px;
+    margin-top: 25px;
+    margin-bottom: 25px; /* Adjust as needed */
+}
+
+.form-group.divider label {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 15px; /* Space between divider label and elements */
+}
+
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .top-nav {
+        padding: 15px 20px;
+    }
+    .top-nav-left .logo {
+        font-size: 20px;
+    }
+    .side-nav {
+        width: 200px;
+    }
+    .side-nav a {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    .side-nav a i {
+        margin-right: 10px;
+        font-size: 16px;
+    }
+    .main-content.settings-content {
+        padding: 20px;
+    }
+    .settings-section {
+        padding: 20px;
+    }
+    .settings-section h3 {
+        font-size: 18px;
+    }
+    .form-row {
+        gap: 20px;
+    }
+    .form-group {
+        min-width: unset; /* Allow groups to shrink more */
+        flex-basis: 100%; /* Default to full width on smaller screens */
+    }
+    .form-group input, .form-group select {
+        font-size: 14px;
+    }
+    .toggle-group {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    .toggle-group .switch {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .top-nav {
+        flex-wrap: wrap; /* Allow wrapping */
+        justify-content: space-between; /* Keep logo left, user right */
+    }
+    .top-nav-left { flex-basis: auto; margin-bottom: 0; }
+    .top-nav-right { flex-basis: auto; margin-left: auto; } /* Push to right */
+
+    .main-content-wrapper {
+        flex-direction: column;
+    }
+    .side-nav {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        padding: 10px 0;
+    }
+    .side-nav ul {
+        display: flex;
+        overflow-x: auto; /* Allow horizontal scrolling for nav items */
+        padding: 0 15px;
+        justify-content: center; /* Center items if they fit */
+    }
+    .side-nav li {
+        margin-bottom: 0;
+        flex-shrink: 0; /* Prevent items from shrinking */
+    }
+    .side-nav a {
+        padding: 8px 12px;
+        margin: 0 5px;
+        border-left: none; /* Remove left border on mobile nav */
+        border-bottom: 3px solid transparent; /* Use bottom border for active state */
+    }
+    .side-nav li.active a,
+    .side-nav a:hover {
+        border-left-color: transparent; /* Remove left border hover effect */
+        border-bottom-color: var(--sidebar-active-color); /* Use bottom border for active state */
+    }
+    .side-nav a i {
+        display: none; /* Hide icons on small mobile nav */
+    }
+    .settings-side-nav .settings-header {
+        display: none; /* Hide 'Settings' header in horizontal nav */
+    }
+}
+
+@media (max-width: 576px) {
+    .top-nav {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+    .top-nav-left, .top-nav-right {
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 10px;
+    }
+    .top-nav-left .logo { margin-bottom: 10px; }
+    .top-nav-right { margin-left: 0; }
+    .icon-button { margin-right: 15px; }
+
+    .user-profile span {
+        display: none; /* Hide username on very small screens */
+    }
+
+    .main-content.settings-content {
+        padding: 15px;
+    }
+
+    .settings-section {
+        padding: 15px;
+    }
+
+    .settings-section h3 {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    .form-group label {
+        font-size: 13px;
+    }
+    .form-group input, .form-group select {
+        padding: 8px 12px;
+        font-size: 13px;
+    }
+    .description {
+        font-size: 12px;
+    }
+    .btn-text-link {
+        font-size: 13px;
+    }
+    .form-group.divider label {
+        font-size: 15px;
+    }
+}
