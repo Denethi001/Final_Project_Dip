@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <h1 class="page-title">Reports Dashboard</h1>
+            <div class="date-display">
+                <i class="far fa-calendar-alt"></i>
+                <span>February 15, 2024</span>
+            </div>
+        </div>
+        <div class="header-right">
+            <i class="far fa-bell icon-button"></i>
+            <i class="far fa-question-circle icon-button"></i>
+            <div class="user-profile">
+                <p>John Smith<br><span>Sales Manager</span></p>
+                <i class="fas fa-user-circle profile-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <button class="generate-report-btn"><i class="fas fa-play"></i> Generate Report</button>
+                <button class="export-btn"><i class="fas fa-download"></i> Export</button>
+                <button class="save-template-btn"><i class="far fa-save"></i> Save Template</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Report Types</h3>
+                <ul>
+                    <li><a href="#" class="report-type-item active">Sales Performance</a></li>
+                    <li><a href="#" class="report-type-item">Customer Transactions</a></li>
+                    <li><a href="#" class="report-type-item">Custom Reports</a></li>
+                </ul>
+            </div>
+
+            <div class="sidebar-section">
+                <h3>Quick Filters</h3>
+                <div class="filter-group">
+                    <label for="date-range">Date Range</label>
+                    <div class="custom-select">
+                        <select id="date-range">
+                            <option value="last-30-days">Last 30 days</option>
+                            <option value="last-7-days">Last 7 days</option>
+                            <option value="this-month">This month</option>
+                            <option value="custom">Custom Range</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="category">Category</label>
+                    <div class="custom-select">
+                        <select id="category">
+                            <option value="all">All Categories</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="home">Home</option>
+                            <option value="books">Books</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="status">Status</label>
+                    <div class="custom-select">
+                        <select id="status">
+                            <option value="all">All Status</option>
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="dashboard-content">
+            <div class="search-bar-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search reports..." />
+            </div>
+
+            <div class="cards-container">
+                <div class="card sales-performance">
+                    <h3>Sales Performance</h3>
+                    <div class="chart-area">
+                        <canvas id="salesChart"></canvas>
+                    </div>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="legend-color blue"></span> value</span>
+                    </div>
+                </div>
+
+                <div class="card category-distribution">
+                    <h3>Category Distribution</h3>
+                    <div class="chart-area">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                    <div class="chart-legend horizontal">
+                        <span class="legend-item"><span class="legend-color blue"></span> Electronics</span>
+                        <span class="legend-item"><span class="legend-color green"></span> Fashion</span>
+                        <span class="legend-item"><span class="legend-color orange"></span> Home</span>
+                        <span class="legend-item"><span class="legend-color red"></span> Books</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card detailed-report">
+                <h3>Detailed Report</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>PRODUCT</th>
+                                <th>CATEGORY</th>
+                                <th>SALES</th>
+                                <th>STOCK</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Laptop Pro</td>
+                                <td>Electronics</td>
+                                <td>$1,200</td>
+                                <td>45 units</td>
+                            </tr>
+                            <tr>
+                                <td>Wireless Earbuds</td>
+                                <td>Electronics</td>
+                                <td>$800</td>
+                                <td>120 units</td>
+                            </tr>
+                            <tr>
+                                <td>Smart Watch</td>
+                                <td>Electronics</td>
+                                <td>$600</td>
+                                <td>75 units</td>
+                            </tr>
+                            <tr>
+                                <td>Gaming Console</td>
+                                <td>Electronics</td>
+                                <td>$900</td>
+                                <td>30 units</td>
+                            </tr>
+                            <tr>
+                                <td>Tablet</td>
+                                <td>Electronics</td>
+                                <td>$700</td>
+                                <td>55 units</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-pagination-footer">
+                    <p>Showing 1 to 5 of 25 entries</p>
+                    <div class="pagination">
+                        <button>Previous</button>
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    
+    <script src="script.js"></script>
+</body>
+</html>

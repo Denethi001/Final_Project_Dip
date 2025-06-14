@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Whiteway Motors Inventory</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Whiteway Motors</div>
+        <nav>
+            <a href="#" data-modal-target="dashboard-modal">Dashboard</a>
+            <a class="active" href="#">Products</a>
+            <a href="#" data-modal-target="orders-modal">Orders</a>
+        </nav>
+        <div class="search-profile">
+            <div class="search-bar-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search by name, category, or specifications" />
+            </div>
+            <div class="profile">
+                <p>John Smith<br><span>Inventory Manager</span></p>
+                <i class="fas fa-user-circle profile-icon"></i>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <h3>Categories</h3>
+            <ul>
+                <li><input type="checkbox"> Mechanical Parts</li>
+                <li><input type="checkbox"> Electrical Components</li>
+                <li><input type="checkbox"> Hardware</li>
+                <li><input type="checkbox"> Tools</li>
+                <li><input type="checkbox"> Safety Equipment</li>
+            </ul>
+
+            <h3>Price Range</h3>
+            <div class="price-range-display">
+                <span>$0</span>
+                <span>$1000</span>
+            </div>
+            <input type="range" min="0" max="1000" value="0">
+            <input type="range" min="0" max="1000" value="1000">
+
+
+            <h3>Status</h3>
+            <ul>
+                <li><input type="checkbox"><span class="dot green"></span> In Stock</li>
+                <li><input type="checkbox"><span class="dot yellow"></span> Low Stock</li>
+                <li><input type="checkbox"><span class="dot red"></span> Out of Stock</li>
+            </ul>
+
+            <h3>Stock Level</h3>
+            <ul>
+                <li><input type="checkbox"> 0–10 units</li>
+                <li><input type="checkbox"> 11–50 units</li>
+                <li><input type="checkbox"> 51–100 units</li>
+                <li><input type="checkbox"> 100+ units</li>
+            </ul>
+        </aside>
+
+        <section class="products-section">
+            <div class="top-bar">
+                <h2>All Products <span>(8 items)</span></h2>
+                <div class="view-options">
+                    <div class="grid-list-toggle">
+                        <button class="grid-view active"><i class="fas fa-th-large"></i></button>
+                        <button class="list-view"><i class="fas fa-list"></i></button>
+                    </div>
+                    <select>
+                        <option>10 per page</option>
+                        <option>20 per page</option>
+                        <option>50 per page</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="product-grid">
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+1" alt="Product">
+                    <p class="code">BE-2023-001</p>
+                    <h4>Industrial Bearing</h4>
+                    <p class="category">Mechanical Parts</p>
+                    <p class="price">$129.99</p>
+                    <p class="stock in-stock">In Stock</p>
+                    <p class="units">Stock: 45</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+2" alt="Product">
+                    <p class="code">EM-2023-002</p>
+                    <h4>Electric Motor</h4>
+                    <p class="category">Electrical Components</p>
+                    <p class="price">$299.99</p>
+                    <p class="stock low-stock">Low Stock</p>
+                    <p class="units">Stock: 12</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+3" alt="Product">
+                    <p class="code">SH-2023-003</p>
+                    <h4>Safety Helmet</h4>
+                    <p class="category">Safety Equipment</p>
+                    <p class="price">$49.99</p>
+                    <p class="stock out-stock">Out of Stock</p>
+                    <p class="units">Stock: 0</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+4" alt="Product">
+                    <p class="code">PT-2023-004</p>
+                    <h4>Power Tool Set</h4>
+                    <p class="category">Tools</p>
+                    <p class="price">$249.99</p>
+                    <p class="stock low-stock">Low Stock</p>
+                    <p class="units">Stock: 8</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+5" alt="Product">
+                    <p class="code">SB-2023-005</p>
+                    <h4>Steel Bracket</h4>
+                    <p class="category">Hardware</p>
+                    <p class="price">$19.99</p>
+                    <p class="stock in-stock">In Stock</p>
+                    <p class="units">Stock: 156</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+6" alt="Product">
+                    <p class="code">CB-2023-006</p>
+                    <h4>Circuit Board</h4>
+                    <p class="category">Electrical Components</p>
+                    <p class="price">$89.99</p>
+                    <p class="stock in-stock">In Stock</p>
+                    <p class="units">Stock: 23</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+7" alt="Product">
+                    <p class="code">IF-2023-007</p>
+                    <h4>Industrial Filter</h4>
+                    <p class="category">Mechanical Parts</p>
+                    <p class="price">$79.99</p>
+                    <p class="stock low-stock">Low Stock</p>
+                    <p class="units">Stock: 5</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <img src="https://via.placeholder.com/200x150?text=Product+8" alt="Product">
+                    <p class="code">SG-2023-008</p>
+                    <h4>Safety Gloves</h4>
+                    <p class="category">Safety Equipment</p>
+                    <p class="price">$24.99</p>
+                    <p class="stock out-stock">Out of Stock</p>
+                    <p class="units">Stock: 0</p>
+                    <div class="card-actions">
+                        <i class="fas fa-pencil-alt"></i>
+                        <i class="fas fa-trash-alt"></i>
+                        <i class="fas fa-eye"></i>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="pagination-footer">
+                <p class="showing-items">Showing 1-8 of 24 items</p>
+                <div class="pagination">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                    <button class="active">1</button>
+                    <button>2</button>
+                    <button>3</button>
+                    <button><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="modal-backdrop" class="modal-backdrop">
+        <div id="dynamic-modal" class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-title"></h2>
+            <div id="modal-body-content">
+                </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

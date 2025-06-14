@@ -1,0 +1,571 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f5f6fa;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: white;
+    padding: 15px 25px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Added shadow for header */
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+}
+
+nav a {
+    margin: 0 10px;
+    text-decoration: none;
+    color: #666;
+    padding: 6px 12px; /* Consistent padding with active state */
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+nav a:hover {
+    background: #f0f0f0;
+}
+
+nav .active {
+    font-weight: bold;
+    background: #e8f0fe;
+    color: #007bff; /* Active link color */
+}
+
+.search-profile {
+    display: flex;
+    align-items: center;
+}
+
+.search-bar-container {
+    position: relative;
+    margin-right: 20px;
+}
+
+.search-bar-container input {
+    padding: 8px 10px 8px 35px; /* Adjust padding for icon */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 280px; /* Slightly wider search bar */
+    font-size: 14px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile p {
+    margin: 0;
+    font-size: 14px;
+    text-align: right;
+    line-height: 1.3; /* Adjust line height for better spacing */
+}
+
+.profile span {
+    font-size: 12px;
+    color: #777;
+}
+
+.profile-icon {
+    font-size: 28px;
+    color: #555;
+}
+
+main {
+    display: flex;
+    padding: 20px;
+    gap: 20px; /* Space between sidebar and products section */
+}
+
+.sidebar {
+    width: 240px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px; /* Rounded corners for sidebar */
+    box-shadow: 0 0 10px rgba(0,0,0,0.05); /* Shadow for sidebar */
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+}
+
+.sidebar h3 {
+    margin-top: 0; /* Adjust margin for first h3 */
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 16px;
+    border-bottom: 1px solid #eee; /* Separator for sections */
+    padding-bottom: 10px;
+}
+
+.sidebar h3:not(:first-child) {
+    margin-top: 25px; /* More space between sections */
+}
+
+.sidebar ul {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px; /* Space after each list */
+}
+
+.sidebar li {
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #555;
+}
+
+.sidebar li input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #007bff; /* Custom checkbox color */
+}
+
+/* Price Range Styling */
+.price-range-display {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+}
+
+.sidebar input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none; /* Remove default styling for Chrome/Safari */
+    appearance: none;
+    height: 5px;
+    background: #ddd;
+    outline: none;
+    border-radius: 5px;
+    margin: 0; /* Remove default margin */
+    /* Position for two sliders to overlap */
+    position: relative;
+    top: -10px; /* Adjust as needed for alignment */
+    /* Make sure the second slider doesn't get hidden */
+    z-index: 1;
+}
+
+.sidebar input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    border: none; /* Remove border */
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+.sidebar input[type="range"]::-moz-range-thumb {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: #007bff;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+}
+
+/* Specific styling for the second range input to ensure it's visible for the high end */
+.sidebar input[type="range"]:nth-of-type(2) {
+    background: transparent; /* Make the track transparent */
+    position: relative;
+    top: -15px; /* Adjust to overlap the first one */
+}
+
+.dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle; /* Align with text */
+}
+
+.green { background-color: #4CAF50; }
+.yellow { background-color: #FFC107; }
+.red { background-color: #F44336; }
+
+.products-section {
+    flex-grow: 1;
+    padding: 0; /* Remove default padding as main has it */
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px 20px; /* Add padding to top-bar */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.top-bar h2 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.top-bar h2 span {
+    color: #888;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+.view-options {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.grid-list-toggle {
+    display: flex;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.grid-list-toggle button {
+    background: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.grid-list-toggle button.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.grid-list-toggle button:hover:not(.active) {
+    background-color: #f0f0f0;
+}
+
+.top-bar select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #555;
+    background-color: white;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: white;
+    border-radius: 8px; /* Slightly more rounded corners */
+    padding: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Stronger shadow */
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* For actions */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* More pronounced hover effect */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.card .code {
+    color: #888;
+    font-size: 12px;
+    margin-top: 5px;
+    text-align: right; /* Align code to right */
+    margin-bottom: 5px;
+}
+
+.card h4 {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.card .category {
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.card .price {
+    font-weight: bold;
+    font-size: 18px; /* Slightly larger price */
+    color: #007bff; /* Price color */
+    margin: 8px 0;
+}
+
+.card .stock {
+    display: inline-block;
+    padding: 3px 8px; /* Slightly larger padding */
+    border-radius: 12px; /* More rounded */
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.in-stock {
+    background-color: #e6f4ea;
+    color: #2e7d32;
+}
+
+.low-stock {
+    background-color: #fff8e1;
+    color: #f9a825;
+}
+
+.out-stock {
+    background-color: #fdecea;
+    color: #c62828;
+}
+
+.card .units {
+    font-size: 13px; /* Slightly larger font */
+    color: #555;
+    margin-top: 5px;
+    flex-grow: 1; /* Pushes actions to bottom */
+}
+
+.card-actions {
+    display: flex;
+    justify-content: flex-end; /* Align icons to the right */
+    gap: 15px; /* Space between icons */
+    margin-top: 10px; /* Space above actions */
+    padding-top: 10px;
+    border-top: 1px solid #eee; /* Separator line */
+}
+
+.card-actions i {
+    cursor: pointer;
+    color: #777;
+    font-size: 16px;
+    transition: color 0.2s;
+}
+
+.card-actions i:hover {
+    color: #007bff;
+}
+
+.pagination-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+.showing-items {
+    font-size: 14px;
+    color: #666;
+    margin: 0;
+}
+
+.pagination {
+    display: flex;
+    gap: 5px; /* Space between buttons */
+}
+
+.pagination button {
+    margin: 0; /* Remove extra margin */
+    padding: 8px 14px; /* Larger padding for buttons */
+    border: 1px solid #ddd;
+    background: #f0f0f0; /* Lighter background for inactive */
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #555;
+    transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.pagination button:hover:not(.active) {
+    background-color: #e0e0e0;
+    border-color: #ccc;
+}
+
+.pagination button.active {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: bold;
+}
+
+/* ... (your existing CSS code above) ... */
+
+/* New CSS for Modal Popup */
+.modal-backdrop {
+    position: fixed; /* Stays in place even if page scrolls */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Black background with opacity */
+    display: flex; /* Use flexbox to center content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    z-index: 1000; /* Sit on top */
+    visibility: hidden; /* Hidden by default */
+    opacity: 0; /* Fully transparent by default */
+    transition: visibility 0s, opacity 0.3s ease-in-out; /* Smooth transition */
+}
+
+.modal-backdrop.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: auto; /* For browsers that don't support flexbox centering well */
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%; /* Adjust width as needed */
+    max-width: 900px; /* Max width for larger screens */
+    position: relative;
+    transform: translateY(-20px); /* Slightly move up when opening */
+    transition: transform 0.3s ease-in-out; /* Smooth transition for content */
+}
+
+.modal-backdrop.active .modal-content {
+    transform: translateY(0); /* Return to original position when active */
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+#modal-body-content {
+    /* Basic styling for content within the modal */
+    line-height: 1.6;
+    color: #555;
+    max-height: 70vh; /* Limit height for scrollable content */
+    overflow-y: auto; /* Add scroll if content exceeds max-height */
+    padding-right: 10px; /* Space for scrollbar */
+}
+
+/* Specific styles for list mode in products section */
+.product-grid.list-mode {
+    grid-template-columns: 1fr; /* Single column for list view */
+    gap: 10px;
+}
+
+.product-grid.list-mode .card {
+    flex-direction: row; /* Arrange items in a row */
+    align-items: center;
+    padding: 10px 15px;
+}
+
+.product-grid.list-mode .card img {
+    width: 80px; /* Smaller image in list mode */
+    height: 80px;
+    margin-right: 15px;
+    margin-bottom: 0;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+.product-grid.list-mode .card .code,
+.product-grid.list-mode .card .category,
+.product-grid.list-mode .card .units {
+    font-size: 11px; /* Smaller font for some elements */
+}
+
+.product-grid.list-mode .card h4 {
+    flex-grow: 1; /* Allow title to take available space */
+    margin-right: 15px;
+    font-size: 15px;
+}
+
+.product-grid.list-mode .card .price {
+    flex-shrink: 0; /* Prevent price from shrinking */
+    width: 80px; /* Fixed width for price */
+    text-align: right;
+    margin-right: 15px;
+}
+
+.product-grid.list-mode .card .stock {
+    flex-shrink: 0;
+    margin-right: 15px;
+}
+
+.product-grid.list-mode .card .card-actions {
+    flex-shrink: 0;
+    border-top: none; /* No top border in list mode */
+    padding-top: 0;
+    margin-top: 0;
+    display: flex;
+    gap: 10px; /* Closer icons in list mode */
+}
+
+/* Adjustments for the dual range slider */
+.sidebar input[type="range"]:nth-of-type(1) {
+    z-index: 2; /* Ensure the first slider is above the second if needed */
+    background: linear-gradient(to right, #ddd 0%, #ddd var(--range-fill), #007bff var(--range-fill), #007bff 100%); /* Example: Fill between thumbs */
+}
+
+.sidebar input[type="range"]:nth-of-type(2) {
+    background: transparent; /* Keep this transparent */
+    z-index: 3; /* Ensure the second slider thumb is on top */
+}
+
+/* Custom CSS Variable for range fill (more advanced, often done with JS) */
+/* This is a simple visual trick. For exact fill, JS would be needed to update --range-fill */
+.sidebar input[type="range"] {
+    --range-fill: 0%; /* Default, will be updated by JS if needed */
+}
