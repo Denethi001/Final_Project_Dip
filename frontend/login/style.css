@@ -27,8 +27,8 @@ body {
 
 .container {
     display: flex;
-    width: 1000px; /* Adjust as needed */
-    height: 600px; /* Adjust as needed */
+    width: 1000px; 
+    height: 700px; 
     background-color: #fff;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -37,7 +37,7 @@ body {
 
 .left-panel {
     flex: 1;
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://via.placeholder.com/1000x800') center/cover no-repeat; /* Replace with your actual image path */
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://i.postimg.cc/WtLyhDgV/Whats-App-Image-2025-06-16-at-12-01-03-bc6e50b5.jpg) center/cover no-repeat; /* Replace with your actual image path */
     display: flex;
     align-items: flex-start;
     padding: 30px;
