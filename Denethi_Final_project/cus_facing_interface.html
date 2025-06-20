@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteway Motors Spare Parts</title>
+    <style>
+        body {
+            font-family: Montserrat, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-content h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #007bff;
+            font-weight: 700;
+        }
+
+        nav {
+            margin-left: 30px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #333;
+            font-size: 16px;
+            padding: 10px 15px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            background-color: #e7f0ff;
+            color: #007bff;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar {
+            display: flex;
+            align-items: center;
+            margin-right: 20px;
+            position: relative;
+        }
+
+        .search-bar input {
+            width: 200px;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-bar input:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.2);
+            outline: none;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            padding: 8px 15px;
+            border-radius: 20px;
+            background-color: #f9f9fa;
+            transition: background-color 0.3s ease;
+        }
+
+        .user-info:hover {
+            background-color: #e7f0ff;
+        }
+
+        .user-info span {
+            font-size: 14px;
+            color: #333;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+
+        .user-icon {
+            font-size: 22px;
+            color: #007bff;
+            line-height: 1;
+        }
+
+        .cart-icon {
+            font-size: 24px;
+            color: #007bff;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            color: #0056b3;
+            transform: scale(1.1);
+        }
+
+        main {
+            display: flex;
+            margin: 40px auto;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        .sidebar {
+            width: 280px;
+            padding: 25px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-right: 30px;
+        }
+
+        .sidebar h3 {
+            font-size: 20px;
+            color: #007bff;
+            margin: 0 0 20px;
+            font-weight: 600;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar ul li {
+            margin: flex;
+            margin: 12px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar ul li:hover {
+            color: #007bff;
+        }
+
+        .sidebar ul li input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #007bff;
+            transform: scale(1.2);
+        }
+
+        .filter-section {
+            margin: 20px 0;
+        }
+
+        .filter-section label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+            font-weight: 500;
+        }
+
+        .price-range {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .price-input {
+            width: 100px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .price-input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .availability input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #007bff;
+            transform: scale(1.2);
+        }
+
+        .brand-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .brand-list label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .brand-list input[type="checkbox"] {
+            margin-right: 10px;
+            accent-color: #007bff;
+            transform: scale(1.2);
+        }
+
+        .apply-filters {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .apply-filters:hover {
+            background-color: #0056b3;
+        }
+
+        .catalog {
+            flex: 1;
+        }
+
+        .catalog h2 {
+            font-size: 24px;
+            color: #007bff;
+            margin: 0 0 20px;
+            font-weight: 600;
+        }
+
+        .sort-section {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .sort-section button {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-right: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .sort-section button:hover {
+            background-color: #e7f0ff;
+            border-color: #007bff;
+        }
+
+        .sort-section select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #fff;
+            transition: border-color 0.3s ease;
+        }
+
+        .sort-section select:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h3 {
+            font-size: 16px;
+            color: #333;
+            margin: 0 0 10px;
+            font-weight: 600;
+        }
+
+        .product-card p {
+            font-size: 14px;
+            color: #666;
+            margin: 0 0 10px;
+            line-height: 1.4;
+        }
+
+        .price {
+            font-weight: bold;
+            color: #007bff;
+            font-size: 18px;
+            margin: 10px 0;
+        }
+
+        .add-to-cart {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #0056b3;
+            transform: scale(1.02);
+        }
+
+        .add-to-cart:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .stock {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 10px;
+            color: #28a745;
+        }
+
+        .stock.out {
+            color: #dc3545;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-section {
+            margin: 20px;
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-section h3 {
+            font-size: 20px;
+            color: #007bff;
+            margin: 0 0 20px;
+            font-weight: 600;
+        }
+
+        .footer-section p {
+            font-size: 14px;
+            color: #ddd;
+            line-height: 1.6;
+        }
+
+        .footer-section a {
+            display: block;
+            color: #ddd;
+            text-decoration: none;
+            margin: 10px 0;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #007bff;
+        }
+
+        .social-icons a {
+            margin-right: 20px;
+            color: #fff;
+            font-size: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #007bff;
+            transform: scale(1.1);
+        }
+
+        .footer-section input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            background-color: #fff;
+        }
+
+        .footer-section button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .footer-section button:hover {
+            background-color: #0056b3;
+        }
+
+        .footer-copyright {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 14px;
+            color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="header-content">
+                <h1>Whiteway Motors</h1>
+            </div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Categories</a>
+                <a href="/managing_order.html">Orders</a>
+                <a href="/support.html">Support</a>
+            </nav>
+        </div>
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search parts...">
+            </div>
+            <div class="user-info">
+                <span>Nipun</span>
+                <div class="user-icon"></div>
+            </div>
+            <div class="cart-icon">🛒</div>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <h3>Categories</h3>
+            <ul>
+                <li><input type="checkbox" id="engine-components"> Engine Components</li>
+                <li><input type="checkbox" id="transmission-gears"> Transmission & Gears</li>
+                <li><input type="checkbox" id="brake-systems"> Brake Systems</li>
+                <li><input type="checkbox" id="suspension-steering"> Suspension & Steering</li>
+                <li><input type="checkbox" id="electrical-systems"> Electrical Systems</li>
+                <li><input type="checkbox" id="body-exterior"> Body & Exterior</li>
+                <li><input type="checkbox" id="cooling-heating"> Cooling & Heating</li>
+                <li><input type="checkbox" id="exhaust-emissions"> Exhaust & Emissions</li>
+                <li><input type="checkbox" id="tools-equipment"> Tools & Equipment</li>
+            </ul>
+            <div class="filter-section">
+                <h3>Filters</h3>
+                <div class="price-range">
+                    <label>Price Range</label>
+                    <input type="number" placeholder="Min" class="price-input">
+                    <input type="number" placeholder="Max" class="price-input">
+                </div>
+                <div class="availability">
+                    <label>Availability</label>
+                    <input type="checkbox" id="in-stock"> In Stock Only
+                </div>
+                <div class="brand">
+                    <label>Brand</label>
+                    <div class="brand-list">
+                        <label><input type="checkbox" id="brand-a"> Toyota</label>
+                        <label><input type="checkbox" id="brand-b"> Mazda</label>
+                        <label><input type="checkbox" id="brand-c"> Nissan</label>
+                        <label><input type="checkbox" id="brand-d"> Kia</label>
+                        <label><input type="checkbox" id="brand-e"> </label>
+                    </div>
+                </div>
+                <button class="apply-filters">Apply Filters</button>
+            </div>
+        </aside>
+
+        <section class="catalog">
+            <h2>Spare Parts Catalog</h2>
+            <div class="sort-section">
+                <button>🔧</button>
+                <select>
+                    <option value="featured">Sort by: Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="newest">Newest Arrivals</option>
+                </select>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <img src="https://s.turbifycdn.com/aah/yhst-15102260216258/brake-pads-36.jpg" alt="Brake Pad Set">
+                    <h3>BP-2023-456</h3>
+                    <p>Premium brake pad set for improved stopping power</p>
+                    <p class="price">$89.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <p class="stock">In Stock</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://th.bing.com/th/id/OIP.7dEO6Nmjbv666NQVlfc4QQHaIO?rs=1&pid=ImgDetMain" alt="Oil Filter">
+                    <h3>OF-2023-789</h3>
+                    <p>Premium oil filter for enhanced engine protection</p>
+                    <p class="price">$12.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <p class="stock">In Stock</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://th.bing.com/th/id/OIP.0HV2ZsozIeV_2iZGw4yslAHaHa?pid=ImgDet&w=474&h=474&rs=1" alt="Air Filter Element">
+                    <h3>AF-2023-123</h3>
+                    <p>High-flow air filter for optimal engine performance</p>
+                    <p class="price">$24.99</p>
+                    <button class="add-to-cart" disabled>Add to Cart</button>
+                    <p class="stock out">Out of Stock</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/9dd3af89-3089-4036-852d-ec987be0585f.__CR0,0,1464,600_PT0_SX1464_V1___.jpg" alt="Spark Plug Set">
+                    <h3>SP-2023-456</h3>
+                    <p>Platinum-tipped spark plugs for better combustion</p>
+                    <p class="price">$34.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <p class="stock">In Stock</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://th.bing.com/th/id/OIP.mD9E_5a-TKXzIuH5G2QzQAHaHa?rs=1&pid=ImgDetMain" alt="Fuel Filter">
+                    <h3>FF-2023-789</h3>
+                    <p>High-quality fuel filter for clean fuel delivery</p>
+                    <p class="price">$19.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <p class="stock">In Stock</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://th.bing.com/th/id/OIP.JtWxyD9xWKBZ9pXGRK7o6QHaFj?rs=1&pid=ImgDetMain" alt="Timing Belt Kit">
+                    <h3>TB-2023-123</h3>
+                    <p>Complete timing belt kit with tensioner</p>
+                    <p class="price">$149.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <p class="stock">In Stock</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://th.bing.com/th/id/OIP.MvUo2eiwmQFuR9Rj0g8vSwHaHa?rs=1&pid=ImgDetMain" alt="Power Steering Pump">
+                    <h3>PS-2023-456</h3>
+                    <p>Heavy-duty power steering pump for smooth handling</p>
+                    <p class="price">$299.99</p>
+                    <button class="add-to-cart" disabled>Add to Cart</button>
+                    <p class="stock out">Out of Stock</p>
+                </div>
+                <div class="product-card">
+                    <img src="https://th.bing.com/th/id/OIP.t3v9aAesj0W2mZQbK8Z4rwHaHa?rs=1&pid=ImgDetMain" alt="Ball Joint Set">
+                    <h3>BJ-2023-789</h3>
+                    <p>Premium ball joint set for improved handling</p>
+                    <p class="price">$89.99</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                    <p class="stock">In Stock</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Whiteway Motors</h3>
+                <p>Your trusted source for quality auto parts and professional service.</p>
+                <div class="social-icons">
+                    <a href="#">Facebook</a>
+                    <a href="#"></a>
+                    <a href="#"></a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <a href="#">About Us</a>
+                <a href="#">Contact</a>
+                <a href="#">FAQs</a>
+                <a href="#">Shipping Policy</a>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Info</h3>
+                <p>123 Parts Street, Negombo, Sri Lanka</p>
+                <p> +94 764568967</p>
+                <p> support@whitewaymotors.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to our newsletter for updates and exclusive offers.</p>
+                <input type="email" placeholder="Your email">
+                <button>Subscribe</button>
+            </div>
+        </div>
+        <p class="footer-copyright">© 2025 Whiteway Motors. All rights reserved.</p>
+    </footer>
+</body>
+</html>

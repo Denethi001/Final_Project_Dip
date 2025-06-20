@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-content h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .date {
+            font-size: 14px;
+            color: #666;
+            margin-left: 10px;
+        }
+
+        .header-actions {
+            margin-left: 20px;
+        }
+
+        .header-actions button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .header-actions button:last-child {
+            margin-right: 0;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-bar input {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-right: 20px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            text-align: left;
+        }
+
+        .user-info span {
+            display: inline;
+            font-size: 14px;
+            margin-right: 5px;
+        }
+
+        .user-icon {
+            font-size: 20px;
+            line-height: 1;
+        }
+
+        main {
+            display: flex;
+            margin: 20px;
+        }
+
+        .sidebar {
+            width: 20%;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 5px;
+            border-radius: 4px;
+        }
+
+        .sidebar ul a.active {
+            background-color: #e7f0ff;
+            color: #007bff;
+        }
+
+        .filter-group {
+            margin: 20px 0;
+        }
+
+        .filter-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .filter-group select {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .content {
+            width: 75%;
+            margin-left: 20px;
+        }
+
+        .charts {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .chart-container {
+            width: 48%;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        .chart-container h2 {
+            margin-top: 0;
+        }
+
+        .chart-placeholder {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .detailed-report {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+        }
+
+        .detailed-report h2 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table th, table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        table th {
+            background-color: #f5f7fa;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .page-numbers button {
+            padding: 5px 10px;
+            margin: 0 2px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .page-numbers button.active {
+            background-color: #007bff;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-left">
+            <div class="header-content">
+                <h1>Reports Dashboard <span class="date">February 15, 2025</span></h1>
+            </div>
+            <div class="header-actions">
+                <button>Generate Report</button>
+                <button>Save Template</button>
+                <button>Export</button>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="search-bar">
+                <input type="text" placeholder="Search reports...">
+            </div>
+            <div class="user-info">
+                <span>Nipun, Sales Manager</span>
+                <div class="user-icon"></div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <aside class="sidebar">
+            <h3>Report Types</h3>
+            <ul>
+                <li><a href="#" class="active">Sales Performance</a></li>
+                <li><a href="#">Stock Reports</a></li>
+                <li><a href="#">Customer Transactions</a></li>
+                
+            </ul>
+            <h3>Quick Filters</h3>
+            <div class="filter-group">
+                <label>Date Range</label>
+                <select>
+                    <option value="last-30-days">Today</option>
+                    <option value="last-30-days">Last 7 days</option>
+                    <option value="last-30-days">Last 30 days</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Category</label>
+                <select>
+                    <option value="all">All Categories</option>
+                    <option value="all">Engine ComponentsSuspension System Parts</option>
+                    <option value="all">Brake System Parts</option>
+                    <option value="all">car Body Spares</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Status</label>
+                <select>
+                    <option value="all">All Status</option>
+                </select>
+            </div>
+        </aside>
+
+        <section class="content">
+            <div class="charts">
+                <div class="chart-container">
+                    <h2>Sales Performance</h2>
+                    <!-- Placeholder for bar chart -->
+                    <div class="chart-placeholder">Bar Chart</div>
+                </div>
+                <div class="chart-container">
+                    <h2>Category Distribution</h2>
+                    <!-- Placeholder for pie chart -->
+                    <div class="chart-placeholder">Pie Chart</div>
+                </div>
+            </div>
+            <div class="detailed-report">
+                <h2>Detailed Report</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>PRODUCT</th>
+                            <th>CATEGORY</th>
+                            <th>SALES</th>
+                            <th>STOCK</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Brake Pads</td>
+                            <td>Electronics</td>
+                            <td>18 Units</td>
+                            <td>45 units</td>
+                        </tr>
+                        <tr>
+                            <td>Batteries</td>
+                            <td>Electronics</td>
+                            <td>5 Units</td>
+                            <td>15 units</td>
+                        </tr>
+                        <tr>
+                            <td>radiator and Cooling System</td>
+                            <td>Electronics</td>
+                            <td>20 Units</td>
+                            <td>17 units</td>
+                        </tr>
+                        <tr>
+                            <td>Spark Plugs</td>
+                            <td>Electronics</td>
+                            <td>Rs.900</td>
+                            <td>13 units</td>
+                        </tr>
+                        <tr>
+                            <td>Air Filter</td>
+                            <td>Electronics</td>
+                            <td>6 Units</td>
+                            <td>16 Units</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span>Showing 1 to 5 of 25 entries</span>
+                    <div class="page-numbers">
+                        <button>Previous</button>
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>Next</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
