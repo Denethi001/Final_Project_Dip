@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SparePartsHub</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+        .header .title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .header .icons {
+            display: flex;
+            gap: 10px;
+        }
+        .breadcrumb {
+            padding: 10px 20px;
+            background-color: #e9ecef;
+            font-size: 14px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 120px);
+            flex-direction: column;
+        }
+        .success-icon {
+            font-size: 40px;
+            color: #28a745;
+        }
+        .success-message {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .details {
+            background-color: #fff;
+            padding: 20px;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            width: 300px;
+            text-align: left;
+        }
+        .details div {
+            margin: 10px 0;
+        }
+        .details .label {
+            font-weight: bold;
+        }
+        .details .value {
+            color: #666;
+        }
+        .note {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .back-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .back-button:hover {
+            background-color: #333;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #ddd;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+        }
+        .footer a {
+            color: #666;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title">SparePartsHub</div>
+        <div class="icons">
+            <span>⚙️</span>
+            <span>🔔</span>
+            <span>👤</span>
+        </div>
+    </div>
+    <div class="breadcrumb">User Management > Update User > Success</div>
+    <div class="container">
+        <div class="success-icon">✔</div>
+        <div class="success-message">Update Successful</div>
+        <div class="details">
+            <div><span class="label">Name</span> <span class="value">John Anderson</span></div>
+            <div><span class="label">Role</span> <span class="value">Inventory Manager</span></div>
+            <div><span class="label">Last Updated</span> <span class="value">January 15, 2024 at 2:30 PM</span></div>
+        </div>
+        <div class="note">The user account has been updated in the system.</div>
+        <button class="back-button" onclick="window.location.href='view_system_report.html'">Back to Dashboard</button>
+    </div>
+    <div class="footer">
+        © 2024 SparePartsHub. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Support</a>
+    </div>
+</body>
+</html>

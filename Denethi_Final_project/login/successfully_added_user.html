@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motiff Parts Manager</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #1a2e3d;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: #fff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e5ec;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header .title {
+            font-size: 18px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+        .header .title i {
+            margin-right: 8px;
+            color: #1a2e3d;
+        }
+        .header .time {
+            font-size: 14px;
+            color: #657786;
+        }
+        .content {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin-top: 60px;
+        }
+        .checkmark {
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin: 0 auto 20px;
+        }
+        .content h2 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .user-details {
+            margin: 20px 0;
+            text-align: left;
+            display: inline-block;
+        }
+        .user-details p {
+            margin: 5px 0;
+            font-size: 14px;
+            color: #1a2e3d;
+        }
+        .user-details .label {
+            font-weight: 500;
+            color: #657786;
+        }
+        .content p.welcome {
+            font-size: 14px;
+            color: #657786;
+            margin-bottom: 20px;
+        }
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .buttons button {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .buttons .return-btn {
+            background-color: #1a2e3d;
+            color: #fff;
+        }
+        .buttons .create-btn {
+            background-color: #fff;
+            color: #1a2e3d;
+            border: 1px solid #e0e5ec;
+        }
+        .content p.note {
+            font-size: 12px;
+            color: #657786;
+            margin-top: 20px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-top: 1px solid #e0e5ec;
+            font-size: 12px;
+            color: #657786;
+            text-align: center;
+        }
+        @media (max-width: 600px) {
+            .content {
+                padding: 20px;
+                margin-top: 80px;
+            }
+            .header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="title"><i class="fas fa-wrench"></i>Motiff Parts Manager</div>
+        <div class="time">01:16 PM</div>
+    </div>
+    <div class="content">
+        <div class="checkmark">✔</div>
+        <h2>User Account Created Successfully!</h2>
+        <div class="user-details">
+            <p><span class="label">Name:</span> John Smith</p>
+            <p><span class="label">Role:</span> Inventory Manager</p>
+            <p><span class="label">Department:</span> Spare Parts</p>
+        </div>
+        <p class="welcome">Welcome to Motiff Parts Manager</p>
+        <div class="buttons">
+            <button class="return-btn" onclick="window.location.href='view_system_report.html'">Back to Dashboard</button>
+            <button class="create-btn" onclick="window.location.href='create_user_account.html'">Create Another User</button>
+        </div>
+        <p class="note">The new user has been added to the system and can now access their account.</p>
+    </div>
+    <div class="footer">
+        © 2024 Motiff Parts Manager. All rights reserved.
+    </div>
+</body>
+</html>
