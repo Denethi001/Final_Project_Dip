@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WhiteWay Motors - Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="dashboard-container">
+      <header class="top-nav">
+        <div class="top-nav-left">
+          <div class="logo">WhiteWay Motors</div>
+        </div>
+        <div class="top-nav-right">
+          <i class="far fa-bell icon-button"></i>
+          <div class="user-profile">
+            <img
+              src="https://via.placeholder.com/30"
+              alt="User Avatar"
+              class="user-avatar"
+            />
+            <span>John Smith</span>
+            <i class="fas fa-chevron-down"></i>
+          </div>
+        </div>
+      </header>
+
+      <div class="main-content-wrapper">
+        <aside class="side-nav">
+          <ul>
+            <li class="active">
+              <a href="#"><i class="fas fa-th-large"></i> Dashboard</a>
+            </li>
+            <li>
+              <a href="../ui-inventory/InventoryDash.html"
+                ><i class="fas fa-cog"></i>Inventory</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-users"></i> User Management</a>
+            </li>
+            <li>
+              <a href="#"
+                ><i class="fas fa-user-circle"></i> Customer Profiles</a
+              >
+            </li>
+            <li>
+              <a href="#"><i class="fas fa-chart-line"></i> Reports</a>
+            </li>
+            <li>
+              <a href="../ui-settings/settings.html"
+                ><i class="fas fa-cog"></i> System Settings</a
+              >
+            </li>
+            <!-- ✅ Updated link -->
+            <li>
+              <a href="#"
+                ><i class="fas fa-question-circle"></i> Help & Support</a
+              >
+            </li>
+          </ul>
+        </aside>
+
+        <main class="main-content">
+          <div class="summary-cards">
+            <div class="card">
+              <div class="card-icon green-light">
+                <i class="fas fa-dollar-sign"></i>
+              </div>
+              <div class="card-content">
+                <div class="card-value">$247,892</div>
+                <div class="card-title">Total Sales</div>
+              </div>
+              <div class="card-trend green">
+                <i class="fas fa-caret-up"></i> +12.5%
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-icon blue"><i class="fas fa-users"></i></div>
+              <div class="card-content">
+                <div class="card-value">1,234</div>
+                <div class="card-title">Active Users</div>
+              </div>
+              <div class="card-trend blue-trend">
+                <i class="fas fa-caret-up"></i> +5.2%
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-icon orange">
+                <i class="fas fa-shopping-cart"></i>
+              </div>
+              <div class="card-content">
+                <div class="card-value">78</div>
+                <div class="card-title">Pending Orders</div>
+              </div>
+              <div class="card-trend orange-trend">
+                <i class="fas fa-caret-up"></i> 12 shipped
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-icon red">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="card-content">
+                <div class="card-value">12</div>
+                <div class="card-title">Low Stock Items</div>
+              </div>
+              <div class="card-trend red">
+                <i class="fas fa-caret-down"></i> 8 critical
+              </div>
+            </div>
+          </div>
+
+          <div class="charts-section">
+            <div class="chart-card sales-overview card">
+              <h3>Sales Overview</h3>
+              <div class="chart-placeholder">
+                <img
+                  src="https://via.placeholder.com/600x300/e0e0e0/ffffff?text=Sales+Overview+Chart"
+                  alt="Sales Overview Chart"
+                  class="placeholder-chart"
+                />
+                <div class="chart-legend">
+                  <div class="legend-item">
+                    <span class="legend-color blue"></span> value
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="chart-card customer-distribution card">
+              <h3>Customer Distribution</h3>
+              <div class="chart-placeholder donut-chart">
+                <img
+                  src="https://via.placeholder.com/250x250/e0e0e0/ffffff?text=Donut+Chart"
+                  alt="Customer Distribution Chart"
+                  class="placeholder-chart donut-chart-img"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="recent-activities product-list-section">
+            <h3>Recent Activities</h3>
+            <div class="activity-table-container">
+              <table>
+                <thead>
+                  <tr>
+                    <th>User</th>
+                    <th>Action</th>
+                    <th>Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>John Smith</td>
+                    <td>Updated user permissions</td>
+                    <td>2 mins ago</td>
+                    <td>
+                      <span class="status-badge completed">Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Sarah Johnson</td>
+                    <td>Added new product</td>
+                    <td>15 mins ago</td>
+                    <td><span class="status-badge pending">Pending</span></td>
+                  </tr>
+                  <tr>
+                    <td>Mike Wilson</td>
+                    <td>Generated monthly report</td>
+                    <td>1 hour ago</td>
+                    <td>
+                      <span class="status-badge completed">Completed</span>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Emily Brown</td>
+                    <td>Modified Inventory</td>
+                    <td>2 hours ago</td>
+                    <td><span class="status-badge failed">Failed</span></td>
+                  </tr>
+                  <tr>
+                    <td>David Clark</td>
+                    <td>Created new category</td>
+                    <td>3 hours ago</td>
+                    <td>
+                      <span class="status-badge completed">Completed</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="quick-actions-section">
+            <div class="action-card card">
+              <div class="action-icon"><i class="fas fa-user-plus"></i></div>
+              <h4>Add New User</h4>
+              <p>Create user accounts</p>
+            </div>
+            <div class="action-card card">
+              <div class="action-icon">
+                <i class="fas fa-cloud-download-alt"></i>
+              </div>
+              <h4>Generate Report</h4>
+              <p>Download analytics</p>
+            </div>
+            <div class="action-card card">
+              <div class="action-icon"><i class="fas fa-boxes"></i></div>
+              <h4>Manage Inventory</h4>
+              <p>Update stock levels</p>
+            </div>
+            <div class="action-card card">
+              <div class="action-icon"><i class="fas fa-chart-area"></i></div>
+              <h4>View Analytics</h4>
+              <p>Check performance</p>
+            </div>
+            <div class="action-card card">
+              <div class="action-icon"><i class="fas fa-hdd"></i></div>
+              <h4>System Backup</h4>
+              <p>Save data</p>
+            </div>
+            <div class="action-card card">
+              <div class="action-icon"><i class="fas fa-headset"></i></div>
+              <h4>Support Tickets</h4>
+              <p>View requests</p>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

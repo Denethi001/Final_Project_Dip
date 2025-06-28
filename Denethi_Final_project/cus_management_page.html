@@ -276,7 +276,7 @@
         }
 
         table {
-            width: 100%;
+            width: 1000px;
             border-collapse: collapse;
             background-color: #ffffff;
             border: 1px solid #e0e0e0;
@@ -311,7 +311,7 @@
             font-weight: 500;
         }
 
-        .status.active {
+        /* .status.active {
             background-color: #d4edda;
             color: #155724;
         }
@@ -319,7 +319,7 @@
         .status.inactive {
             background-color: #f8d7da;
             color: #721c24;
-        }
+        } */
 
         .actions span {
             margin: 0 8px;
@@ -509,9 +509,8 @@
             <nav>
                 <a href="#" class="active">Dashboard</a>
                 <a href="#">Customers</a>
-                <a href="/managing_order.html">Orders</a>
-                <a href="#">Support Tickets</a>
-                <a href="/report_gen_page.html">Reports</a>
+                <a href="/pro_browsing_page.html">Products</a>
+                <a href="#">Support</a>
                 <a href="#">Settings</a>
             </nav>
         </aside>
@@ -520,7 +519,7 @@
             <div class="main-content">
                 <h2>Customer Management</h2>
                 <div class="controls">
-                    <button>Add New Customer</button>
+                    <button onclick="window.location.href='add_customer.html'">Add New Customer</button>
                     <button>Export</button>
                     <select>
                         <option value="all">All</option>
@@ -558,7 +557,6 @@
                             <th>Email</th>
                             <th>Phone</th>
                             <th>Last Order</th>
-                            <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -569,7 +567,7 @@
                             <td>sanath@example.com</td>
                             <td>+94  123-4567</td>
                             <td>2025-01-15</td>
-                            <td><span class="status active">Active</span></td>
+                         
                             <td><span class="actions">View Edit Delete</span></td>
                         </tr>
                         <tr>
@@ -578,7 +576,7 @@
                             <td>dil@example.com</td>
                             <td>+94  234-5678</td>
                             <td>2025-01-14</td>
-                            <td><span class="status active">Active</span></td>
+                           
                             <td><span class="actions">View Edit Delete</span></td>
                         </tr>
                         <tr>
@@ -587,7 +585,7 @@
                             <td>dasun@example.com</td>
                             <td>+94 345-6789</td>
                             <td>2025-01-13</td>
-                            <td><span class="status inactive">Inactive</span></td>
+                            
                             <td><span class="actions">View Edit Delete</span></td>
                         </tr>
                         <tr>
@@ -596,7 +594,7 @@
                             <td>dilruk@example.com</td>
                             <td>+94 456-7890</td>
                             <td>2025-01-12</td>
-                            <td><span class="status active">Active</span></td>
+                         
                             <td><span class="actions">View Edit Delete</span></td>
                         </tr>
                         <tr>
@@ -605,7 +603,7 @@
                             <td>asiri@example.com</td>
                             <td>+94 567-8901</td>
                             <td>2025-01-11</td>
-                            <td><span class="status active">Active</span></td>
+                          ss
                             <td><span class="actions">View Edit Delete</span></td>
                         </tr>
                     </tbody>
@@ -624,11 +622,11 @@
             </div>
             <div class="right-sidebar">
                 <div class="quick-actions">
-                    <button class="add-customer"><span class="button-icon"></span> Add Customer</button>
-                    <button class="create-order"><span class="button-icon"></span> Create Order</button>
+                    <button class="add-customer" onclick="window.location.href='add_customer.html'"><span class="button-icon"></span> Add Customer</button>
+                    <button class="create-order" onclick="window.location.href='cus_facing_interface.html'"><span class="button-icon"></span> Create Order</button>
                     <button class="new-ticket"><span class="button-icon"></span> New Support Ticket</button>
                 </div>
-                <div class="recent-activity">
+                <!-- <div class="recent-activity">
                     <h4>Recent Activities</h4>
                     <ul>
                         <li><span class="time">10:30 AM</span> - <span class="action">Sanath</span> placed order #T2345 for mechanical parts.</li>
@@ -637,7 +635,7 @@
                         <li><span class="time">08:50 AM</span> - <span class="action">Matheesha</span> requested a quote for safety equipment.</li>
                         <li><span class="time">08:20 AM</span> - <span class="action">Asiri</span> completed payment for order #T2344.</li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </section>
     </main>
