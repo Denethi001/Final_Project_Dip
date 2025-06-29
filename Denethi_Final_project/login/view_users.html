@@ -1,318 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SpareFlow</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f7fa;
-            color: #1a2e3d;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e5ec;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .header .logo {
-            font-size: 18px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-        }
-        .header .logo i {
-            margin-right: 8px;
-            color: #1a2e3d;
-        }
-        .header .user-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .header .user-info .icon {
-            font-size: 14px;
-            color: #657786;
-        }
-        .header .user-info .name {
-            font-size: 14px;
-            color: #1a2e3d;
-        }
-        .nav {
-            padding: 15px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e5ec;
-        }
-        .nav a {
-            text-decoration: none;
-            color: #1a2e3d;
-            margin-right: 15px;
-            font-weight: 500;
-        }
-        .nav a.active {
-            color: #3a7afe;
-            border-bottom: 2px solid #3a7afe;
-        }
-        .content {
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .content h2 {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .content p {
-            font-size: 14px;
-            color: #657786;
-            margin-bottom: 20px;
-        }
+      body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f7fa;
+        color: #1a2e3d;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #e0e5ec;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .header .logo {
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+      }
+      .header .logo i {
+        margin-right: 8px;
+        color: #1a2e3d;
+      }
+      .header .user-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .header .user-info .icon {
+        font-size: 14px;
+        color: #657786;
+      }
+      .header .user-info .name {
+        font-size: 14px;
+        color: #1a2e3d;
+      }
+      .nav {
+        padding: 15px 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #e0e5ec;
+      }
+      .nav a {
+        text-decoration: none;
+        color: #1a2e3d;
+        margin-right: 15px;
+        font-weight: 500;
+      }
+      .nav a.active {
+        color: #3a7afe;
+        border-bottom: 2px solid #3a7afe;
+      }
+      .content {
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+      .content h2 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
+      .content p {
+        font-size: 14px;
+        color: #657786;
+        margin-bottom: 20px;
+      }
+      .controls {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      .controls .search {
+        position: relative;
+      }
+      .controls .search input {
+        padding: 8px 30px 8px 10px;
+        border: 1px solid #e0e5ec;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .controls .filters {
+        display: flex;
+        gap: 10px;
+      }
+      .controls .filters select {
+        padding: 8px;
+        border: 1px solid #e0e5ec;
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .controls .add-btn {
+        padding: 8px 15px;
+        background-color: #3a7afe;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+      }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .table th,
+      .table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #e0e5ec;
+      }
+      .table th {
+        background-color: #f5f7fa;
+        font-weight: 500;
+        color: #1a2e3d;
+      }
+      .table td {
+        font-size: 14px;
+        color: #1a2e3d;
+      }
+      .table .status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .table .status.active {
+        background-color: #e6ffe6;
+        color: #28a745;
+      }
+      .table .status.inactive {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+      .table .status.pending {
+        background-color: #fff3e6;
+        color: #f4a261;
+      }
+      .table .actions a {
+        color: #3a7afe;
+        text-decoration: none;
+        font-size: 14px;
+        cursor: pointer;
+      }
+      .table .actions a:hover {
+        text-decoration: underline;
+      }
+      .pagination {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding: 10px 0;
+        gap: 5px;
+      }
+      .pagination select {
+        padding: 5px;
+        border: 1px solid #e0e5ec;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+      .pagination button {
+        padding: 5px 10px;
+        border: 1px solid #e0e5ec;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .pagination button.active {
+        background-color: #3a7afe;
+        color: #fff;
+        border-color: #3a7afe;
+      }
+      @media (max-width: 768px) {
         .controls {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-        .controls .search {
-            position: relative;
-        }
-        .controls .search input {
-            padding: 8px 30px 8px 10px;
-            border: 1px solid #e0e5ec;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .controls .filters {
-            display: flex;
-            gap: 10px;
-        }
-        .controls .filters select {
-            padding: 8px;
-            border: 1px solid #e0e5ec;
-            border-radius: 4px;
-            font-size: 14px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-        .controls .add-btn {
-            padding: 8px 15px;
-            background-color: #3a7afe;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
+          flex-direction: column;
+          gap: 10px;
         }
         .table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          font-size: 12px;
         }
-        .table th, .table td {
-            padding: 12px;
-            text-align: left;
-            border-bottom: 1px solid #e0e5ec;
-        }
-        .table th {
-            background-color: #f5f7fa;
-            font-weight: 500;
-            color: #1a2e3d;
-        }
+        .table th,
         .table td {
-            font-size: 14px;
-            color: #1a2e3d;
+          padding: 8px;
         }
-        .table .status {
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        .table .status.active {
-            background-color: #e6ffe6;
-            color: #28a745;
-        }
-        .table .status.inactive {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        .table .status.pending {
-            background-color: #fff3e6;
-            color: #f4a261;
-        }
-        .table .actions a {
-            color: #3a7afe;
-            text-decoration: none;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        .table .actions a:hover {
-            text-decoration: underline;
-        }
-        .pagination {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-            padding: 10px 0;
-            gap: 5px;
-        }
-        .pagination select {
-            padding: 5px;
-            border: 1px solid #e0e5ec;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .pagination button {
-            padding: 5px 10px;
-            border: 1px solid #e0e5ec;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .pagination button.active {
-            background-color: #3a7afe;
-            color: #fff;
-            border-color: #3a7afe;
-        }
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                gap: 10px;
-            }
-            .table {
-                font-size: 12px;
-            }
-            .table th, .table td {
-                padding: 8px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <div class="logo"><i class="fas fa-cogs"></i>SpareFlow</div>
-        <div class="user-info">
-            <i class="far fa-bell icon"></i>
-            <i class="fas fa-cog icon"></i>
-            <span class="name">Admin User</span>
-        </div>
+      <div class="logo"><i class="fas fa-cogs"></i>SpareFlow</div>
+      <div class="user-info">
+        <i class="far fa-bell icon"></i>
+        <i class="fas fa-cog icon"></i>
+        <span class="name">Admin User</span>
+      </div>
     </div>
     <div class="nav">
-        <a href="view_system_report.html">Dashboard</a>
-        <a href="create_user_account.html">Create User Account</a>
-        <a href="#" class="active">View All Users</a>
-        <a href="#">Edit</a>
+      <a href="view_system_report.html">Dashboard</a>
+      <a href="create_user_account.html">Create User Account</a>
+      <a href="#" class="active">View All Users</a>
+      <a href="#">Edit</a>
     </div>
     <div class="content">
-        <h2>User Management</h2>
-        <p>View and manage all user accounts</p>
-        <div class="controls">
-            <div class="search">
-                <input type="text" placeholder="Search users...">
-            </div>
-            <div class="filters">
-                <select>
-                    <option>Filter by...</option>
-                    <option>Active</option>
-                    <option>Inactive</option>
-                    <option>Pending</option>
-                </select>
-                <select>
-                    <option>Sort by...</option>
-                    <option>Name</option>
-                    <option>Email</option>
-                    <option>Role</option>
-                </select>
-            </div>
-            <button class="add-btn" onclick="window.location.href='create_user_account.html'">+ Add New User</button>
+      <h2>User Management</h2>
+      <p>View and manage all user accounts</p>
+      <div class="controls">
+        <div class="search">
+          <input type="text" placeholder="Search users..." />
         </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Name <i class="fas fa-sort"></i></th>
-                    <th>Email <i class="fas fa-sort"></i></th>
-                    <th>Role <i class="fas fa-sort"></i></th>
-                    <th>Status <i class="fas fa-sort"></i></th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John Smith</td>
-                    <td>john.smith@company.com</td>
-                    <td>Admin</td>
-                    <td><span class="status active">Active</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('john.smith@company.com')">Edit Details</a></td>
-                </tr>
-                <tr>
-                    <td>Sarah Johnson</td>
-                    <td>sarah.j@company.com</td>
-                    <td>Manager</td>
-                    <td><span class="status active">Active</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('sarah.j@company.com')">Edit Details</a></td>
-                </tr>
-                <tr>
-                    <td>Mike Wilson</td>
-                    <td>mike.w@company.com</td>
-                    <td>User</td>
-                    <td><span class="status inactive">Inactive</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('mike.w@company.com')">Edit Details</a></td>
-                </tr>
-                <tr>
-                    <td>Emily Brown</td>
-                    <td>emily.b@company.com</td>
-                    <td>Manager</td>
-                    <td><span class="status pending">Pending</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('emily.b@company.com')">Edit Details</a></td>
-                </tr>
-                <tr>
-                    <td>David Clark</td>
-                    <td>david.c@company.com</td>
-                    <td>User</td>
-                    <td><span class="status active">Active</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('david.c@company.com')">Edit Details</a></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="pagination">
-            <select>
-                <option>Show 10</option>
-                <option>20</option>
-                <option>50</option>
-            </select>
-            <span>entries</span>
-            <button><</button>
-            <button class="active">1</button>
-            <button>2</button>
-            <button>3</button>
-            <button>></button>
+        <div class="filters">
+          <select>
+            <option>Filter by...</option>
+            <option>Active</option>
+            <option>Inactive</option>
+            <option>Pending</option>
+          </select>
+          <select>
+            <option>Sort by...</option>
+            <option>Name</option>
+            <option>Email</option>
+            <option>Role</option>
+          </select>
         </div>
+        <button
+          class="add-btn"
+          onclick="window.location.href='create_user_account.html'"
+        >
+          + Add New User
+        </button>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name <i class="fas fa-sort"></i></th>
+            <th>Email <i class="fas fa-sort"></i></th>
+            <th>Role <i class="fas fa-sort"></i></th>
+            <th>Status <i class="fas fa-sort"></i></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>John Smith</td>
+            <td>john.smith@company.com</td>
+            <td>Admin</td>
+            <td><span class="status active">Active</span></td>
+            <td class="actions">
+              <a onclick="navigateToEdit('john.smith@company.com')"
+                >Edit Details</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Sarah Johnson</td>
+            <td>sarah.j@company.com</td>
+            <td>Manager</td>
+            <td><span class="status active">Active</span></td>
+            <td class="actions">
+              <a onclick="navigateToEdit('sarah.j@company.com')"
+                >Edit Details</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>Mike Wilson</td>
+            <td>mike.w@company.com</td>
+            <td>User</td>
+            <td><span class="status inactive">Inactive</span></td>
+            <td class="actions">
+              <a onclick="navigateToEdit('mike.w@company.com')">Edit Details</a>
+            </td>
+          </tr>
+          <tr>
+            <td>Emily Brown</td>
+            <td>emily.b@company.com</td>
+            <td>Manager</td>
+            <td><span class="status pending">Pending</span></td>
+            <td class="actions">
+              <a onclick="navigateToEdit('emily.b@company.com')"
+                >Edit Details</a
+              >
+            </td>
+          </tr>
+          <tr>
+            <td>David Clark</td>
+            <td>david.c@company.com</td>
+            <td>User</td>
+            <td><span class="status active">Active</span></td>
+            <td class="actions">
+              <a onclick="navigateToEdit('david.c@company.com')"
+                >Edit Details</a
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="pagination">
+        <select>
+          <option>Show 10</option>
+          <option>20</option>
+          <option>50</option>
+        </select>
+        <span>entries</span>
+        <button><</button>
+        <button class="active">1</button>
+        <button>2</button>
+        <button>3</button>
+        <button>></button>
+      </div>
     </div>
 
-    <script>
-        function navigateToEdit(email) {
-            // Store the user email in localStorage to access in edit page
-            localStorage.setItem('editUserEmail', email);
-            // Navigate to edit page
-            window.location.href = 'edit_user_account.html';
-        }
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-        // Add click event to "Add New User" button
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add any additional initialization code here if needed
-        });
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+        authDomain: "final-project-dip-8649e.firebaseapp.com",
+        projectId: "final-project-dip-8649e",
+        storageBucket: "final-project-dip-8649e.firebasestorage.app",
+        messagingSenderId: "613008727847",
+        appId: "1:613008727847:web:623222118f1decf7bf5302",
+        measurementId: "G-P67JLCG5GW",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      function navigateToEdit(email) {
+        localStorage.setItem("editUserEmail", email);
+        window.location.href = "edit_user_account.html";
+      }
+
+      // Load users from Firestore on page load
+      document.addEventListener("DOMContentLoaded", async function () {
+        const tableBody = document.querySelector(".table tbody");
+        tableBody.innerHTML = ""; // Clear existing static rows
+
+        try {
+          const snapshot = await db.collection("users").get();
+
+          snapshot.forEach((doc) => {
+            const user = doc.data();
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+          <td>${user.full_name || "-"}</td>
+          <td>${user.email || "-"}</td>
+          <td>${user.role || "-"}</td>
+          <td><span class="status active">Active</span></td>
+          <td class="actions"><a onclick="navigateToEdit('${
+            user.email
+          }')">Edit Details</a></td>
+        `;
+
+            tableBody.appendChild(row);
+          });
+        } catch (error) {
+          console.error("Error fetching users: ", error);
+          alert("Failed to load users from Firestore.");
+        }
+      });
     </script>
-</body>
+  </body>
 </html>
