@@ -335,54 +335,52 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
-        authDomain: "final-project-dip-8649e.firebaseapp.com",
-        projectId: "final-project-dip-8649e",
-        storageBucket: "final-project-dip-8649e.firebasestorage.app",
-        messagingSenderId: "613008727847",
-        appId: "1:613008727847:web:623222118f1decf7bf5302",
-        measurementId: "G-P67JLCG5GW",
-      };
+   <script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+    authDomain: "final-project-dip-8649e.firebaseapp.com",
+    projectId: "final-project-dip-8649e",
+    storageBucket: "final-project-dip-8649e.firebasestorage.app",
+    messagingSenderId: "613008727847",
+    appId: "1:613008727847:web:623222118f1decf7bf5302",
+    measurementId: "G-P67JLCG5GW",
+  };
 
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
 
-      function navigateToEdit(email) {
-        localStorage.setItem("editUserEmail", email);
-        window.location.href = "edit_user_account.html";
-      }
+  function navigateToEdit(email) {
+    localStorage.setItem("editUserEmail", email);
+    window.location.href = "edit_user_account.html";
+  }
 
-      // Load users from Firestore on page load
-      document.addEventListener("DOMContentLoaded", async function () {
-        const tableBody = document.querySelector(".table tbody");
-        tableBody.innerHTML = ""; // Clear existing static rows
+  // Load users from Firestore on page load
+  document.addEventListener("DOMContentLoaded", async function () {
+    const tableBody = document.querySelector(".table tbody");
+    tableBody.innerHTML = ""; // Clear existing static rows
 
-        try {
-          const snapshot = await db.collection("users").get();
+    try {
+      const snapshot = await db.collection("users").get();
 
-          snapshot.forEach((doc) => {
-            const user = doc.data();
-            const row = document.createElement("tr");
+      snapshot.forEach((doc) => {
+        const user = doc.data();
+        const row = document.createElement("tr");
 
-            row.innerHTML = `
+        row.innerHTML = `
           <td>${user.full_name || "-"}</td>
           <td>${user.email || "-"}</td>
           <td>${user.role || "-"}</td>
           <td><span class="status active">Active</span></td>
-          <td class="actions"><a onclick="navigateToEdit('${
-            user.email
-          }')">Edit Details</a></td>
+          <td class="actions"><a onclick="navigateToEdit('${user.email}')">Edit Details</a></td>
         `;
 
-            tableBody.appendChild(row);
-          });
-        } catch (error) {
-          console.error("Error fetching users: ", error);
-          alert("Failed to load users from Firestore.");
-        }
+        tableBody.appendChild(row);
       });
-    </script>
+    } catch (error) {
+      console.error("Error fetching users: ", error);
+      alert("Failed to load users from Firestore.");
+    }
+  });
+</script>
   </body>
 </html>

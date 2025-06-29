@@ -260,85 +260,92 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
     <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
-        authDomain: "final-project-dip-8649e.firebaseapp.com",
-        projectId: "final-project-dip-8649e",
-        storageBucket: "final-project-dip-8649e.firebasestorage.app",
-        messagingSenderId: "613008727847",
-        appId: "1:613008727847:web:623222118f1decf7bf5302",
-        measurementId: "G-P67JLCG5GW",
-      };
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+    authDomain: "final-project-dip-8649e.firebaseapp.com",
+    projectId: "final-project-dip-8649e",
+    storageBucket: "final-project-dip-8649e.firebasestorage.app",
+    messagingSenderId: "613008727847",
+    appId: "1:613008727847:web:623222118f1decf7bf5302",
+    measurementId: "G-P67JLCG5GW",
+  };
 
-      document.addEventListener("DOMContentLoaded", () => {
-        // Password toggle functionality
-        const passwordToggles = document.querySelectorAll(".password-toggle");
-        passwordToggles.forEach((toggle) => {
-          toggle.addEventListener("click", () => {
-            const input = toggle.parentElement.querySelector("input");
-            const type =
-              input.getAttribute("type") === "password" ? "text" : "password";
-            input.setAttribute("type", type);
-            toggle.classList.toggle("fa-eye");
-            toggle.classList.toggle("fa-eye-slash");
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // Password toggle functionality
+    const passwordToggles = document.querySelectorAll(".password-toggle");
+    passwordToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const input = toggle.parentElement.querySelector("input");
+        const type = input.getAttribute("type") === "password" ? "text" : "password";
+        input.setAttribute("type", type);
+        toggle.classList.toggle("fa-eye");
+        toggle.classList.toggle("fa-eye-slash");
+      });
+    });
+
+    // Create Account button functionality
+    const createAccountBtn = document.getElementById("createAccountBtn");
+    if (createAccountBtn) {
+      createAccountBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+
+        const fullName = document.getElementById("full-name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const role = document.getElementById("role").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        if (!fullName || !email || !role || !password || !confirmPassword) {
+          alert("Please fill in all required fields");
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          alert("Passwords do not match");
+          return;
+        }
+
+        if (password.length < 8) {
+          alert("Password must be at least 8 characters");
+          return;
+        }
+
+        try {
+          await db.collection("users").add({
+            full_name: fullName,
+            email: email,
+            role: role,
+            password: password, // ⚠️ In real apps, hash this!
+            createdAt: new Date(),
           });
-        });
 
-        // Create Account button functionality
-        createAccountBtn.addEventListener("click", async (e) => {
-          e.preventDefault();
-
-          const fullName = document.getElementById("full-name").value.trim();
-          const email = document.getElementById("email").value.trim();
-          const role = document.getElementById("role").value;
-          const password = document.getElementById("password").value;
-          const confirmPassword =
-            document.getElementById("confirm-password").value;
-
-          if (!fullName || !email || !role || !password || !confirmPassword) {
-            alert("Please fill in all required fields");
-            return;
-          }
-
-          if (password !== confirmPassword) {
-            alert("Passwords do not match");
-            return;
-          }
-
-          if (password.length < 8) {
-            alert("Password must be at least 8 characters");
-            return;
-          }
-
-          try {
-            await db.collection("users").add({
-              full_name: fullName,
-              email: email,
-              role: role,
-              password: password, // ⚠ Store hashed passwords in real applications
-              createdAt: new Date(),
-            });
-
-            alert("User account created successfully!");
-            window.location.href = "successfully_added_user.html";
-          } catch (error) {
-            console.error("Error adding user: ", error);
-            alert("Failed to create user. Please try again.");
-          }
-        });
-
-        // Cancel button functionality
-        const cancelBtn = document.querySelector(".cancel-btn");
-        if (cancelBtn) {
-          cancelBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.location.href = "view_system_report.html";
-          });
+          alert("User account created successfully!");
+          window.location.href = "successfully_added_user.html";
+        } catch (error) {
+          console.error("Error adding user: ", error);
+          alert("Failed to create user. Please try again.");
         }
       });
+    }
+
+    // Cancel button functionality
+    const cancelBtn = document.querySelector(".cancel-btn");
+    if (cancelBtn) {
+      cancelBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = "view_system_report.html";
+      });
+    }
+  });
+</script>
+
     </script>
   </body>
 </html>
