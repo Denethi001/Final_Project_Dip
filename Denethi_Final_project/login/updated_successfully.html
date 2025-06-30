@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SparePartsHub</title>
+    <title>Whiteway Motors - Update Successful</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -106,7 +106,7 @@
 </head>
 <body>
     <div class="header">
-        <div class="title">SparePartsHub</div>
+        <div class="title">Whiteway Motors</div>
         <div class="icons">
             <span>⚙️</span>
             <span>🔔</span>
@@ -117,16 +117,36 @@
     <div class="container">
         <div class="success-icon">✔</div>
         <div class="success-message">Update Successful</div>
-        <div class="details">
-            <div><span class="label">Name</span> <span class="value">John Anderson</span></div>
-            <div><span class="label">Role</span> <span class="value">Inventory Manager</span></div>
-            <!-- <div><span class="label">Last Updated</span> <span class="value">January 15, 2024 at 2:30 PM</span></div> -->
+        <div class="details" id="userDetails">
+            <div><span class="label">User ID</span> <span class="value" id="userId">Loading...</span></div>
+            <div><span class="label">Name</span> <span class="value" id="userName">Loading...</span></div>
+            <div><span class="label">Role</span> <span class="value" id="userRole">Loading...</span></div>
+            <div><span class="label">Last Updated</span> <span class="value" id="lastUpdated">Loading...</span></div>
         </div>
         <div class="note">The user account has been updated in the system.</div>
-        <button class="back-button" onclick="window.location.href='view_system_report.html'">Back to Dashboard</button>
+        <button class="back-button" onclick="window.location.href='view_users.html'">Back to Users</button>
     </div>
     <div class="footer">
-        © 2024 SparePartsHub. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Support</a>
+        © 2024 Whiteway Motors. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> | <a href="#">Contact Support</a>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const updatedUser = JSON.parse(localStorage.getItem('updatedUser'));
+            const userDetails = document.getElementById('userDetails');
+
+            if (updatedUser && updatedUser.id) {
+                // Populate user details
+                document.getElementById('userId').textContent = updatedUser.id || 'Unknown';
+                document.getElementById('userName').textContent = updatedUser.full_name || 'Unknown';
+                document.getElementById('userRole').textContent = updatedUser.role || 'Unknown';
+                document.getElementById('lastUpdated').textContent = updatedUser.updated_at
+                    ? new Date(updatedUser.updated_at).toLocaleString()
+                    : 'Unknown';
+            } else {
+                userDetails.innerHTML = '<p>No user data available. Please try updating again.</p>';
+            }
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteway Motors - User Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #1a2e3d;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #e0e5ec;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .header .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header input,
+        .header select,
+        .header button {
+            padding: 5px 10px;
+            border: 1px solid #e0e5ec;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .header button {
+            background-color: #1a2e3d;
+            color: #fff;
+            border: 1px solid #1a2e3d;
+        }
+        .header button:hover {
+            background-color: #2a4b5d;
+        }
+        .section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a2e3d;
+        }
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .table-controls input,
+        .table-controls select {
+            padding: 8px;
+            border: 1px solid #e0e5ec;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e5ec;
+        }
+        .table th {
+            background-color: #f5f7fa;
+            font-weight: bold;
+            color: #657786;
+        }
+        .table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .pagination {
+            padding: 10px 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+            color: #657786;
+        }
+        .pagination span {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Whiteway Motors - User Report</h2>
+        <div class="controls">
+            <input type="text" id="searchUsers" placeholder="Search by name or email...">
+            <select id="filterRole">
+                <option value="">Filter by Role</option>
+                <option value="admin">Admin</option>
+                <option value="stock">Stock</option>
+                <option value="customer">Customer</option>
+            </select>
+            <select id="sortBy">
+                <option value="">Sort by</option>
+                <option value="full_name">Name</option>
+                <option value="createdAt">Created At</option>
+            </select>
+            <button onclick="window.location.href='view_system_report.html'">Back to Dashboard</button>
+            <span id="currentDateTime">Loading...</span>
+        </div>
+    </div>
+    <div class="section">
+        <h3>User Report</h3>
+        <div class="table-controls">
+            <input type="text" id="searchUsersTable" placeholder="Search users...">
+            <select id="filterRoleTable">
+                <option value="">Filter by Role</option>
+                <option value="admin">Admin</option>
+                <option value="stock">Stock</option>
+                <option value="customer">Customer</option>
+            </select>
+            <select id="sortByTable">
+                <option value="">Sort by</option>
+                <option value="full_name">Name</option>
+                <option value="createdAt">Created At</option>
+            </select>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+        </table>
+        <div class="pagination" id="pagination">
+            <span>Showing 0 of 0 users</span>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+            authDomain: "final-project-dip-8649e.firebaseapp.com",
+            projectId: "final-project-dip-8649e",
+            storageBucket: "final-project-dip-8649e.firebasestorage.app",
+            messagingSenderId: "613008727847",
+            appId: "1:613008727847:web:623222118f1decf7bf5302",
+            measurementId: "G-P67JLCG5GW",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Colombo',
+            });
+            document.getElementById('currentDateTime').textContent = `${dateString}, ${timeString}`;
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update every minute
+
+        // Load users
+        async function loadUsers(search = '', role = '', sortBy = '') {
+            const tbody = document.getElementById('usersTableBody');
+            const pagination = document.getElementById('pagination');
+            tbody.innerHTML = '<tr><td colspan="4">Loading...</td></tr>';
+
+            try {
+                let query = db.collection('users');
+                if (role) {
+                    query = query.where('role', '==', role);
+                }
+                if (sortBy) {
+                    query = query.orderBy(sortBy);
+                }
+
+                const snapshot = await query.get();
+                const users = [];
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (
+                        !search ||
+                        data.full_name.toLowerCase().includes(search.toLowerCase()) ||
+                        data.email.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                        users.push({ id: doc.id, ...data });
+                    }
+                });
+
+                if (users.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="4">No users found.</td></tr>';
+                    pagination.innerHTML = '<span>Showing 0 of 0 users</span>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                users.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${user.full_name || 'N/A'}</td>
+                        <td>${user.email || 'N/A'}</td>
+                        <td>${user.role || 'N/A'}</td>
+                        <td>${
+                            user.createdAt
+                                ? new Date(user.createdAt).toLocaleDateString('en-US', {
+                                      year: 'numeric',
+                                      month: 'short',
+                                      day: 'numeric',
+                                  })
+                                : 'N/A'
+                        }</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                pagination.innerHTML = `<span>Showing 1 to ${users.length} of ${users.length} users</span>`;
+            } catch (error) {
+                console.error('Error loading users:', error);
+                tbody.innerHTML = '<tr><td colspan="4">Error loading users.</td></tr>';
+                pagination.innerHTML = '<span>Showing 0 of 0 users</span>';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUsers();
+
+            // Search, filter, and sort
+            const searchUsers = document.getElementById('searchUsers');
+            const filterRole = document.getElementById('filterRole');
+            const sortBy = document.getElementById('sortBy');
+            const searchUsersTable = document.getElementById('searchUsersTable');
+            const filterRoleTable = document.getElementById('filterRoleTable');
+            const sortByTable = document.getElementById('sortByTable');
+
+            searchUsers.addEventListener('input', () => {
+                searchUsersTable.value = searchUsers.value;
+                loadUsers(searchUsers.value, filterRole.value, sortBy.value);
+            });
+            filterRole.addEventListener('change', () => {
+                filterRoleTable.value = filterRole.value;
+                loadUsers(searchUsers.value, filterRole.value, sortBy.value);
+            });
+            sortBy.addEventListener('change', () => {
+                sortByTable.value = sortBy.value;
+                loadUsers(searchUsers.value, filterRole.value, sortBy.value);
+            });
+
+            searchUsersTable.addEventListener('input', () => {
+                searchUsers.value = searchUsersTable.value;
+                loadUsers(searchUsersTable.value, filterRoleTable.value, sortByTable.value);
+            });
+            filterRoleTable.addEventListener('change', () => {
+                filterRole.value = filterRoleTable.value;
+                loadUsers(searchUsersTable.value, filterRoleTable.value, sortByTable.value);
+            });
+            sortByTable.addEventListener('change', () => {
+                sortBy.value = sortByTable.value;
+                loadUsers(searchUsersTable.value, filterRoleTable.value, sortByTable.value);
+            });
+        });
+    </script>
+</body>
+</html>

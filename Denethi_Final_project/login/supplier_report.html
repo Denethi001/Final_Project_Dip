@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteway Motors - Supplier Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #1a2e3d;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #e0e5ec;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .header .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header input,
+        .header select,
+        .header button {
+            padding: 5px 10px;
+            border: 1px solid #e0e5ec;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .header button {
+            background-color: #1a2e3d;
+            color: #fff;
+            border: 1px solid #1a2e3d;
+        }
+        .header button:hover {
+            background-color: #2a4b5d;
+        }
+        .section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a2e3d;
+        }
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .table-controls input,
+        .table-controls select {
+            padding: 8px;
+            border: 1px solid #e0e5ec;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e5ec;
+        }
+        .table th {
+            background-color: #f5f7fa;
+            font-weight: bold;
+            color: #657786;
+        }
+        .table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .pagination {
+            padding: 10px 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+            color: #657786;
+        }
+        .pagination span {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Whiteway Motors - Supplier Report</h2>
+        <div class="controls">
+            <input type="text" id="searchSuppliers" placeholder="Search by supplier or contact name...">
+            <select id="filterRating">
+                <option value="">Filter by Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <select id="sortBy">
+                <option value="">Sort by</option>
+                <option value="name">Supplier Name</option>
+                <option value="contact_name">Contact Name</option>
+                <option value="createdAt">Created At</option>
+            </select>
+            <button onclick="window.location.href='view_system_report.html'">Back to Dashboard</button>
+            <span id="currentDateTime">Loading...</span>
+        </div>
+    </div>
+    <div class="section">
+        <h3>Supplier Report</h3>
+        <div class="table-controls">
+            <input type="text" id="searchSuppliersTable" placeholder="Search suppliers...">
+            <select id="filterRatingTable">
+                <option value="">Filter by Rating</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <select id="sortByTable">
+                <option value="">Sort by</option>
+                <option value="name">Supplier Name</option>
+                <option value="contact_name">Contact Name</option>
+                <option value="createdAt">Created At</option>
+            </select>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Supplier Name</th>
+                    <th>Contact Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Address</th>
+                    <th>Rating</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+            <tbody id="suppliersTableBody"></tbody>
+        </table>
+        <div class="pagination" id="pagination">
+            <span>Showing 0 of 0 suppliers</span>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+            authDomain: "final-project-dip-8649e.firebaseapp.com",
+            projectId: "final-project-dip-8649e",
+            storageBucket: "final-project-dip-8649e.firebasestorage.app",
+            messagingSenderId: "613008727847",
+            appId: "1:613008727847:web:623222118f1decf7bf5302",
+            measurementId: "G-P67JLCG5GW",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Colombo',
+            });
+            document.getElementById('currentDateTime').textContent = `${dateString}, ${timeString}`;
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update every minute
+
+        // Load suppliers
+        async function loadSuppliers(search = '', rating = '', sortBy = '') {
+            const tbody = document.getElementById('suppliersTableBody');
+            const pagination = document.getElementById('pagination');
+            tbody.innerHTML = '<tr><td colspan="7">Loading...</td></tr>';
+
+            try {
+                let query = db.collection('supplier_data');
+                if (rating) {
+                    query = query.where('rating', '==', parseInt(rating));
+                }
+                if (sortBy) {
+                    query = query.orderBy(sortBy, sortBy === 'createdAt' ? 'desc' : 'asc');
+                }
+
+                const snapshot = await query.get();
+                const suppliers = [];
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (
+                        !search ||
+                        data.name?.toLowerCase().includes(search.toLowerCase()) ||
+                        data.contact_name?.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                        suppliers.push({ id: doc.id, ...data });
+                    }
+                });
+
+                if (suppliers.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="7">No suppliers found.</td></tr>';
+                    pagination.innerHTML = '<span>Showing 0 of 0 suppliers</span>';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                suppliers.forEach(supplier => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${supplier.name || 'N/A'}</td>
+                        <td>${supplier.contact_name || 'N/A'}</td>
+                        <td>${supplier.email || 'N/A'}</td>
+                        <td>${supplier.phone || 'N/A'}</td>
+                        <td>${supplier.address || 'N/A'}</td>
+                        <td>${supplier.rating || 0}</td>
+                        <td>${
+                            supplier.createdAt
+                                ? new Date(supplier.createdAt).toLocaleDateString('en-US', {
+                                      year: 'numeric',
+                                      month: 'short',
+                                      day: 'numeric',
+                                  })
+                                : 'N/A'
+                        }</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                pagination.innerHTML = `<span>Showing 1 to ${suppliers.length} of ${suppliers.length} suppliers</span>`;
+            } catch (error) {
+                console.error('Error loading suppliers:', error);
+                tbody.innerHTML = '<tr><td colspan="7">Error loading suppliers.</td></tr>';
+                pagination.innerHTML = '<span>Showing 0 of 0 suppliers</span>';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSuppliers();
+
+            // Search, filter, and sort
+            const searchSuppliers = document.getElementById('searchSuppliers');
+            const filterRating = document.getElementById('filterRating');
+            const sortBy = document.getElementById('sortBy');
+            const searchSuppliersTable = document.getElementById('searchSuppliersTable');
+            const filterRatingTable = document.getElementById('filterRatingTable');
+            const sortByTable = document.getElementById('sortByTable');
+
+            searchSuppliers.addEventListener('input', () => {
+                searchSuppliersTable.value = searchSuppliers.value;
+                loadSuppliers(searchSuppliers.value, filterRating.value, sortBy.value);
+            });
+            filterRating.addEventListener('change', () => {
+                filterRatingTable.value = filterRating.value;
+                loadSuppliers(searchSuppliers.value, filterRating.value, sortBy.value);
+            });
+            sortBy.addEventListener('change', () => {
+                sortByTable.value = sortBy.value;
+                loadSuppliers(searchSuppliers.value, filterRating.value, sortBy.value);
+            });
+
+            searchSuppliersTable.addEventListener('input', () => {
+                searchSuppliers.value = searchSuppliersTable.value;
+                loadSuppliers(searchSuppliersTable.value, filterRatingTable.value, sortByTable.value);
+            });
+            filterRatingTable.addEventListener('change', () => {
+                filterRating.value = filterRatingTable.value;
+                loadSuppliers(searchSuppliersTable.value, filterRatingTable.value, sortByTable.value);
+            });
+            sortByTable.addEventListener('change', () => {
+                sortBy.value = sortByTable.value;
+                loadSuppliers(searchSuppliersTable.value, filterRatingTable.value, sortByTable.value);
+            });
+        });
+    </script>
+</body>
+</html>

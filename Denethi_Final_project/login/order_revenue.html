@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteway Motors - Order Revenue Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f7fa;
+            color: #1a2e3d;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #e0e5ec;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        .header .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .header input,
+        .header select,
+        .header button {
+            padding: 5px 10px;
+            border: 1px solid #e0e5ec;
+            border-radius: 4px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+        .header button {
+            background-color: #1a2e3d;
+            color: #fff;
+            border: 1px solid #1a2e3d;
+        }
+        .header button:hover {
+            background-color: #2a4b5d;
+        }
+        .section {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1a2e3d;
+        }
+        .total-revenue {
+            font-size: 16px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 15px;
+        }
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .table-controls input,
+        .table-controls select {
+            padding: 8px;
+            border: 1px solid #e0e5ec;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #e0e5ec;
+        }
+        .table th {
+            background-color: #f5f7fa;
+            font-weight: bold;
+            color: #657786;
+        }
+        .table tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .pagination {
+            padding: 10px 0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 5px;
+            color: #657786;
+        }
+        .pagination span {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Whiteway Motors - Order Revenue Report</h2>
+        <div class="controls">
+            <input type="text" id="searchOrders" placeholder="Search by order ID or part name...">
+            <select id="filterCategory">
+                <option value="">Filter by Category</option>
+                <option value="Body Parts">Body Parts</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Engine">Engine</option>
+                <option value="Brakes">Brakes</option>
+            </select>
+            <select id="sortBy">
+                <option value="">Sort by</option>
+                <option value="order_id">Order ID</option>
+                <option value="price">Price</option>
+                <option value="date">Date</option>
+            </select>
+            <button onclick="window.location.href='view_system_report.html'">Back to Dashboard</button>
+            <span id="currentDateTime">Loading...</span>
+        </div>
+    </div>
+    <div class="section">
+        <h3>Order Revenue Report</h3>
+        <div class="total-revenue" id="totalRevenue">Total Revenue: $0.00</div>
+        <div class="table-controls">
+            <input type="text" id="searchOrdersTable" placeholder="Search orders...">
+            <select id="filterCategoryTable">
+                <option value="">Filter by Category</option>
+                <option value="Body Parts">Body Parts</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Engine">Engine</option>
+                <option value="Brakes">Brakes</option>
+            </select>
+            <select id="sortByTable">
+                <option value="">Sort by</option>
+                <option value="order_id">Order ID</option>
+                <option value="price">Price</option>
+                <option value="date">Date</option>
+            </select>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Part Name</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="ordersTableBody"></tbody>
+        </table>
+        <div class="pagination" id="pagination">
+            <span>Showing 0 of 0 orders</span>
+        </div>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+            authDomain: "final-project-dip-8649e.firebaseapp.com",
+            projectId: "final-project-dip-8649e",
+            storageBucket: "final-project-dip-8649e.firebasestorage.app",
+            messagingSenderId: "613008727847",
+            appId: "1:613008727847:web:623222118f1decf7bf5302",
+            measurementId: "G-P67JLCG5GW",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateString = now.toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+            });
+            const timeString = now.toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZone: 'Asia/Colombo',
+            });
+            document.getElementById('currentDateTime').textContent = `${dateString}, ${timeString}`;
+        }
+        updateDateTime();
+        setInterval(updateDateTime, 60000); // Update every minute
+
+        // Load orders
+        async function loadOrders(search = '', category = '', sortBy = '') {
+            const tbody = document.getElementById('ordersTableBody');
+            const pagination = document.getElementById('pagination');
+            const totalRevenueElement = document.getElementById('totalRevenue');
+            tbody.innerHTML = '<tr><td colspan="6">Loading...</td></tr>';
+
+            try {
+                let query = db.collection('orders');
+                if (category) {
+                    query = query.where('category', '==', category);
+                }
+                if (sortBy) {
+                    query = query.orderBy(sortBy, sortBy === 'date' ? 'desc' : 'asc');
+                }
+
+                const snapshot = await query.get();
+                const orders = [];
+                let totalRevenue = 0;
+
+                snapshot.forEach(doc => {
+                    const data = doc.data();
+                    if (
+                        !search ||
+                        data.order_id?.toLowerCase().includes(search.toLowerCase()) ||
+                        data.part_name?.toLowerCase().includes(search.toLowerCase())
+                    ) {
+                        orders.push({ id: doc.id, ...data });
+                        totalRevenue += data.price || 0;
+                    }
+                });
+
+                if (orders.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6">No orders found.</td></tr>';
+                    pagination.innerHTML = '<span>Showing 0 of 0 orders</span>';
+                    totalRevenueElement.textContent = 'Total Revenue: $0.00';
+                    return;
+                }
+
+                tbody.innerHTML = '';
+                orders.forEach(order => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${order.order_id || 'N/A'}</td>
+                        <td>${order.part_name || 'N/A'}</td>
+                        <td>${order.category || 'N/A'}</td>
+                        <td>${order.qty || 0}</td>
+                        <td>$${parseFloat(order.price || 0).toFixed(2)}</td>
+                        <td>${
+                            order.date
+                                ? new Date(order.date).toLocaleDateString('en-US', {
+                                      year: 'numeric',
+                                      month: 'short',
+                                      day: 'numeric',
+                                  })
+                                : 'N/A'
+                        }</td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+                pagination.innerHTML = `<span>Showing 1 to ${orders.length} of ${orders.length} orders</span>`;
+                totalRevenueElement.textContent = `Total Revenue: $${totalRevenue.toFixed(2)}`;
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                tbody.innerHTML = '<tr><td colspan="6">Error loading orders.</td></tr>';
+                pagination.innerHTML = '<span>Showing 0 of 0 orders</span>';
+                totalRevenueElement.textContent = 'Total Revenue: $0.00';
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', () => {
+            loadOrders();
+
+            // Search, filter, and sort
+            const searchOrders = document.getElementById('searchOrders');
+            const filterCategory = document.getElementById('filterCategory');
+            const sortBy = document.getElementById('sortBy');
+            const searchOrdersTable = document.getElementById('searchOrdersTable');
+            const filterCategoryTable = document.getElementById('filterCategoryTable');
+            const sortByTable = document.getElementById('sortByTable');
+
+            searchOrders.addEventListener('input', () => {
+                searchOrdersTable.value = searchOrders.value;
+                loadOrders(searchOrders.value, filterCategory.value, sortBy.value);
+            });
+            filterCategory.addEventListener('change', () => {
+                filterCategoryTable.value = filterCategory.value;
+                loadOrders(searchOrders.value, filterCategory.value, sortBy.value);
+            });
+            sortBy.addEventListener('change', () => {
+                sortByTable.value = sortBy.value;
+                loadOrders(searchOrders.value, filterCategory.value, sortBy.value);
+            });
+
+            searchOrdersTable.addEventListener('input', () => {
+                searchOrders.value = searchOrdersTable.value;
+                loadOrders(searchOrdersTable.value, filterCategoryTable.value, sortByTable.value);
+            });
+            filterCategoryTable.addEventListener('change', () => {
+                filterCategory.value = filterCategoryTable.value;
+                loadOrders(searchOrdersTable.value, filterCategoryTable.value, sortByTable.value);
+            });
+            sortByTable.addEventListener('change', () => {
+                sortBy.value = sortByTable.value;
+                loadOrders(searchOrdersTable.value, filterCategoryTable.value, sortByTable.value);
+            });
+        });
+    </script>
+</body>
+</html>

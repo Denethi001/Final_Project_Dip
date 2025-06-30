@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spare Parts Management</title>
+    <title>Edit User Account</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -156,6 +156,12 @@
         .delete-btn:hover {
             background-color: #b71c1c;
         }
+        .error {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -169,40 +175,45 @@
         <div class="user-info">
             <!-- <img src="https://via.placeholder.com/50" alt="User Profile"> -->
             <div>
-                <h2>John Doe</h2>
-                <p>Last active: Today 2:30 PM</p>
+                <h2 id="userName">Loading...</h2>
+                <p id="lastActive">Last active: Loading...</p>
             </div>
         </div>
         <div class="section">
             <h3>Personal Information</h3>
             <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" value="John Doe" readonly>
+                <input type="text" id="fullName" placeholder="Enter full name">
+                <p id="fullNameError" class="error">Full name is required.</p>
             </div>
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" value="john.doe@company.com" readonly>
+                <input type="email" id="email" placeholder="Enter email address">
+                <p id="emailError" class="error">Valid email is required.</p>
             </div>
             <div class="form-group">
                 <label>Role</label>
                 <select id="userRole">
-                    <option>Administrator</option>
-                    <option>Manager</option>
-                    <option>User</option>
+                    <option value="Administrator">Administrator</option>
+                    <option value="Manager">Manager</option>
+                    <option value="User">User</option>
                 </select>
+                <p id="roleError" class="error">Role is required.</p>
             </div>
             <div class="form-group">
                 <label>Department</label>
                 <select id="userDepartment">
-                    <option>Engineering</option>
-                    <option>Operations</option>
-                    <option>Sales</option>
-                    <option>Support</option>
+                    <option value="Engineering">Engineering</option>
+                    <option value="Operations">Operations</option>
+                    <option value="Sales">Sales</option>
+                    <option value="Support">Support</option>
                 </select>
+                <p id="departmentError" class="error">Department is required.</p>
             </div>
             <div class="form-group">
                 <label>Employee ID</label>
-                <input type="text" value="EMP001" readonly>
+                <input type="text" id="employeeId" placeholder="Enter employee ID">
+                <p id="employeeIdError" class="error">Employee ID is required.</p>
             </div>
         </div>
         <div class="section">
@@ -210,17 +221,17 @@
             <div class="form-group">
                 <label>Account Status</label>
                 <label class="switch">
-                    <input type="checkbox" id="accountStatus" checked>
+                    <input type="checkbox" id="accountStatus">
                     <span class="slider"></span>
                 </label>
                 <p>Enable or disable user access</p>
             </div>
-            <p>Account created on Jan 15, 2024</p>
+            <p id="createdDate">Account created on: Loading...</p>
         </div>
         <div class="section">
             <h3>Security Settings</h3>
             <div class="form-group">
-                <a href="#">Reset Password</a>
+                <a href="#" id="resetPassword">Reset Password</a>
             </div>
             <div class="form-group">
                 <label>Two-Factor Authentication</label>
@@ -242,50 +253,205 @@
         </div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the Save Changes button
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+            authDomain: "final-project-dip-8649e.firebaseapp.com",
+            projectId: "final-project-dip-8649e",
+            storageBucket: "final-project-dip-8649e.firebasestorage.app",
+            messagingSenderId: "613008727847",
+            appId: "1:613008727847:web:623222118f1decf7bf5302",
+            measurementId: "G-P67JLCG5GW",
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Validate email format
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Show/hide error messages
+        function showError(elementId, show) {
+            document.getElementById(elementId).style.display = show ? 'block' : 'none';
+        }
+
+        // Fetch user data from Firestore
+        document.addEventListener('DOMContentLoaded', async function() {
+            const userId = localStorage.getItem('editUserId');
+            if (!userId) {
+                alert('No user ID provided.');
+                window.location.href = 'view_users.html';
+                return;
+            }
+
+            try {
+                console.log('Fetching user data for ID:', userId); // Debug log
+                const docRef = db.collection('users').doc(userId);
+                const doc = await docRef.get();
+
+                if (!doc.exists) {
+                    alert('User not found.');
+                    window.location.href = 'view_users.html';
+                    return;
+                }
+
+                const userData = doc.data();
+                console.log('User data fetched:', userData); // Debug log
+                const createdTimestamp = userData.created_at || new Date();
+
+                // Populate form fields
+                document.getElementById('userName').textContent = userData.full_name || 'Unknown';
+                document.getElementById('lastActive').textContent = userData.last_active 
+                    ? `Last active: ${new Date(userData.last_active).toLocaleString()}`
+                    : 'Last active: Unknown';
+                document.getElementById('fullName').value = userData.full_name || '';
+                document.getElementById('email').value = userData.email || '';
+                document.getElementById('userRole').value = userData.role || 'User';
+                document.getElementById('userDepartment').value = userData.department || 'Engineering';
+                document.getElementById('employeeId').value = userData.employee_id || '';
+                document.getElementById('accountStatus').checked = userData.status !== 'Inactive';
+                document.getElementById('createdDate').textContent = `Account created on: ${new Date(createdTimestamp).toLocaleDateString()}`;
+                document.getElementById('twoFactorAuth').checked = userData.two_factor_auth || false;
+
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                alert(`Failed to load user data: ${error.message}`);
+            }
+
+            // Save changes to Firestore
             const saveBtn = document.getElementById('saveChangesBtn');
-            
-            // Add click event listener
             if (saveBtn) {
-                saveBtn.addEventListener('click', function() {
-                    // Get all the updated values
+                saveBtn.addEventListener('click', async function() {
+                    const fullName = document.getElementById('fullName').value.trim();
+                    const email = document.getElementById('email').value.trim();
                     const userRole = document.getElementById('userRole').value;
                     const userDepartment = document.getElementById('userDepartment').value;
+                    const employeeId = document.getElementById('employeeId').value.trim();
                     const accountStatus = document.getElementById('accountStatus').checked;
                     const twoFactorAuth = document.getElementById('twoFactorAuth').checked;
-                    
-                    // Here you would typically send this data to a server
-                    // For this demo, we'll just store in localStorage
-                    localStorage.setItem('lastEditedUser', JSON.stringify({
-                        email: 'john.doe@company.com',
+
+                    // Validate inputs
+                    let hasError = false;
+                    if (!fullName) {
+                        showError('fullNameError', true);
+                        hasError = true;
+                    } else {
+                        showError('fullNameError', false);
+                    }
+                    if (!email || !isValidEmail(email)) {
+                        showError('emailError', true);
+                        hasError = true;
+                    } else {
+                        showError('emailError', false);
+                    }
+                    if (!userRole) {
+                        showError('roleError', true);
+                        hasError = true;
+                    } else {
+                        showError('roleError', false);
+                    }
+                    if (!userDepartment) {
+                        showError('departmentError', true);
+                        hasError = true;
+                    } else {
+                        showError('departmentError', false);
+                    }
+                    if (!employeeId) {
+                        showError('employeeIdError', true);
+                        hasError = true;
+                    } else {
+                        showError('employeeIdError', false);
+                    }
+
+                    if (hasError) {
+                        alert('Please correct the errors in the form.');
+                        return;
+                    }
+
+                    // Check for duplicate email
+                    try {
+                        const emailQuery = await db.collection('users')
+                            .where('email', '==', email)
+                            .get();
+                        if (!emailQuery.empty && emailQuery.docs.some(doc => doc.id !== userId)) {
+                            alert('This email is already in use by another user.');
+                            showError('emailError', true);
+                            return;
+                        }
+                    } catch (error) {
+                        console.error('Error checking email uniqueness:', error);
+                        alert(`Failed to validate email: ${error.message}`);
+                        return;
+                    }
+
+                    const updateData = {
+                        full_name: fullName,
+                        email: email,
                         role: userRole,
                         department: userDepartment,
+                        employee_id: employeeId,
                         status: accountStatus ? 'Active' : 'Inactive',
-                        twoFactor: twoFactorAuth
-                    }));
-                    
-                    // Navigate to success page
-                    window.location.href = 'updated_successfully.html';
+                        two_factor_auth: twoFactorAuth,
+                        updated_at: new Date().toISOString()
+                    };
+
+                    try {
+                        console.log('Updating user with data:', updateData); // Debug log
+                        await db.collection('users').doc(userId).update(updateData);
+                        alert('User data updated successfully.');
+                        localStorage.setItem('updatedUser', JSON.stringify({
+                            id: userId,
+                            full_name: fullName,
+                            email: email,
+                            role: userRole,
+                            department: userDepartment,
+                            employee_id: employeeId,
+                            status: accountStatus ? 'Active' : 'Inactive',
+                            two_factor_auth: twoFactorAuth
+                        }));
+                        window.location.href = 'updated_successfully.html';
+                    } catch (error) {
+                        console.error('Error updating user data:', error);
+                        alert(`Failed to update user data: ${error.message}`);
+                    }
                 });
             }
 
-            // Get the Delete Account button
+            // Navigate to delete_account.html with user data
             const deleteBtn = document.getElementById('deleteAccountBtn');
-            
-            // Add click event listener
             if (deleteBtn) {
-                deleteBtn.addEventListener('click', function() {
-                    // Store user data before deletion (for confirmation page)
+                deleteBtn.addEventListener('click', async function() {
+                    console.log('Setting userToDelete:', {
+                        id: userId,
+                        name: document.getElementById('fullName').value,
+                        email: document.getElementById('email').value,
+                        role: document.getElementById('userRole').value
+                    }); // Debug log
                     localStorage.setItem('userToDelete', JSON.stringify({
-                        name: 'John Doe',
-                        email: 'john.doe@company.com',
+                        id: userId,
+                        name: document.getElementById('fullName').value,
+                        email: document.getElementById('email').value,
                         role: document.getElementById('userRole').value
                     }));
-                    
-                    // Navigate to delete confirmation page
+                    console.log('userToDelete set:', JSON.parse(localStorage.getItem('userToDelete'))); // Debug log
                     window.location.href = 'delete_account.html';
+                });
+            }
+
+            // Disable reset password link (since no authentication)
+            const resetPasswordLink = document.getElementById('resetPassword');
+            if (resetPasswordLink) {
+                resetPasswordLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('Password reset is not available without authentication.');
                 });
             }
         });
