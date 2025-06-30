@@ -175,17 +175,16 @@
         document.addEventListener('DOMContentLoaded', () => {
             const newUser = JSON.parse(localStorage.getItem('newUser'));
             const userDetails = document.getElementById('userDetails');
-            console.log('newUser retrieved:', newUser); // Debug log
+            console.log('newUser retrieved:', newUser); 
 
             if (newUser && newUser.name && newUser.role) {
                 document.getElementById('userName').textContent = newUser.name || 'Unknown';
                 document.getElementById('userRole').textContent = newUser.role || 'Unknown';
             } else {
                 userDetails.innerHTML = '<p>No user data available. Please try creating the user again.</p>';
-                console.log('No newUser data found in localStorage'); // Debug log
+                console.log('No newUser data found in localStorage'); 
             }
 
-            // Clear localStorage to prevent stale data
             localStorage.removeItem('newUser');
         });
     </script>

@@ -441,7 +441,7 @@
 
       firebase.initializeApp(firebaseConfig);
       const db = firebase.firestore();
-      // Password visibility toggle
+      // Password
       document.addEventListener("DOMContentLoaded", () => {
         const passwordToggle = document.querySelector(".password-toggle");
         const passwordInput = document.querySelector("#password");
@@ -459,7 +459,7 @@
         }
       });
 
-      // Handle login to navigate to view_system_report.html
+      // Handle login
       async function handleLogin() {
         const emailInput = document.getElementById("email").value.trim();
         const passwordInput = document.getElementById("password").value.trim();
@@ -471,7 +471,7 @@
         }
 
         try {
-          // Query Firestore for a user with the matching email
+          // user with the matching email
           const querySnapshot = await db
             .collection("users")
             .where("email", "==", emailInput)
@@ -482,22 +482,21 @@
             return;
           }
 
-          // Assuming only one match
           const userData = querySnapshot.docs[0].data();
 
-          // Validate password manually
+          // Validate password
           if (userData.password !== passwordInput) {
             alert("Incorrect password.");
             return;
           }
 
-          // Hardcoded role validation
+          //  role validation
           if (selectedRole !== "admin") {
             alert("Access denied. Only Admin role allowed.");
             return;
           }
 
-          // If everything matches, redirect
+          // navigate
           window.location.href = "login/view_system_report.html";
         } catch (error) {
           console.error("Login error:", error);

@@ -235,7 +235,7 @@
         </tr>
       </thead>
       <tbody id="recentOrdersTable">
-        <!-- Data will be populated by JavaScript -->
+      
       </tbody>
     </table>
 
@@ -302,7 +302,7 @@
               orders.push({
                 id: doc.id,
                 ...order,
-                date: order.date, // This assumes date is stored as a Firestore timestamp
+                date: order.date,
               });
             });
 
@@ -312,14 +312,14 @@
             document.getElementById("activeParts").textContent =
               uniqueParts.size;
 
-            // Sort orders by date (newest first)
+            // Sort orders by date
             orders.sort((a, b) => {
               const dateA = a.date?.toDate ? a.date.toDate() : new Date(a.date);
               const dateB = b.date?.toDate ? b.date.toDate() : new Date(b.date);
               return dateB - dateA;
             });
 
-            // Display recent orders (first 5)
+            // Display recent orders 
             const tableBody = document.getElementById("recentOrdersTable");
             tableBody.innerHTML = "";
 

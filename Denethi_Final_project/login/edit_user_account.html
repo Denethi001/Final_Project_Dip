@@ -369,7 +369,7 @@
             }
         }
 
-        // Add all suppliers
+       
         async function addAllSuppliers() {
             if (!firebase.auth().currentUser) {
                 alert('You must be logged in to add suppliers.');
@@ -393,13 +393,13 @@
             alert(`Suppliers processed: ${successCount} added, ${errorCount} failed. Check console for details.`);
         }
 
-        // Validate email format
+        
         function isValidEmail(email) {
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return emailRegex.test(email);
         }
 
-        // Show/hide error messages
+     
         function showError(elementId, show) {
             const element = document.getElementById(elementId);
             if (element) {
