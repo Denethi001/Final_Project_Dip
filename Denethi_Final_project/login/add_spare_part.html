@@ -128,42 +128,54 @@
             text-decoration: none;
             margin: 0 10px;
         }
+        .error {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 5px;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="header">
-        <img src="https://via.placeholder.com/40" alt="PartsManager Logo">
+        <img src="" alt="PartsManager Logo">
         <div class="user">Nipun</div>
     </div>
     <div class="section">
         <h2>Add New Spare Part</h2>
-        <div class="form-group">
-            <label>Part Name</label>
-            <input type="text" placeholder="Enter part name">
-        </div>
-        <div class="form-group">
-            <label>Part Number</label>
-            <input type="text" placeholder="Enter part number">
-        </div>
-        <div class="form-group">
-            <label>Category</label>
-            <select>
-                <option value="">Select category</option>
-                <option value="electronics">Electronics</option>
-                <option value="hydraulic">Hydraulic</option>
-                
-                <option value="mechanical">Mechanical</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>Quantity</label>
-            <input type="number" placeholder="Enter quantity">
-        </div>
-        <div class="form-group">
-            <label>Price</label>
-            <input type="text" placeholder="Enter price">
-        </div>
-        <button>Add Part</button>
+        <form id="addPartForm">
+            <div class="form-group">
+                <label for="partName">Part Name</label>
+                <input type="text" id="partName" placeholder="Enter part name">
+                <div id="partNameError" class="error">Part Name is required</div>
+            </div>
+            <div class="form-group">
+                <label for="partNumber">Part Number</label>
+                <input type="text" id="partNumber" placeholder="Enter part number">
+                <div id="partNumberError" class="error">Part Number is required</div>
+            </div>
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category">
+                    <option value="">Select category</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Hydraulic">Hydraulic</option>
+                    <option value="Mechanical">Mechanical</option>
+                </select>
+                <div id="categoryError" class="error">Category is required</div>
+            </div>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" placeholder="Enter quantity">
+                <div id="quantityError" class="error">Quantity must be a positive number</div>
+            </div>
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" id="price" placeholder="Enter price (e.g., 1500)">
+                <div id="priceError" class="error">Price must be a valid number</div>
+            </div>
+            <button type="submit">Add Part</button>
+        </form>
     </div>
     <div class="section">
         <h2>Existing Spare Parts</h2>
@@ -171,10 +183,9 @@
             <input type="text" placeholder="Search parts...">
             <select>
                 <option value="">Filter</option>
-                <option value="electronics">Electronics</option>
-                <option value="hydraulic">Hydraulic</option>
-               
-                <option value="mechanical">Mechanical</option>
+                <option value="Electronics">Electronics</option>
+                <option value="Hydraulic">Hydraulic</option>
+                <option value="Mechanical">Mechanical</option>
             </select>
             <select>
                 <option value="">Sort by</option>
@@ -193,117 +204,231 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>Door Panel</td>
-                    <td>ORD04</td>
-                    <td>Body Parts</td>
-                    <td>8</td>
-                    <td>Rs.1600</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>ECU Models</td>
-                    <td>ORD03</td>
-                    <td>Electronics</td>
-                    <td>5</td>
-                    <td>Rs.1500</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Spark Plug</td>
-                    <td>ORDO7</td>
-                    <td>Electronics</td>
-                    <td>20</td>
-                    <td>Rs.1000</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Transmission</td>
-                    <td>ORDO05</td>
-                    <td>Engines</td>
-                    <td>6</td>
-                    <td>Rs.4000</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Disco Rotor</td>
-                    <td>ORDO9</td>
-                    <td>Breakes</td>
-                    <td>10</td>
-                    <td>Rs.1200</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>Control Arm</td>
-                    <td>ORDO10</td>
-                    <td>Body Parts</td>
-                    <td>4</td>
-                    <td>Rs.1800</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                 <tr>
-                    <td>Radiator</td>
-                    <td>ORDO06</td>
-                    <td>Body Parts</td>
-                    <td>6</td>
-                    <td>Rs.1400</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                   <tr>
-                    <td>Engine Block</td>
-                    <td>ORDO01</td>
-                    <td>Engines</td>
-                    <td>5</td>
-                  <td>Rs.2500</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
-                  <tr>
-                    <td>Fuel Injector</td>
-                    <td>ORDO01</td>
-                    <td>Engines</td>
-                    <td>5</td>
-                    <td>Rs.2500</td>
-                    <td class="actions">
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
-                    </td>
-                </tr>
+            <tbody id="partsTableBody">
+                <!-- Dynamically populated -->
             </tbody>
         </table>
-        <div class="pagination">
-            Showing 1 to 5 of 5 entries
-            <button><</button>
-            <button>1</button>
-            <button>></button>
+        <div class="pagination" id="pagination">
+            <!-- Dynamically updated -->
         </div>
     </div>
     <div class="footer">
         © 2024 PartsManager. All rights reserved. <a href="#">Help</a> <a href="#">Privacy</a> <a href="#">Terms</a>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+            authDomain: "final-project-dip-8649e.firebaseapp.com",
+            projectId: "final-project-dip-8649e",
+            storageBucket: "final-project-dip-8649e.firebasestorage.app",
+            messagingSenderId: "613008727847",
+            appId: "1:613008727847:web:623222118f1decf7bf5302",
+            measurementId: "G-P67JLCG5GW",
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // Show/hide error messages
+        function showError(elementId, show) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.style.display = show ? 'block' : 'none';
+            }
+        }
+
+        // Validate price format
+        function isValidPrice(price) {
+            return !isNaN(parseFloat(price)) && isFinite(price) && parseFloat(price) >= 0;
+        }
+
+        // Fetch and display spare parts
+        async function loadParts() {
+            try {
+                const snapshot = await db.collection('product_data').get();
+                const partsTableBody = document.getElementById('partsTableBody');
+                const pagination = document.getElementById('pagination');
+                partsTableBody.innerHTML = ''; // Clear existing rows
+
+                if (snapshot.empty) {
+                    partsTableBody.innerHTML = '<tr><td colspan="6">No spare parts found.</td></tr>';
+                    pagination.innerHTML = 'Showing 0 of 0 entries';
+                    return;
+                }
+
+                const parts = [];
+                snapshot.forEach(doc => {
+                    parts.push({ id: doc.id, ...doc.data() });
+                });
+
+                // Populate table
+                parts.forEach(part => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${part.part_name || 'N/A'}</td>
+                        <td>${part.part_number || 'N/A'}</td>
+                        <td>${part.category || 'N/A'}</td>
+                        <td>${part.quantity || 0}</td>
+                        <td>Rs.${part.price ? part.price.toFixed(2) : '0.00'}</td>
+                        <td class="actions">
+                            <button class="edit" data-id="${part.id}">Edit</button>
+                            <button class="delete" data-id="${part.id}">Delete</button>
+                        </td>
+                    `;
+                    partsTableBody.appendChild(row);
+                });
+
+                // Update pagination
+                pagination.innerHTML = `Showing 1 to ${parts.length} of ${parts.length} entries
+                    <button><</button>
+                    <button>1</button>
+                    <button>></button>`;
+
+                // Add event listeners for Edit and Delete buttons
+                document.querySelectorAll('.edit').forEach(button => {
+                    button.addEventListener('click', () => {
+                        const partId = button.getAttribute('data-id');
+                        localStorage.setItem('editPartId', partId);
+                        console.log('Edit part:', partId);
+                        alert('Edit functionality not implemented. Part ID stored in localStorage.');
+                    });
+                });
+
+                document.querySelectorAll('.delete').forEach(button => {
+                    button.addEventListener('click', async () => {
+                        const partId = button.getAttribute('data-id');
+                        const part = parts.find(p => p.id === partId);
+                        const partName = part ? part.part_name : 'this part';
+                        if (confirm(`Are you sure you want to delete ${partName}? This action cannot be undone.`)) {
+                            try {
+                                // Uncomment for production if authentication is required
+                                // if (!firebase.auth().currentUser) {
+                                //     alert('You must be logged in to delete spare parts.');
+                                //     window.location.href = 'login.html';
+                                //     return;
+                                // }
+                                console.log('Deleting part:', partId);
+                                await db.collection('product_data').doc(partId).delete();
+                                alert('Spare part deleted successfully.');
+                                loadParts(); // Refresh table
+                            } catch (error) {
+                                console.error('Error deleting spare part:', error);
+                                alert(`Failed to delete spare part: ${error.message}`);
+                            }
+                        }
+                    });
+                });
+            } catch (error) {
+                console.error('Error fetching spare parts:', error);
+                alert(`Failed to load spare parts: ${error.message}`);
+            }
+        }
+
+        // Add spare part to Firestore
+        document.getElementById('addPartForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Uncomment for production if authentication is required
+            // if (!firebase.auth().currentUser) {
+            //     alert('You must be logged in to add spare parts.');
+            //     window.location.href = 'login.html';
+            //     return;
+            // }
+
+            const partName = document.getElementById('partName').value.trim();
+            const partNumber = document.getElementById('partNumber').value.trim();
+            const category = document.getElementById('category').value;
+            const quantity = document.getElementById('quantity').value;
+            const price = document.getElementById('price').value.trim();
+
+            // Validate inputs
+            let hasError = false;
+            if (!partName) {
+                showError('partNameError', true);
+                hasError = true;
+            } else {
+                showError('partNameError', false);
+            }
+            if (!partNumber) {
+                showError('partNumberError', true);
+                hasError = true;
+            } else {
+                showError('partNumberError', false);
+            }
+            if (!category) {
+                showError('categoryError', true);
+                hasError = true;
+            } else {
+                showError('categoryError', false);
+            }
+            if (!quantity || quantity <= 0) {
+                showError('quantityError', true);
+                hasError = true;
+            } else {
+                showError('quantityError', false);
+            }
+            if (!price || !isValidPrice(price)) {
+                showError('priceError', true);
+                hasError = true;
+            } else {
+                showError('priceError', false);
+            }
+
+            if (hasError) {
+                alert('Please correct the errors in the form.');
+                return;
+            }
+
+            const partData = {
+                part_name: partName,
+                part_number: partNumber,
+                category: category,
+                quantity: parseInt(quantity),
+                price: parseFloat(price),
+                created_at: new Date().toISOString(),
+            };
+
+            try {
+                // Generate unique ID
+                const timestamp = new Date().toISOString().replace(/[-:T.]/g, '');
+                const partId = `${partNumber}_${timestamp}`;
+
+                // Check for duplicate part number
+                const partQuery = await db.collection('product_data')
+                    .where('part_number', '==', partNumber)
+                    .get();
+                if (!partQuery.empty) {
+                    alert('This part number is already in use.');
+                    showError('partNumberError', true);
+                    return;
+                }
+
+                console.log('Adding part:', partData);
+                await db.collection('product_data').doc(partId).set(partData);
+                alert('Spare part added successfully.');
+
+                // Clear form and refresh table
+                document.getElementById('addPartForm').reset();
+                showError('partNameError', false);
+                showError('partNumberError', false);
+                showError('categoryError', false);
+                showError('quantityError', false);
+                showError('priceError', false);
+                loadParts(); // Refresh table
+            } catch (error) {
+                console.error('Error adding spare part:', error);
+                alert(`Failed to add spare part: ${error.message}`);
+            }
+        });
+
+        // Load parts on page load
+        document.addEventListener('DOMContentLoaded', loadParts);
+    </script>
 </body>
 </html>

@@ -241,6 +241,7 @@
             <button class="add-btn" onclick="window.location.href='create_user_account.html'">
                 + Add New User
             </button>
+            <button class="add-btn" id="triggerSuppliersBtn">+ Add Suppliers</button>
         </div>
         <table class="table">
             <thead>
@@ -331,19 +332,125 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
+        const suppliers = [
+            {
+                name: "Hitachi",
+                contact_name: "asitha",
+                email: "asi@gmail.com",
+                phone: "07660000",
+                address: "vennappuwa, negombo",
+                rating: 3,
+            },
+            {
+                name: "Toyota Parts Ltd",
+                contact_name: "Nimal Perera",
+                email: "nimal@toyotaparts.lk",
+                phone: "0771234567",
+                address: "123 Galle Road, Colombo",
+                rating: 4,
+            },
+            {
+                name: "Nissan Auto Supplies",
+                contact_name: "Kumari Silva",
+                email: "kumari@nissanauto.com",
+                phone: "071-9876543",
+                address: "45 Kandy Road, Kurunegala",
+                rating: 5,
+            },
+            {
+                name: "Honda Spares",
+                contact_name: "Ravi Fernando",
+                email: "ravi@hondaspares.lk",
+                phone: "076 5432109",
+                address: "78 Main Street, Gampaha",
+                rating: 2,
+            },
+            {
+                name: "Mitsubishi Distributors",
+                contact_name: "Sanjaya Wijesinghe",
+                email: "sanjaya@mitsudist.com",
+                phone: "078-4567890",
+                address: "12 Station Road, Negombo",
+                rating: 4,
+            },
+        ];
+
+        async function addSupplier(data) {
+            try {
+                if (!data.name || typeof data.name !== 'string' || data.name.trim() === '') {
+                    throw new Error('Supplier name is required and must be a non-empty string.');
+                }
+                if (!data.contact_name || typeof data.contact_name !== 'string' || data.contact_name.trim() === '') {
+                    throw new Error('Contact name is required and must be a non-empty string.');
+                }
+                if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) {
+                    throw new Error('Valid email is required.');
+                }
+                if (!data.phone || !/^[0-9\s-]+$/.test(data.phone)) {
+                    throw new Error('Valid phone number is required (digits, dashes, or spaces).');
+                }
+                if (!data.address || typeof data.address !== 'string' || data.address.trim() === '') {
+                    throw new Error('Address is required and must be a non-empty string.');
+                }
+                if (!data.rating || typeof data.rating !== 'number' || data.rating < 1 || data.rating > 5) {
+                    throw new Error('Rating is required and must be a number between 1 and 5.');
+                }
+
+                const timestamp = new Date().toISOString().replace(/[-:T.]/g, '');
+                const supplierId = `${data.name.replace(/\s+/g, '_')}_${timestamp}`;
+
+                const supplierRecord = {
+                    ...data,
+                    createdAt: new Date().toISOString(),
+                };
+
+                console.log('Setting supplier:', supplierRecord);
+
+                await db.collection('supplier_data').doc(supplierId).set(supplierRecord);
+
+                console.log('Supplier added successfully:', { id: supplierId, ...supplierRecord });
+
+                return { id: supplierId, ...supplierRecord };
+            } catch (error) {
+                console.error('Error adding supplier:', error.message);
+                throw error;
+            }
+        }
+
+        async function addAllSuppliers() {
+            let successCount = 0;
+            let errorCount = 0;
+
+            for (const supplier of suppliers) {
+                try {
+                    await addSupplier(supplier);
+                    successCount++;
+                } catch (error) {
+                    console.error('Failed to add supplier:', supplier.name, error.message);
+                    errorCount++;
+                }
+            }
+
+            console.log(`All suppliers processed. ${successCount} added, ${errorCount} failed.`);
+            alert(`Suppliers processed: ${successCount} added, ${errorCount} failed. Check console for details.`);
+        }
+
         function navigateToEdit(email) {
             localStorage.setItem("editUserEmail", email);
             window.location.href = "edit_user_account.html";
         }
 
-        // Load users from Firestore on page load
         document.addEventListener("DOMContentLoaded", async function () {
             const tableBody = document.getElementById("usersTableBody");
-            
+            const triggerSuppliersBtn = document.getElementById("triggerSuppliersBtn");
+
+            if (triggerSuppliersBtn) {
+                triggerSuppliersBtn.addEventListener("click", addAllSuppliers);
+            }
+
             try {
                 const snapshot = await db.collection("users").get();
                 
-                // Clear existing static rows if we have data from Firestore
                 if (snapshot.size > 0) {
                     tableBody.innerHTML = "";
                 }
@@ -352,7 +459,6 @@
                     const user = doc.data();
                     const row = document.createElement("tr");
                     
-                    // Determine status class based on user data
                     let statusClass = "active";
                     let statusText = "Active";
                     if (user.status === "inactive") {
@@ -375,7 +481,6 @@
                 });
             } catch (error) {
                 console.error("Error fetching users: ", error);
-                // Keep the static data if Firestore fails
             }
         });
     </script>
