@@ -6,130 +6,268 @@
     <title>System Report Dashboard</title>
     <style>
       body {
-        font-family: Arial, sans-serif;
+        font-family: "Poppins", sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f5f7fa;
+        background-color: #f1f5f9;
         color: #1a2e3d;
       }
+
+      /* Header */
       .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 20px;
-        background-color: #fff;
-        border-bottom: 1px solid #e0e5ec;
+        padding: 16px 24px;
+        background-color: #ffffff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border-bottom: 1px solid #e2e8f0;
       }
+
       .header h2 {
         margin: 0;
-        font-size: 20px;
+        font-size: 22px;
+        font-weight: 600;
+        color: #1e293b;
       }
+
       .header .controls {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
+        flex-wrap: wrap;
       }
-      .header input {
-        padding: 5px;
-        border: 1px solid #e0e5ec;
-        border-radius: 4px;
-      }
+
+      .header input,
       .header select,
       .header button {
-        padding: 5px 10px;
-        border: 1px solid #1a2e3d;
-        border-radius: 4px;
-        background-color: #fff;
+        padding: 8px 12px;
+        border-radius: 6px;
+        border: 1px solid #cbd5e1;
+        font-size: 14px;
+        transition: all 0.2s ease;
+      }
+
+      .header input:focus,
+      .header select:focus {
+        border-color: #3b82f6;
+        outline: none;
+      }
+
+      .header select {
+        background-color: #ffffff;
         cursor: pointer;
       }
+
       .header button {
-        background-color: #1a2e3d;
-        color: #fff;
+        background-color: #1e3a8a;
+        color: #ffffff;
+        font-weight: 500;
+        border: none;
+        cursor: pointer;
       }
+
+      .header button:hover {
+        background-color: #2563eb;
+      }
+
+      .header span {
+        font-size: 14px;
+        color: #64748b;
+      }
+
+      /* Stats */
       .stats {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
         gap: 20px;
-        padding: 20px;
-        background-color: #fff;
-        margin: 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+        margin: 24px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        animation: fadeIn 0.5s ease-in;
       }
+
       .stat {
         text-align: center;
+        padding: 12px 0;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
       }
+
+      .stat:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      }
+
       .stat-value {
-        font-size: 24px;
+        font-size: 26px;
         font-weight: bold;
-        color: #1a2e3d;
+        color: #0f172a;
+        margin-top: 6px;
       }
+
       .stat-label {
-        color: #657786;
         font-size: 14px;
+        color: #64748b;
       }
+
+      /* Charts */
       .charts {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 20px;
-        padding: 20px;
-        background-color: #fff;
-        margin: 0 20px 20px;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 24px;
+        margin: 0 24px 24px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
       }
+
       .chart {
         text-align: center;
       }
+
+      .chart h3 {
+        font-size: 16px;
+        color: #1e293b;
+        margin-bottom: 12px;
+      }
+
+      .chart div {
+        border-radius: 8px;
+        background-color: #e2e8f0;
+        height: 200px;
+      }
+
+      /* Tabs */
       .tabs {
         display: flex;
-        gap: 10px;
-        padding: 0 20px;
+        gap: 12px;
+        padding: 0 24px 12px;
       }
+
       .tab {
         padding: 10px 20px;
-        border: 1px solid #e0e5ec;
-        border-radius: 4px;
-        background-color: #fff;
+        font-size: 14px;
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
         cursor: pointer;
+        transition: all 0.2s ease;
       }
+
+      .tab:hover {
+        background-color: #f1f5f9;
+      }
+
       .tab.active {
-        background-color: #1a2e3d;
-        color: #fff;
+        background-color: #1e3a8a;
+        color: #ffffff;
+        border-color: #1e3a8a;
       }
+
+      /* Table */
       .table {
-        width: 100%;
+        width: calc(100% - 48px);
+        margin: 0 24px 24px;
         border-collapse: collapse;
-        margin: 20px;
-        background-color: #fff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #ffffff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+        animation: fadeIn 0.6s ease-in;
       }
+
       .table th,
       .table td {
-        padding: 10px;
+        padding: 14px 16px;
         text-align: left;
-        border-bottom: 1px solid #e0e5ec;
+        font-size: 14px;
+        border-bottom: 1px solid #e2e8f0;
       }
+
       .table th {
-        background-color: #f5f7fa;
+        background-color: #f8fafc;
+        color: #0f172a;
+        font-weight: 600;
       }
+
+      .table tr:hover {
+        background-color: #f1f5f9;
+        transition: background-color 0.3s;
+      }
+
+      /* Pagination */
       .pagination {
-        padding: 10px 20px;
+        padding: 16px 24px;
         display: flex;
         justify-content: flex-end;
-        gap: 5px;
+        gap: 8px;
       }
+
       .pagination button {
-        padding: 5px 10px;
-        border: 1px solid #1a2e3d;
+        padding: 6px 12px;
+        font-size: 14px;
         border-radius: 4px;
-        background-color: #fff;
+        border: 1px solid #cbd5e1;
+        background-color: #ffffff;
         cursor: pointer;
+        transition: all 0.2s ease;
       }
+
+      .pagination button:hover {
+        background-color: #e2e8f0;
+      }
+
       .pagination button.active {
-        background-color: #1a2e3d;
-        color: #fff;
+        background-color: #1e3a8a;
+        color: #ffffff;
+        border-color: #1e3a8a;
+      }
+
+      /* Animations */
+      @keyframes fadeIn {
+        0% {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .header .controls {
+          justify-content: flex-start;
+          gap: 8px;
+        }
+
+        .stats,
+        .charts {
+          margin: 16px;
+          padding: 16px;
+        }
+
+        .tabs {
+          padding: 0 16px 12px;
+        }
+
+        .table {
+          margin: 0 16px 24px;
+        }
+
+        .pagination {
+          padding: 16px;
+        }
       }
     </style>
   </head>
