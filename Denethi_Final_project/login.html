@@ -16,11 +16,12 @@
       :root {
         --primary-blue: #3a7afe;
         --light-grey: #f0f2f5;
-        --text-color: #333;
-        --secondary-text-color: #666;
-        --border-color: #ddd;
+        --text-color: #222;
+        --secondary-text-color: #555;
+        --border-color: #ccc;
         --input-bg: #fff;
         --button-hover: #2d68e0;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       * {
@@ -30,12 +31,13 @@
       }
 
       body {
-        font-family: 'Poppins', sans-serif;
+        font-family: "Poppins", sans-serif;
+        background: linear-gradient(to right, #e0e7ff, #f8f9ff);
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        background-color: var(--light-grey);
+        animation: fadeIn 0.5s ease-in-out;
       }
 
       .container {
@@ -43,25 +45,34 @@
         width: 1000px;
         height: 700px;
         background-color: #fff;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        box-shadow: var(--box-shadow);
+        border-radius: 12px;
         overflow: hidden;
+        transition: box-shadow 0.3s ease-in-out;
+      }
+
+      .container:hover {
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       }
 
       .left-panel {
         flex: 1;
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://i.postimg.cc/WtLyhDgV/Whats-App-Image-2025-06-16-at-12-01-03-bc6e50b5.jpg) center/cover no-repeat;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+          url("https://i.postimg.cc/WtLyhDgV/Whats-App-Image-2025-06-16-at-12-01-03-bc6e50b5.jpg")
+            center/cover no-repeat;
         display: flex;
         align-items: flex-start;
+        justify-content: flex-start;
         padding: 30px;
-        position: relative;
+        animation: slideInLeft 0.5s ease-in-out;
       }
 
       .logo {
         color: #fff;
-        font-size: 28px;
+        font-size: 30px;
         font-weight: 700;
         letter-spacing: 1px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
       }
 
       .right-panel {
@@ -69,13 +80,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        padding: 40px;
+        padding: 50px;
+        animation: slideInRight 0.5s ease-in-out;
       }
 
       .login-form {
         width: 100%;
         max-width: 380px;
         text-align: center;
+        animation: fadeInUp 0.5s ease;
       }
 
       .login-form h2 {
@@ -88,7 +101,7 @@
       .login-form p {
         font-size: 15px;
         color: var(--secondary-text-color);
-        margin-bottom: 30px;
+        margin-bottom: 25px;
       }
 
       .form-group {
@@ -104,32 +117,26 @@
         font-weight: 500;
       }
 
-      .form-group input[type="email"],
-      .form-group input[type="password"] {
+      .form-group input,
+      .form-group select {
         width: 100%;
         padding: 12px 15px;
         border: 1px solid var(--border-color);
-        border-radius: 6px;
+        border-radius: 8px;
         font-size: 15px;
-        color: var(--text-color);
         background-color: var(--input-bg);
+        transition: 0.3s ease;
         outline: none;
-        transition: border-color 0.3s ease;
       }
 
-      .form-group input[type="email"]::placeholder,
-      .form-group input[type="password"]::placeholder {
-        color: #a0a0a0;
-      }
-
-      .form-group input[type="email"]:focus,
-      .form-group input[type="password"]:focus {
+      .form-group input:focus,
+      .form-group select:focus {
         border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(58, 122, 254, 0.15);
       }
 
       .password-input-container {
         position: relative;
-        width: 100%;
       }
 
       .password-input-container input {
@@ -141,34 +148,25 @@
         right: 15px;
         top: 50%;
         transform: translateY(-50%);
-        color: #a0a0a0;
+        color: #999;
         cursor: pointer;
         font-size: 16px;
+        transition: color 0.3s ease;
+      }
+
+      .password-toggle:hover {
+        color: var(--primary-blue);
       }
 
       .select-wrapper {
         position: relative;
-        width: 100%;
       }
 
-      .form-group select {
-        width: 100%;
-        padding: 12px 15px;
-        border: 1px solid var(--border-color);
-        border-radius: 6px;
-        font-size: 15px;
-        color: var(--text-color);
-        background-color: var(--input-bg);
-        outline: none;
+      .select-wrapper select {
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
         cursor: pointer;
-        transition: border-color 0.3s ease;
-      }
-
-      .form-group select:focus {
-        border-color: var(--primary-blue);
       }
 
       .select-arrow {
@@ -176,53 +174,27 @@
         right: 15px;
         top: 50%;
         transform: translateY(-50%);
-        color: #a0a0a0;
         pointer-events: none;
+        color: #999;
         font-size: 14px;
       }
 
       .remember-me {
         display: flex;
         align-items: center;
-        margin-bottom: 25px;
+        margin-bottom: 20px;
       }
 
-      .remember-me input[type="checkbox"] {
+      .remember-me input {
         margin-right: 10px;
         width: 18px;
         height: 18px;
-        border: 1px solid var(--border-color);
-        border-radius: 4px;
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        cursor: pointer;
-        position: relative;
-        outline: none;
-      }
-
-      .remember-me input[type="checkbox"]:checked {
-        background-color: var(--primary-blue);
-        border-color: var(--primary-blue);
-      }
-
-      .remember-me input[type="checkbox"]:checked::after {
-        content: '\f00c';
-        font-family: 'Font Awesome 5 Free';
-        font-weight: 900;
-        color: #fff;
-        font-size: 12px;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        accent-color: var(--primary-blue);
       }
 
       .remember-me label {
         font-size: 14px;
         color: var(--secondary-text-color);
-        cursor: pointer;
-        margin-bottom: 0;
       }
 
       .sign-in-btn {
@@ -231,105 +203,137 @@
         background-color: var(--primary-blue);
         color: #fff;
         border: none;
-        border-radius: 6px;
-        font-size: 17px;
+        border-radius: 8px;
+        font-size: 16px;
         font-weight: 600;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        margin-bottom: 20px;
+        transition: 0.3s ease;
+        box-shadow: 0 4px 12px rgba(58, 122, 254, 0.25);
       }
 
       .sign-in-btn:hover {
         background-color: var(--button-hover);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(58, 122, 254, 0.35);
       }
 
-      .forgot-password {
-        display: block;
+      .forgot-password,
+      .need-help {
         font-size: 14px;
         color: var(--primary-blue);
         text-decoration: none;
-        margin-bottom: 20px;
+        display: inline-block;
+        margin: 12px 0;
         transition: color 0.3s ease;
       }
 
-      .forgot-password:hover {
+      .forgot-password:hover,
+      .need-help:hover {
         color: var(--button-hover);
+      }
+
+      .need-help i {
+        margin-right: 6px;
       }
 
       .or-separator {
         display: flex;
         align-items: center;
         text-align: center;
-        color: #a0a0a0;
+        color: #999;
         font-size: 14px;
-        margin: 25px 0;
+        margin: 20px 0;
       }
 
       .or-separator::before,
       .or-separator::after {
-        content: '';
+        content: "";
         flex: 1;
         border-bottom: 1px solid var(--border-color);
       }
 
       .or-separator:not(:empty)::before {
-        margin-right: 0.25em;
+        margin-right: 10px;
       }
-
       .or-separator:not(:empty)::after {
-        margin-left: 0.25em;
-      }
-
-      .need-help {
-        display: inline-flex;
-        align-items: center;
-        font-size: 14px;
-        color: var(--secondary-text-color);
-        text-decoration: none;
-        margin-bottom: 40px;
-        transition: color 0.3s ease;
-      }
-
-      .need-help i {
-        margin-right: 8px;
-      }
-
-      .need-help:hover {
-        color: var(--text-color);
+        margin-left: 10px;
       }
 
       .policy-links {
         font-size: 13px;
         color: var(--secondary-text-color);
+        margin-top: 15px;
       }
 
       .policy-links a {
         color: var(--secondary-text-color);
         text-decoration: none;
+        margin: 0 5px;
         transition: color 0.3s ease;
       }
 
       .policy-links a:hover {
-        color: var(--text-color);
+        color: var(--primary-blue);
       }
 
-      .policy-links span {
-        margin: 0 5px;
+      /* Animations */
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
       }
 
-      /* Responsive adjustments */
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes slideInLeft {
+        from {
+          transform: translateX(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideInRight {
+        from {
+          transform: translateX(50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      /* Responsive */
       @media (max-width: 850px) {
         .container {
           flex-direction: column;
-          width: 90%;
           height: auto;
+          width: 90%;
         }
 
         .left-panel {
           height: 200px;
-          padding: 20px;
           justify-content: center;
           align-items: center;
+          text-align: center;
         }
 
         .right-panel {
@@ -337,19 +341,16 @@
         }
 
         .login-form {
-          max-width: none;
+          max-width: 100%;
         }
       }
 
-      @media (max-width: 500px) {
+      @media (max-width: 480px) {
         .login-form h2 {
           font-size: 24px;
         }
 
-        .login-form p {
-          font-size: 14px;
-        }
-
+        .login-form p,
         .form-group label,
         .form-group input,
         .form-group select,
@@ -357,10 +358,6 @@
         .forgot-password,
         .need-help,
         .policy-links {
-          font-size: 13px;
-        }
-
-        .remember-me label {
           font-size: 13px;
         }
       }
@@ -428,7 +425,22 @@
       </div>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
     <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+        authDomain: "final-project-dip-8649e.firebaseapp.com",
+        projectId: "final-project-dip-8649e",
+        storageBucket: "final-project-dip-8649e.firebasestorage.app",
+        messagingSenderId: "613008727847",
+        appId: "1:613008727847:web:623222118f1decf7bf5302",
+        measurementId: "G-P67JLCG5GW",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
       // Password visibility toggle
       document.addEventListener("DOMContentLoaded", () => {
         const passwordToggle = document.querySelector(".password-toggle");
@@ -448,8 +460,49 @@
       });
 
       // Handle login to navigate to view_system_report.html
-      function handleLogin() {
-        window.location.href = "view_system_report.html";
+      async function handleLogin() {
+        const emailInput = document.getElementById("email").value.trim();
+        const passwordInput = document.getElementById("password").value.trim();
+        const selectedRole = document.getElementById("role").value;
+
+        if (!emailInput || !passwordInput || !selectedRole) {
+          alert("Please fill all fields.");
+          return;
+        }
+
+        try {
+          // Query Firestore for a user with the matching email
+          const querySnapshot = await db
+            .collection("users")
+            .where("email", "==", emailInput)
+            .get();
+
+          if (querySnapshot.empty) {
+            alert("Invalid email or password.");
+            return;
+          }
+
+          // Assuming only one match
+          const userData = querySnapshot.docs[0].data();
+
+          // Validate password manually
+          if (userData.password !== passwordInput) {
+            alert("Incorrect password.");
+            return;
+          }
+
+          // Hardcoded role validation
+          if (selectedRole !== "admin") {
+            alert("Access denied. Only Admin role allowed.");
+            return;
+          }
+
+          // If everything matches, redirect
+          window.location.href = "login/view_system_report.html";
+        } catch (error) {
+          console.error("Login error:", error);
+          alert("Login failed. Please try again.");
+        }
       }
     </script>
   </body>

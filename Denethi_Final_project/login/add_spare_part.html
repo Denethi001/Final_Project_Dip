@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whiteway Motors</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9fafb;
+            color: #1f2937;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .header img {
+            height: 40px;
+        }
+        .header .user {
+            font-size: 14px;
+            color: #6b7280;
+        }
+        .section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .section h2 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #1d4ed8;
+        }
+        .form-group {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            font-weight: bold;
+            width: 100px;
+        }
+        .form-group input, .form-group select {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+        button {
+            background-color: #1d4ed8;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1e40af;
+        }
+        .table-controls {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .table-controls input, .table-controls select {
+            padding: 8px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            background-color: #f9fafb;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        th {
+            background-color: #f9fafb;
+            font-weight: bold;
+            color: #6b7280;
+        }
+        tr:nth-child(even) {
+            background-color: #f9fafb;
+        }
+        .actions button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .actions .edit {
+            color: #3b82f6;
+        }
+        .actions .delete {
+            color: #ef4444;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            color: #6b7280;
+        }
+        .pagination button {
+            background-color: #1d4ed8;
+            padding: 5px 10px;
+        }
+        .footer {
+            text-align: center;
+            font-size: 12px;
+            color: #6b7280;
+            margin-top: 20px;
+        }
+        .footer a {
+            color: #1d4ed8;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://via.placeholder.com/40" alt="PartsManager Logo">
+        <div class="user">Nipun</div>
+    </div>
+    <div class="section">
+        <h2>Add New Spare Part</h2>
+        <div class="form-group">
+            <label>Part Name</label>
+            <input type="text" placeholder="Enter part name">
+        </div>
+        <div class="form-group">
+            <label>Part Number</label>
+            <input type="text" placeholder="Enter part number">
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <select>
+                <option value="">Select category</option>
+                <option value="electronics">Electronics</option>
+                <option value="hydraulic">Hydraulic</option>
+                
+                <option value="mechanical">Mechanical</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Quantity</label>
+            <input type="number" placeholder="Enter quantity">
+        </div>
+        <div class="form-group">
+            <label>Price</label>
+            <input type="text" placeholder="Enter price">
+        </div>
+        <button>Add Part</button>
+    </div>
+    <div class="section">
+        <h2>Existing Spare Parts</h2>
+        <div class="table-controls">
+            <input type="text" placeholder="Search parts...">
+            <select>
+                <option value="">Filter</option>
+                <option value="electronics">Electronics</option>
+                <option value="hydraulic">Hydraulic</option>
+               
+                <option value="mechanical">Mechanical</option>
+            </select>
+            <select>
+                <option value="">Sort by</option>
+                <option value="name">Name</option>
+                <option value="price">Price</option>
+            </select>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Part Name</th>
+                    <th>Part Number</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Door Panel</td>
+                    <td>ORD04</td>
+                    <td>Body Parts</td>
+                    <td>8</td>
+                    <td>Rs.1600</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>ECU Models</td>
+                    <td>ORD03</td>
+                    <td>Electronics</td>
+                    <td>5</td>
+                    <td>Rs.1500</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Spark Plug</td>
+                    <td>ORDO7</td>
+                    <td>Electronics</td>
+                    <td>20</td>
+                    <td>Rs.1000</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Transmission</td>
+                    <td>ORDO05</td>
+                    <td>Engines</td>
+                    <td>6</td>
+                    <td>Rs.4000</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Disco Rotor</td>
+                    <td>ORDO9</td>
+                    <td>Breakes</td>
+                    <td>10</td>
+                    <td>Rs.1200</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Control Arm</td>
+                    <td>ORDO10</td>
+                    <td>Body Parts</td>
+                    <td>4</td>
+                    <td>Rs.1800</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                 <tr>
+                    <td>Radiator</td>
+                    <td>ORDO06</td>
+                    <td>Body Parts</td>
+                    <td>6</td>
+                    <td>Rs.1400</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                   <tr>
+                    <td>Engine Block</td>
+                    <td>ORDO01</td>
+                    <td>Engines</td>
+                    <td>5</td>
+                  <td>Rs.2500</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+                  <tr>
+                    <td>Fuel Injector</td>
+                    <td>ORDO01</td>
+                    <td>Engines</td>
+                    <td>5</td>
+                    <td>Rs.2500</td>
+                    <td class="actions">
+                        <button class="edit">Edit</button>
+                        <button class="delete">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="pagination">
+            Showing 1 to 5 of 5 entries
+            <button><</button>
+            <button>1</button>
+            <button>></button>
+        </div>
+    </div>
+    <div class="footer">
+        © 2024 PartsManager. All rights reserved. <a href="#">Help</a> <a href="#">Privacy</a> <a href="#">Terms</a>
+    </div>
+</body>
+</html>

@@ -1,29 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<<<<<<< Updated upstream
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpareFlow</title>
+    <title>SpareFlow - User Management</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-=======
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Whiteway Motors</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-    />
->>>>>>> Stashed changes
     <style>
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
             margin: 0;
             padding: 0;
             background-color: #f5f7fa;
@@ -134,7 +119,8 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .table th, .table td {
+        .table th,
+        .table td {
             padding: 12px;
             text-align: left;
             border-bottom: 1px solid #e0e5ec;
@@ -209,7 +195,8 @@
             .table {
                 font-size: 12px;
             }
-            .table th, .table td {
+            .table th,
+            .table td {
                 padding: 8px;
             }
         }
@@ -217,21 +204,12 @@
 </head>
 <body>
     <div class="header">
-<<<<<<< Updated upstream
         <div class="logo"><i class="fas fa-cogs"></i>SpareFlow</div>
         <div class="user-info">
             <i class="far fa-bell icon"></i>
             <i class="fas fa-cog icon"></i>
             <span class="name">Admin User</span>
         </div>
-=======
-      <div class="logo"><i class="fas fa-cogs"></i>Whiteway Motors</div>
-      <div class="user-info">
-        <i class="far fa-bell icon"></i>
-        <i class="fas fa-cog icon"></i>
-        <span class="name">Admin User</span>
-      </div>
->>>>>>> Stashed changes
     </div>
     <div class="nav">
         <a href="view_system_report.html">Dashboard</a>
@@ -260,7 +238,9 @@
                     <option>Role</option>
                 </select>
             </div>
-            <button class="add-btn" onclick="window.location.href='create_user_account.html'">+ Add New User</button>
+            <button class="add-btn" onclick="window.location.href='create_user_account.html'">
+                + Add New User
+            </button>
         </div>
         <table class="table">
             <thead>
@@ -272,41 +252,51 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="usersTableBody">
                 <tr>
                     <td>John Smith</td>
                     <td>john.smith@company.com</td>
                     <td>Admin</td>
                     <td><span class="status active">Active</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('john.smith@company.com')">Edit Details</a></td>
+                    <td class="actions">
+                        <a onclick="navigateToEdit('john.smith@company.com')">Edit Details</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Sarah Johnson</td>
                     <td>sarah.j@company.com</td>
                     <td>Manager</td>
                     <td><span class="status active">Active</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('sarah.j@company.com')">Edit Details</a></td>
+                    <td class="actions">
+                        <a onclick="navigateToEdit('sarah.j@company.com')">Edit Details</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Mike Wilson</td>
                     <td>mike.w@company.com</td>
                     <td>User</td>
                     <td><span class="status inactive">Inactive</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('mike.w@company.com')">Edit Details</a></td>
+                    <td class="actions">
+                        <a onclick="navigateToEdit('mike.w@company.com')">Edit Details</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>Emily Brown</td>
                     <td>emily.b@company.com</td>
                     <td>Manager</td>
                     <td><span class="status pending">Pending</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('emily.b@company.com')">Edit Details</a></td>
+                    <td class="actions">
+                        <a onclick="navigateToEdit('emily.b@company.com')">Edit Details</a>
+                    </td>
                 </tr>
                 <tr>
                     <td>David Clark</td>
                     <td>david.c@company.com</td>
                     <td>User</td>
                     <td><span class="status active">Active</span></td>
-                    <td class="actions"><a onclick="navigateToEdit('david.c@company.com')">Edit Details</a></td>
+                    <td class="actions">
+                        <a onclick="navigateToEdit('david.c@company.com')">Edit Details</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -323,152 +313,71 @@
             <button>3</button>
             <button>></button>
         </div>
-<<<<<<< Updated upstream
-=======
-        <button
-          class="add-btn"
-          onclick="window.location.href='create_user_account.html'"
-        >
-          + Add New User
-        </button>
-      </div>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Name <i class="fas fa-sort"></i></th>
-            <th>Email <i class="fas fa-sort"></i></th>
-            <th>Role <i class="fas fa-sort"></i></th>
-            <th>Status <i class="fas fa-sort"></i></th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>John </td>
-            <td>john.smith@company.com</td>
-            <td>Admin</td>
-            <td><span class="status active">Active</span></td>
-            <td class="actions">
-              <a onclick="navigateToEdit('john.smith@company.com')">Edit Details</a>
-            </td>
-          </tr>
-          <tr>
-            <td>Sarah Johnson</td>
-            <td>sarah.j@company.com</td>
-            <td>Manager</td>
-            <td><span class="status active">Active</span></td>
-            <td class="actions">
-              <a onclick="navigateToEdit('sarah.j@company.com')">Edit Details</a>
-            </td>
-          </tr>
-          <tr>
-            <td>Mike Wilson</td>
-            <td>mike.w@company.com</td>
-            <td>User</td>
-            <td><span class="status inactive">Inactive</span></td>
-            <td class="actions">
-              <a onclick="navigateToEdit('mike.w@company.com')">Edit Details</a>
-            </td>
-          </tr>
-          <tr>
-            <td>Emily Brown</td>
-            <td>emily.b@company.com</td>
-            <td>Manager</td>
-            <td><span class="status pending">Pending</span></td>
-            <td class="actions">
-              <a onclick="navigateToEdit('emily.b@company.com')">Edit Details</a>
-            </td>
-          </tr>
-          <tr>
-            <td>David Clark</td>
-            <td>david.c@company.com</td>
-            <td>User</td>
-            <td><span class="status active">Active</span></td>
-            <td class="actions">
-              <a onclick="navigateToEdit('david.c@company.com')">Edit Details</a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="pagination">
-        <select>
-          <option>Show 10</option>
-          <option>20</option>
-          <option>50</option>
-        </select>
-        <span>entries</span>
-        <button><</button>
-        <button class="active">1</button>
-        <button>2</button>
-        <button>3</button>
-        <button>></button>
-      </div>
->>>>>>> Stashed changes
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+            authDomain: "final-project-dip-8649e.firebaseapp.com",
+            projectId: "final-project-dip-8649e",
+            storageBucket: "final-project-dip-8649e.firebasestorage.app",
+            messagingSenderId: "613008727847",
+            appId: "1:613008727847:web:623222118f1decf7bf5302",
+            measurementId: "G-P67JLCG5GW",
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
         function navigateToEdit(email) {
-            // Store the user email in localStorage to access in edit page
-            localStorage.setItem('editUserEmail', email);
-            // Navigate to edit page
-            window.location.href = 'edit_user_account.html';
+            localStorage.setItem("editUserEmail", email);
+            window.location.href = "edit_user_account.html";
         }
 
-<<<<<<< Updated upstream
-        // Add click event to "Add New User" button
-        document.addEventListener('DOMContentLoaded', function() {
-            // Add any additional initialization code here if needed
+        // Load users from Firestore on page load
+        document.addEventListener("DOMContentLoaded", async function () {
+            const tableBody = document.getElementById("usersTableBody");
+            
+            try {
+                const snapshot = await db.collection("users").get();
+                
+                // Clear existing static rows if we have data from Firestore
+                if (snapshot.size > 0) {
+                    tableBody.innerHTML = "";
+                }
+
+                snapshot.forEach((doc) => {
+                    const user = doc.data();
+                    const row = document.createElement("tr");
+                    
+                    // Determine status class based on user data
+                    let statusClass = "active";
+                    let statusText = "Active";
+                    if (user.status === "inactive") {
+                        statusClass = "inactive";
+                        statusText = "Inactive";
+                    } else if (user.status === "pending") {
+                        statusClass = "pending";
+                        statusText = "Pending";
+                    }
+
+                    row.innerHTML = `
+                        <td>${user.full_name || "-"}</td>
+                        <td>${user.email || "-"}</td>
+                        <td>${user.role || "-"}</td>
+                        <td><span class="status ${statusClass}">${statusText}</span></td>
+                        <td class="actions"><a onclick="navigateToEdit('${user.email}')">Edit Details</a></td>
+                    `;
+
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error("Error fetching users: ", error);
+                // Keep the static data if Firestore fails
+            }
         });
     </script>
 </body>
-=======
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
-        authDomain: "final-project-dip-8649e.firebaseapp.com",
-        projectId: "final-project-dip-8649e",
-        storageBucket: "final-project-dip-8649e.firebasestorage.app",
-        messagingSenderId: "613008727847",
-        appId: "1:613008727847:web:623222118f1decf7bf5302",
-        measurementId: "G-P67JLCG5GW",
-      };
-
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
-
-      function navigateToEdit(userId) {
-        localStorage.setItem("editUserId", userId);
-        window.location.href = "edit_user_account.html";
-      }
-
-      // Load users from Firestore on page load
-      document.addEventListener("DOMContentLoaded", async function () {
-        const tableBody = document.querySelector(".table tbody");
-        tableBody.innerHTML = ""; // Clear existing static rows
-
-        try {
-          const snapshot = await db.collection("users").get();
-
-          snapshot.forEach((doc) => {
-            const user = doc.data();
-            const row = document.createElement("tr");
-
-            row.innerHTML = `
-              <td>${user.full_name || "-"}</td>
-              <td>${user.email || "-"}</td>
-              <td>${user.role || "-"}</td>
-              <td><span class="status active">Active</span></td>
-              <td class="actions"><a onclick="navigateToEdit('${doc.id}')">Edit Details</a></td>
-            `;
-
-            tableBody.appendChild(row);
-          });
-        } catch (error) {
-          console.error("Error fetching users: ", error);
-          alert("Failed to load users from Firestore.");
-        }
-      });
-    </script>
-  </body>
->>>>>>> Stashed changes
 </html>

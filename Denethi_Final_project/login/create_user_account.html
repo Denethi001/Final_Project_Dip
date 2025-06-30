@@ -1,464 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spare Parts Management System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f7fa;
-            color: #1a2e3d;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e5ec;
-        }
-        .header .title {
-            font-size: 18px;
-            font-weight: 500;
-        }
-        .header .time {
-            font-size: 14px;
-            color: #657786;
-        }
-        .nav {
-            margin: 20px 0;
-            padding: 0 20px;
-        }
-        .nav a {
-            text-decoration: none;
-            color: #1a2e3d;
-            margin-right: 15px;
-            font-weight: 500;
-        }
-        .nav a.active {
-            color: #3a7afe;
-        }
-        .content {
-            padding: 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .content h2 {
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .content p {
-            font-size: 14px;
-            color: #657786;
-            margin-bottom: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 5px;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #e0e5ec;
-            border-radius: 4px;
-            font-size: 14px;
-            color: #1a2e3d;
-        }
-        .form-group input:focus, .form-group select:focus {
-            border-color: #3a7afe;
-            outline: none;
-        }
-        .form-group .password-toggle {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #a0a0a0;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .form-group.password {
-            position: relative;
-        }
-        .buttons {
-            margin-top: 20px;
-        }
-        .buttons button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .buttons .create-btn {
-            background-color: #3a7afe;
-            color: #fff;
-            margin-right: 10px;
-        }
-        .buttons .cancel-btn {
-            background-color: #fff;
-            color: #1a2e3d;
-            border: 1px solid #e0e5ec;
-        }
-        .quick-nav {
-            margin-top: 30px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
-        }
-        .quick-nav div {
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 4px;
-            text-align: center;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .quick-nav div:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        .quick-nav i {
-            font-size: 20px;
-            color: #3a7afe;
-            margin-bottom: 10px;
-        }
-        .quick-nav p {
-            font-size: 14px;
-            color: #657786;
-            margin: 0;
-        }
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #fff;
-            border-top: 1px solid #e0e5ec;
-            font-size: 12px;
-            color: #657786;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-        .footer a {
-            color: #657786;
-            text-decoration: none;
-            margin-left: 15px;
-        }
-        .footer a:hover {
-            color: #1a2e3d;
-        }
-        @media (max-width: 768px) {
-            .quick-nav {
-                grid-template-columns: 1fr;
-            }
-            .content {
-                padding: 10px;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spare Parts Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f7fa;
+      color: #1a2e3d;
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background-color: #fff;
+      border-bottom: 1px solid #e0e5ec;
+    }
+    .header .title {
+      font-size: 18px;
+      font-weight: 500;
+    }
+    .header .time {
+      font-size: 14px;
+      color: #657786;
+    }
+    .nav {
+      margin: 20px 0;
+      padding: 0 20px;
+    }
+    .nav a {
+      text-decoration: none;
+      color: #1a2e3d;
+      margin-right: 15px;
+      font-weight: 500;
+    }
+    .nav a.active {
+      color: #3a7afe;
+    }
+    .content {
+      padding: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .content h2 {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .content p {
+      font-size: 14px;
+      color: #657786;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #e0e5ec;
+      border-radius: 4px;
+      font-size: 14px;
+      color: #1a2e3d;
+    }
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #3a7afe;
+      outline: none;
+    }
+    .form-group .password-toggle {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #a0a0a0;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .form-group.password {
+      position: relative;
+    }
+    .buttons {
+      margin-top: 20px;
+    }
+    .buttons button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+    }
+    .buttons .create-btn {
+      background-color: #3a7afe;
+      color: #fff;
+      margin-right: 10px;
+    }
+    .buttons .cancel-btn {
+      background-color: #fff;
+      color: #1a2e3d;
+      border: 1px solid #e0e5ec;
+    }
+    .quick-nav {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .quick-nav div {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 4px;
+      text-align: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .quick-nav div:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .quick-nav i {
+      font-size: 20px;
+      color: #3a7afe;
+      margin-bottom: 10px;
+    }
+    .quick-nav p {
+      font-size: 14px;
+      color: #657786;
+      margin: 0;
+    }
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #fff;
+      border-top: 1px solid #e0e5ec;
+      font-size: 12px;
+      color: #657786;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+    .footer a {
+      color: #657786;
+      text-decoration: none;
+      margin-left: 15px;
+    }
+    .footer a:hover {
+      color: #1a2e3d;
+    }
+    @media (max-width: 768px) {
+      .quick-nav {
+        grid-template-columns: 1fr;
+      }
+      .content {
+        padding: 10px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="title">Spare Parts Management System</div>
-        <div class="time">09:41 AM</div>
-    </div>
-    <div class="nav">
-        <a href="#">Dashboard</a> > <a href="#">User Management</a> > <a href="#" class="active">Create New User</a>
-    </div>
-    <div class="content">
-<<<<<<< Updated upstream
-        <h2>Create New User Account</h2>
-        <p>Add a new user to the spare parts management system</p>
-        <div class="form-group">
-            <label for="full-name">Full Name*</label>
-            <input type="text" id="full-name" placeholder="Enter full name">
-        </div>
-        <div class="form-group">
-            <label for="email">Email Address*</label>
-            <input type="email" id="email" placeholder="Enter email address">
-            <p style="font-size: 12px; color: #657786;">Corporate email preferred</p>
-        </div>
-        <div class="form-group">
-            <label for="role">User Role*</label>
-            <select id="role">
-                <option value="">Select a role</option>
-                <option value="admin">Admin</option>
-                <option value="stock">Stock Manager</option>
-                <option value="admin">Customer</option>
-            </select>
-            <p style="font-size: 12px; color: #657786;">Determines user access levels</p>
-        </div>
-        <div class="form-group password">
-            <label for="password">Password*</label>
-            <input type="password" id="password" placeholder="Enter password">
-            <i class="far fa-eye password-toggle"></i>
-            <p style="font-size: 12px; color: #e74c3c;">Minimum 8 characters, include numbers and symbols</p>
-        </div>
-        <div class="form-group password">
-            <label for="confirm-password">Confirm Password*</label>
-            <input type="password" id="confirm-password" placeholder="Re-enter password">
-            <i class="far fa-eye password-toggle"></i>
-        </div>
-        <div class="buttons">
-            <button class="create-btn" id="createAccountBtn">Create Account</button>
-            <button class="cancel-btn">Cancel</button>
-        </div>
-=======
-      <h2>Create New User Account</h2>
-      <p>Add a new user to the spare parts management system</p>
-      <div class="form-group">
-        <label for="full-name">Full Name*</label>
-        <input type="text" id="full-name" placeholder="Enter full name" />
-      </div>
-      <div class="form-group">
-        <label for="email">Email Address*</label>
-        <input type="email" id="email" placeholder="Enter email address" />
-        <p style="font-size: 12px; color: #657786">Corporate email preferred</p>
-      </div>
-      <div class="form-group">
-        <label for="role">User Role*</label>
-        <select id="role">
-          <option value="">Select a role</option>
-          <option value="admin">Admin</option>
-          <option value="stock">Stock Manager</option>
-          <option value="customer">Customer</option>
-        </select>
-        <p style="font-size: 12px; color: #657786">
-          Determines user access levels
-        </p>
-      </div>
-      <div class="form-group password">
-        <label for="password">Password*</label>
-        <input type="password" id="password" placeholder="Enter password" />
-        <i class="far fa-eye password-toggle"></i>
-        <p style="font-size: 12px; color: #e74c3c">
-          Minimum 8 characters, include numbers and symbols
-        </p>
-      </div>
-      <div class="form-group password">
-        <label for="confirm-password">Confirm Password*</label>
-        <input
-          type="password"
-          id="confirm-password"
-          placeholder="Re-enter password"
-        />
-        <i class="far fa-eye password-toggle"></i>
-      </div>
-      <div class="buttons">
-        <button class="create-btn" id="createAccountBtn">Create Account</button>
-        <button class="cancel-btn">Cancel</button>
-      </div>
->>>>>>> Stashed changes
-    </div>
-    <div class="quick-nav">
-        <div onclick="window.location.href='view_users.html'">
-            <i class="fas fa-users"></i>
-            <p>View All Users<br>Manage existing user accounts</p>
-        </div>
-        <div>
-            <i class="fas fa-chart-bar"></i>
-            <p>User Reports<br>Access usage statistics</p>
-        </div>
-        <div>
-            <i class="fas fa-history"></i>
-            <p>Access Logs<br>View system access history</p>
-        </div>
-    </div>
-    <div class="footer">
-        <div>© 2024 Spare Parts Management System. All rights reserved.</div>
-        <div>
-            <a href="#">Help Center</a>
-            <a href="#">Support</a>
-        </div>
-    </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            // Password toggle functionality
-            const passwordToggles = document.querySelectorAll(".password-toggle");
-            passwordToggles.forEach(toggle => {
-                toggle.addEventListener("click", () => {
-                    const input = toggle.parentElement.querySelector("input");
-                    const type = input.getAttribute("type") === "password" ? "text" : "password";
-                    input.setAttribute("type", type);
-                    toggle.classList.toggle("fa-eye");
-                    toggle.classList.toggle("fa-eye-slash");
-                });
-            });
+  <div class="header">
+    <div class="title">Spare Parts Management System</div>
+    <div class="time" id="current-time">--:--</div>
+  </div>
 
-<<<<<<< Updated upstream
-            // Create Account button functionality
-            const createAccountBtn = document.getElementById("createAccountBtn");
-            if (createAccountBtn) {
-                createAccountBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    
-                    // Basic validation
-                    const fullName = document.getElementById("full-name").value;
-                    const email = document.getElementById("email").value;
-                    const role = document.getElementById("role").value;
-                    const password = document.getElementById("password").value;
-                    const confirmPassword = document.getElementById("confirm-password").value;
-                    
-                    if (!fullName || !email || !role || !password || !confirmPassword) {
-                        alert("Please fill in all required fields");
-                        return;
-                    }
-                    
-                    if (password !== confirmPassword) {
-                        alert("Passwords do not match");
-                        return;
-                    }
-                    
-                    if (password.length < 8) {
-                        alert("Password must be at least 8 characters");
-                        return;
-                    }
-                    
-                    // If all validations pass, redirect to success page
-                    window.location.href = "successfully_added_user.html";
-                });
-            }
+  <div class="nav">
+    <a href="#">Dashboard</a> > <a href="#">User Management</a> >
+    <a href="#" class="active">Create New User</a>
+  </div>
 
-            // Cancel button functionality
-            const cancelBtn = document.querySelector(".cancel-btn");
-            if (cancelBtn) {
-                cancelBtn.addEventListener("click", (e) => {
-                    e.preventDefault();
-                    window.location.href = "view_system_report.html";
-                });
-            }
+  <div class="content">
+    <h2>Create New User Account</h2>
+    <p>Add a new user to the spare parts management system</p>
+
+    <div class="form-group">
+      <label for="full-name">Full Name*</label>
+      <input type="text" id="full-name" placeholder="Enter full name" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email Address*</label>
+      <input type="email" id="email" placeholder="Enter email address" />
+      <p style="font-size: 12px; color: #657786;">Corporate email preferred</p>
+    </div>
+
+    <div class="form-group">
+      <label for="role">User Role*</label>
+      <select id="role">
+        <option value="">Select a role</option>
+        <option value="admin">Admin</option>
+        <option value="stock">Stock Manager</option>
+        <option value="customer">Customer</option>
+      </select>
+      <p style="font-size: 12px; color: #657786;">Determines user access levels</p>
+    </div>
+
+    <div class="form-group password">
+      <label for="password">Password*</label>
+      <input type="password" id="password" placeholder="Enter password" />
+      <i class="far fa-eye password-toggle"></i>
+      <p style="font-size: 12px; color: #e74c3c;">Minimum 8 characters, include numbers and symbols</p>
+    </div>
+
+    <div class="form-group password">
+      <label for="confirm-password">Confirm Password*</label>
+      <input type="password" id="confirm-password" placeholder="Re-enter password" />
+      <i class="far fa-eye password-toggle"></i>
+    </div>
+
+    <div class="buttons">
+      <button class="create-btn" id="createAccountBtn">Create Account</button>
+      <button class="cancel-btn">Cancel</button>
+    </div>
+  </div>
+
+  <div class="quick-nav">
+    <div onclick="window.location.href='view_users.html'">
+      <i class="fas fa-users"></i>
+      <p>View All Users<br />Manage existing user accounts</p>
+    </div>
+    <div>
+      <i class="fas fa-chart-bar"></i>
+      <p>User Reports<br />Access usage statistics</p>
+    </div>
+    <div>
+      <i class="fas fa-history"></i>
+      <p>Access Logs<br />View system access history</p>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div>© 2024 Spare Parts Management System. All rights reserved.</div>
+    <div>
+      <a href="#">Help Center</a>
+      <a href="#">Support</a>
+    </div>
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+      authDomain: "final-project-dip-8649e.firebaseapp.com",
+      projectId: "final-project-dip-8649e",
+      storageBucket: "final-project-dip-8649e.appspot.com",
+      messagingSenderId: "613008727847",
+      appId: "1:613008727847:web:623222118f1decf7bf5302",
+      measurementId: "G-P67JLCG5GW",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Show current time
+      const now = new Date();
+      document.getElementById("current-time").textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+      // Toggle password visibility
+      document.querySelectorAll(".password-toggle").forEach(toggle => {
+        toggle.addEventListener("click", () => {
+          const input = toggle.parentElement.querySelector("input");
+          input.type = input.type === "password" ? "text" : "password";
+          toggle.classList.toggle("fa-eye");
+          toggle.classList.toggle("fa-eye-slash");
         });
-    </script>
-</body>
-=======
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+      });
 
-    <script>
-      const firebaseConfig = {
-        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
-        authDomain: "final-project-dip-8649e.firebaseapp.com",
-        projectId: "final-project-dip-8649e",
-        storageBucket: "final-project-dip-8649e.firebasestorage.app",
-        messagingSenderId: "613008727847",
-        appId: "1:613008727847:web:623222118f1decf7bf5302",
-        measurementId: "G-P67JLCG5GW",
-      };
+      // Cancel button
+      document.querySelector(".cancel-btn").addEventListener("click", (e) => {
+        e.preventDefault();
+        window.location.href = "view_users.html";
+      });
 
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore();
+      // Create account
+      document.getElementById("createAccountBtn").addEventListener("click", async (e) => {
+        e.preventDefault();
+        const fullName = document.getElementById("full-name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const role = document.getElementById("role").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
 
-      document.addEventListener("DOMContentLoaded", () => {
-        // Password toggle functionality
-        const passwordToggles = document.querySelectorAll(".password-toggle");
-        passwordToggles.forEach((toggle) => {
-          toggle.addEventListener("click", () => {
-            const input = toggle.parentElement.querySelector("input");
-            const type = input.getAttribute("type") === "password" ? "text" : "password";
-            input.setAttribute("type", type);
-            toggle.classList.toggle("fa-eye");
-            toggle.classList.toggle("fa-eye-slash");
-          });
-        });
-
-        // Create Account button functionality
-        const createAccountBtn = document.getElementById("createAccountBtn");
-        if (createAccountBtn) {
-          createAccountBtn.addEventListener("click", async (e) => {
-            e.preventDefault();
-
-            const fullName = document.getElementById("full-name").value.trim();
-            const email = document.getElementById("email").value.trim();
-            const role = document.getElementById("role").value;
-            const password = document.getElementById("password").value;
-            const confirmPassword = document.getElementById("confirm-password").value;
-
-            // Validate inputs
-            if (!fullName || !email || !role || !password || !confirmPassword) {
-              alert("Please fill in all required fields");
-              return;
-            }
-
-            if (password !== confirmPassword) {
-              alert("Passwords do not match");
-              return;
-            }
-
-            if (password.length < 8) {
-              alert("Password must be at least 8 characters");
-              return;
-            }
-
-            // Validate email format
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-              alert("Please enter a valid email address");
-              return;
-            }
-
-            try {
-              // Check for duplicate email
-              const emailQuery = await db.collection("users")
-                .where("email", "==", email)
-                .get();
-              if (!emailQuery.empty) {
-                alert("This email is already in use");
-                return;
-              }
-
-              // Add user to Firestore
-              const docRef = await db.collection("users").add({
-                full_name: fullName,
-                email: email,
-                role: role,
-                password: password, // ⚠️ In production, hash passwords using Firebase Auth
-                createdAt: new Date().toISOString(),
-              });
-
-              // Store user data in localStorage
-              const newUser = {
-                id: docRef.id,
-                name: fullName,
-                email: email,
-                role: role,
-              };
-              console.log("Setting newUser:", newUser); // Debug log
-              localStorage.setItem("newUser", JSON.stringify(newUser));
-              console.log("newUser set:", JSON.parse(localStorage.getItem("newUser"))); // Debug log
-
-              
-              window.location.href = "successfully_added_user.html";
-            } catch (error) {
-              console.error("Error adding user: ", error);
-              alert(`Failed to create user: ${error.message}`);
-            }
-          });
+        if (!fullName || !email || !role || !password || !confirmPassword) {
+          alert("Please fill in all required fields");
+          return;
         }
 
-        // Cancel button functionality
-        const cancelBtn = document.querySelector(".cancel-btn");
-        if (cancelBtn) {
-          cancelBtn.addEventListener("click", (e) => {
-            e.preventDefault();
-            window.location.href = "view_users.html"; // Changed to view_users.html for consistency
+        if (password !== confirmPassword) {
+          alert("Passwords do not match");
+          return;
+        }
+
+        if (password.length < 8) {
+          alert("Password must be at least 8 characters");
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          alert("Invalid email format");
+          return;
+        }
+
+        try {
+          const existing = await db.collection("users").where("email", "==", email).get();
+          if (!existing.empty) {
+            alert("Email already exists");
+            return;
+          }
+
+          const docRef = await db.collection("users").add({
+            full_name: fullName,
+            email: email,
+            role: role,
+            password: password, // ⚠️ Insecure: Hash before storing in real apps
+            createdAt: new Date().toISOString(),
           });
+
+          localStorage.setItem("newUser", JSON.stringify({ id: docRef.id, name: fullName, email, role }));
+          alert("User account created successfully!");
+          window.location.href = "successfully_added_user.html";
+        } catch (error) {
+          console.error("Error adding user:", error);
+          alert("Failed to create user. Try again.");
         }
       });
-    </script>
-  </body>
->>>>>>> Stashed changes
+    });
+  </script>
+</body>
 </html>
