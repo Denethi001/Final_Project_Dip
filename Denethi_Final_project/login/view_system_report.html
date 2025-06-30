@@ -1,315 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Whiteway Motors - System Report Dashboard</title>
     <!-- Add Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f7fa;
-            color: #1a2e3d;
-        }
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #e0e5ec;
-        }
-        .header h2 {
-            margin: 0;
-            font-size: 20px;
-        }
-        .header .controls {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .header input {
-            padding: 5px;
-            border: 1px solid #e0e5ec;
-            border-radius: 4px;
-        }
-        .header select, .header button {
-            padding: 5px 10px;
-            border: 1px solid #1a2e3d;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-        .header button {
-            background-color: #1a2e3d;
-            color: #fff;
-        }
-        .header button:hover {
-            background-color: #2a4b5d;
-        }
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 20px;
-            background-color: #fff;
-            margin: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .stat {
-            text-align: center;
-        }
-        .stat-value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #1a2e3d;
-        }
-        .stat-label {
-            color: #657786;
-            font-size: 14px;
-        }
-        .reports {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 20px;
-            background-color: #fff;
-            margin: 0 20px 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .report-btn {
-            padding: 15px;
-            background-color: #1a2e3d;
-            color: #fff;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            text-align: center;
-            transition: background-color 0.2s;
-        }
-        .report-btn:hover {
-            background-color: #2a4b5d;
-        }
-        .tabs {
-            display: flex;
-            gap: 10px;
-            padding: 0 20px;
-        }
-        .tab {
-            padding: 10px 20px;
-            border: 1px solid #e0e5ec;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-        .tab.active {
-            background-color: #1a2e3d;
-            color: #fff;
-        }
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .table th, .table td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #e0e5ec;
-        }
-        .table th {
-            background-color: #f5f7fa;
-        }
-        .pagination {
-            padding: 10px 20px;
-            display: flex;
-            justify-content: flex-end;
-            gap: 5px;
-        }
-        .pagination button {
-            padding: 5px 10px;
-            border: 1px solid #1a2e3d;
-            border-radius: 4px;
-            background-color: #fff;
-            cursor: pointer;
-        }
-        .pagination button.active {
-            background-color: #1a2e3d;
-            color: #fff;
-        }
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f7fa;
+        color: #1a2e3d;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #fff;
+        border-bottom: 1px solid #e0e5ec;
+      }
+      .header h2 {
+        margin: 0;
+        font-size: 20px;
+      }
+      .header .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .header input {
+        padding: 5px;
+        border: 1px solid #e0e5ec;
+        border-radius: 4px;
+      }
+      .header select,
+      .header button {
+        padding: 5px 10px;
+        border: 1px solid #1a2e3d;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .header button {
+        background-color: #1a2e3d;
+        color: #fff;
+      }
+      .header button:hover {
+        background-color: #2a4b5d;
+      }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 20px;
+        background-color: #fff;
+        margin: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .stat {
+        text-align: center;
+      }
+      .stat-value {
+        font-size: 24px;
+        font-weight: bold;
+        color: #1a2e3d;
+      }
+      .stat-label {
+        color: #657786;
+        font-size: 14px;
+      }
+      .reports {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 20px;
+        background-color: #fff;
+        margin: 0 20px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .report-btn {
+        padding: 15px;
+        background-color: #1a2e3d;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.2s;
+      }
+      .report-btn:hover {
+        background-color: #2a4b5d;
+      }
+      .tabs {
+        display: flex;
+        gap: 10px;
+        padding: 0 20px;
+      }
+      .tab {
+        padding: 10px 20px;
+        border: 1px solid #e0e5ec;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .tab.active {
+        background-color: #1a2e3d;
+        color: #fff;
+      }
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .table th,
+      .table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #e0e5ec;
+      }
+      .table th {
+        background-color: #f5f7fa;
+      }
+      .pagination {
+        padding: 10px 20px;
+        display: flex;
+        justify-content: flex-end;
+        gap: 5px;
+      }
+      .pagination button {
+        padding: 5px 10px;
+        border: 1px solid #1a2e3d;
+        border-radius: 4px;
+        background-color: #fff;
+        cursor: pointer;
+      }
+      .pagination button.active {
+        background-color: #1a2e3d;
+        color: #fff;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="header">
-        <h2>Whiteway Motors - System Report Dashboard</h2>
-        <div class="controls">
-            <input type="text" placeholder="Search reports...">
-            <select>
-                <option>Today</option>
-                <option>Last 7 Days</option>
-                <option>Last 30 Days</option>
-            </select>
-            <select>
-                <option>Report Type: Sales Report</option>
-            </select>
+      <h2>Whiteway Motors - System Report Dashboard</h2>
+      <div class="controls">
+        <input type="text" placeholder="Search reports..." />
+        <select>
+          <option>Today</option>
+          <option>Last 7 Days</option>
+          <option>Last 30 Days</option>
+        </select>
+        <select>
+          <option>Report Type: Sales Report</option>
+        </select>
+       <!-- HTML -->
             <button id="createUserBtn">Create User</button>
-            <button>Export</button>
-            <span id="currentDate">Loading...</span>
-        </div>
+
+          Create User
+        </button>
+        <button>Export</button>
+        <span id="currentDate">Loading...</span>
+      </div>
     </div>
     <div class="stats">
-        <div class="stat">
-            <div class="stat-label">Total Active Users</div>
-            <div class="stat-value" id="activeUsers">0</div>
-        </div>
-        <div class="stat">
-            <div class="stat-label">Total Orders</div>
-            <div class="stat-value" id="totalOrders">0</div>
-        </div>
-        <div class="stat">
-            <div class="stat-label">Monthly Revenue</div>
-            <div class="stat-value" id="monthlyRevenue">$0</div>
-        </div>
-        <div class="stat">
-            <div class="stat-label">Active Parts</div>
-            <div class="stat-value" id="activeParts">0</div>
-        </div>
+      <div class="stat">
+        <div class="stat-label">Total Active Users</div>
+        <div class="stat-value" id="activeUsers">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Total Orders</div>
+        <div class="stat-value" id="totalOrders">0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Monthly Revenue</div>
+        <div class="stat-value" id="monthlyRevenue">$0</div>
+      </div>
+      <div class="stat">
+        <div class="stat-label">Active Parts</div>
+        <div class="stat-value" id="activeParts">0</div>
+      </div>
     </div>
     <div class="reports">
-        <button class="report-btn" onclick="window.location.href='user_report.html'">User Report</button>
-        <button class="report-btn" onclick="window.location.href='order_revenue.html'">Order Revenue</button>
-        <button class="report-btn" onclick="window.location.href='product_stock.html'">Product Report</button>
-        <button class="report-btn" onclick="window.location.href='supplier_report.html'">Supplier Report</button>
+      <button
+        class="report-btn"
+        onclick="window.location.href='user_report.html'"
+      >
+        User Report
+      </button>
+      <button
+        class="report-btn"
+        onclick="window.location.href='order_revenue.html'"
+      >
+        Order Revenue
+      </button>
+      <button
+        class="report-btn"
+        onclick="window.location.href='product_stock.html'"
+      >
+        Product Report
+      </button>
+      <button
+        class="report-btn"
+        onclick="window.location.href='supplier_report.html'"
+      >
+        Supplier Report
+      </button>
     </div>
     <div class="tabs">
-        <div class="tab active">Monthly Report</div>
-        <div class="tab">Yearly Summary</div>
+      <div class="tab active">Monthly Report</div>
+      <div class="tab">Yearly Summary</div>
     </div>
     <table class="table">
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Part Name</th>
-                <th>Category</th>
-                <th>Quantity</th>
-                <th>Revenue</th>
-                <th>Date</th>
-            </tr>
-        </thead>
-        <tbody id="recentOrdersTable">
-            <!-- Data will be populated by JavaScript -->
-        </tbody>
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Part Name</th>
+          <th>Category</th>
+          <th>Quantity</th>
+          <th>Revenue</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="recentOrdersTable">
+        <!-- Data will be populated by JavaScript -->
+      </tbody>
     </table>
 
     <script>
-        // Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
-            authDomain: "final-project-dip-8649e.firebaseapp.com",
-            projectId: "final-project-dip-8649e",
-            storageBucket: "final-project-dip-8649e.appspot.com",
-            messagingSenderId: "613008727847",
-            appId: "1:613008727847:web:623222118f1decf7bf5302",
-            measurementId: "G-P67JLCG5GW"
-        };
+      // Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+        authDomain: "final-project-dip-8649e.firebaseapp.com",
+        projectId: "final-project-dip-8649e",
+        storageBucket: "final-project-dip-8649e.appspot.com",
+        messagingSenderId: "613008727847",
+        appId: "1:613008727847:web:623222118f1decf7bf5302",
+        measurementId: "G-P67JLCG5GW",
+      };
 
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
 
-        document.addEventListener('DOMContentLoaded', function() {
-            // Update current date
-            function updateDate() {
-                const now = new Date();
-                const dateString = now.toLocaleDateString('en-US', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric'
-                });
-                document.getElementById('currentDate').textContent = dateString;
-            }
-            updateDate();
-            setInterval(updateDate, 86400000); // Update daily
+      document.addEventListener("DOMContentLoaded", function () {
+        // Update current date
+        function updateDate() {
+          const now = new Date();
+          const dateString = now.toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          });
+          document.getElementById("currentDate").textContent = dateString;
+        }
+        updateDate();
+        setInterval(updateDate, 86400000); // Update daily
 
-            // Create User button functionality
-            const createUserBtn = document.getElementById('createUserBtn');
-            if (createUserBtn) {
-                createUserBtn.addEventListener('click', function() {
-                    window.location.href = 'create_user.html';
-                });
-            }
+        // Create User button functionality
+        const createUserBtn = document.getElementById("createUserBtn");
+        if (createUserBtn) {
+          createUserBtn.addEventListener("click", function () {
+            window.location.href = "create_user_account.html";
+          });
+        }
 
-            // Load dashboard data from Firebase
-            async function loadDashboardData() {
-                try {
-                    // Load users data
-                    const usersSnapshot = await db.collection("users").get();
-                    document.getElementById("activeUsers").textContent = usersSnapshot.size;
+        // Load dashboard data from Firebase
+        async function loadDashboardData() {
+          try {
+            // Load users data
+            const usersSnapshot = await db.collection("users").get();
+            document.getElementById("activeUsers").textContent =
+              usersSnapshot.size;
 
-                    // Load orders data
-                    const ordersSnapshot = await db.collection("orders").get();
-                    document.getElementById("totalOrders").textContent = ordersSnapshot.size;
+            // Load orders data
+            const ordersSnapshot = await db.collection("orders").get();
+            document.getElementById("totalOrders").textContent =
+              ordersSnapshot.size;
 
-                    let totalRevenue = 0;
-                    const uniqueParts = new Set();
-                    const orders = [];
+            let totalRevenue = 0;
+            const uniqueParts = new Set();
+            const orders = [];
 
-                    ordersSnapshot.forEach(doc => {
-                        const order = doc.data();
-                        totalRevenue += order.price || 0;
-                        uniqueParts.add(order.part_name);
-                        orders.push({
-                            id: doc.id,
-                            ...order,
-                            date: order.date // This assumes date is stored as a Firestore timestamp
-                        });
-                    });
+            ordersSnapshot.forEach((doc) => {
+              const order = doc.data();
+              totalRevenue += order.price || 0;
+              uniqueParts.add(order.part_name);
+              orders.push({
+                id: doc.id,
+                ...order,
+                date: order.date, // This assumes date is stored as a Firestore timestamp
+              });
+            });
 
-                    document.getElementById("monthlyRevenue").textContent = `$${totalRevenue.toFixed(2)}`;
-                    document.getElementById("activeParts").textContent = uniqueParts.size;
+            document.getElementById(
+              "monthlyRevenue"
+            ).textContent = `$${totalRevenue.toFixed(2)}`;
+            document.getElementById("activeParts").textContent =
+              uniqueParts.size;
 
-                    // Sort orders by date (newest first)
-                    orders.sort((a, b) => {
-                        const dateA = a.date?.toDate ? a.date.toDate() : new Date(a.date);
-                        const dateB = b.date?.toDate ? b.date.toDate() : new Date(b.date);
-                        return dateB - dateA;
-                    });
+            // Sort orders by date (newest first)
+            orders.sort((a, b) => {
+              const dateA = a.date?.toDate ? a.date.toDate() : new Date(a.date);
+              const dateB = b.date?.toDate ? b.date.toDate() : new Date(b.date);
+              return dateB - dateA;
+            });
 
-                    // Display recent orders (first 5)
-                    const tableBody = document.getElementById("recentOrdersTable");
-                    tableBody.innerHTML = "";
+            // Display recent orders (first 5)
+            const tableBody = document.getElementById("recentOrdersTable");
+            tableBody.innerHTML = "";
 
-                    orders.slice(0, 5).forEach(order => {
-                        const row = document.createElement("tr");
-                        row.innerHTML = `
-                            <td>${order.order_id || 'N/A'}</td>
-                            <td>${order.part_name || 'N/A'}</td>
-                            <td>${order.category || 'N/A'}</td>
+            orders.slice(0, 5).forEach((order) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+                            <td>${order.order_id || "N/A"}</td>
+                            <td>${order.part_name || "N/A"}</td>
+                            <td>${order.category || "N/A"}</td>
                             <td>${order.qty || 0}</td>
                             <td>$${(order.price || 0).toFixed(2)}</td>
-                            <td>${order.date?.toDate ? 
-                                order.date.toDate().toISOString().split('T')[0] : 
-                                new Date(order.date).toISOString().split('T')[0]}</td>
+                            <td>${
+                              order.date?.toDate
+                                ? order.date
+                                    .toDate()
+                                    .toISOString()
+                                    .split("T")[0]
+                                : new Date(order.date)
+                                    .toISOString()
+                                    .split("T")[0]
+                            }</td>
                         `;
-                        tableBody.appendChild(row);
-                    });
-
-                } catch (error) {
-                    console.error("Error loading dashboard data:", error);
-                    // Fallback to sample data if Firebase fails
-                    document.getElementById("recentOrdersTable").innerHTML = `
+              tableBody.appendChild(row);
+            });
+          } catch (error) {
+            console.error("Error loading dashboard data:", error);
+            // Fallback to sample data if Firebase fails
+            document.getElementById("recentOrdersTable").innerHTML = `
                         <tr>
                             <td>ORD001</td>
                             <td>Engine Block</td>
@@ -327,11 +364,11 @@
                             <td>2024-01-14</td>
                         </tr>
                     `;
-                }
-            }
+          }
+        }
 
-            loadDashboardData();
-        });
+        loadDashboardData();
+      });
     </script>
-</body>
+  </body>
 </html>
