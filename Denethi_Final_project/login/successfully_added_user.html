@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Motiff Parts Manager</title>
+    <title>Whiteway Motors - User Added</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
@@ -51,7 +51,7 @@
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             max-width: 500px;
-            margin-top: 60px;
+            margin-top: 80px;
         }
         .checkmark {
             background-color: #28a745;
@@ -130,7 +130,7 @@
         @media (max-width: 600px) {
             .content {
                 padding: 20px;
-                margin-top: 80px;
+                margin-top: 100px;
             }
             .header {
                 flex-direction: column;
@@ -141,26 +141,53 @@
 </head>
 <body>
     <div class="header">
-        <div class="title"><i class="fas fa-wrench"></i>Motiff Parts Manager</div>
-        <div class="time">01:16 PM</div>
+        <div class="title"><i class="fas fa-wrench"></i>Whiteway Motors</div>
+        <div class="time" id="currentTime">Loading...</div>
     </div>
     <div class="content">
         <div class="checkmark">✔</div>
         <h2>User Account Created Successfully!</h2>
-        <div class="user-details">
-            <p><span class="label">Name:</span> John Smith</p>
-            <p><span class="label">Role:</span> Inventory Manager</p>
-    
+        <div class="user-details" id="userDetails">
+            <p><span class="label">Name:</span> <span id="userName">Loading...</span></p>
+            <p><span class="label">Role:</span> <span id="userRole">Loading...</span></p>
         </div>
-        <p class="welcome">Welcome to Motiff Parts Manager</p>
+        <p class="welcome">Welcome to Whiteway Motors</p>
         <div class="buttons">
-            <button class="return-btn" onclick="window.location.href='view_system_report.html'">Back to Dashboard</button>
-            <button class="create-btn" onclick="window.location.href='create_user_account.html'">Create Another User</button>
+            <button class="return-btn" onclick="window.location.href='view_users.html'">Back to Users</button>
+            <button class="create-btn" onclick="window.location.href='create_user.html'">Create Another User</button>
         </div>
         <p class="note">The new user has been added to the system and can now access their account.</p>
     </div>
     <div class="footer">
-        © 2024 Motiff Parts Manager. All rights reserved.
+        © 2024 Whiteway Motors. All rights reserved.
     </div>
+
+    <script>
+        // Update time display
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+        updateTime();
+        setInterval(updateTime, 60000); // Update every minute
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const newUser = JSON.parse(localStorage.getItem('newUser'));
+            const userDetails = document.getElementById('userDetails');
+            console.log('newUser retrieved:', newUser); // Debug log
+
+            if (newUser && newUser.name && newUser.role) {
+                document.getElementById('userName').textContent = newUser.name || 'Unknown';
+                document.getElementById('userRole').textContent = newUser.role || 'Unknown';
+            } else {
+                userDetails.innerHTML = '<p>No user data available. Please try creating the user again.</p>';
+                console.log('No newUser data found in localStorage'); // Debug log
+            }
+
+            // Clear localStorage to prevent stale data
+            localStorage.removeItem('newUser');
+        });
+    </script>
 </body>
 </html>

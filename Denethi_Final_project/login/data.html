@@ -1,0 +1,135 @@
+// For Node.js: Uncomment and install firebase
+// const firebase = require('firebase/app');
+// require('firebase/firestore');
+
+For browser: Include Firebase SDKs
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+<script>
+// Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+  authDomain: "final-project-dip-8649e.firebaseapp.com",
+  projectId: "final-project-dip-8649e",
+  storageBucket: "final-project-dip-8649e.firebasestorage.app",
+  messagingSenderId: "613008727847",
+  appId: "1:613008727847:web:623222118f1decf7bf5302",
+  measurementId: "G-P67JLCG5GW",
+};
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// Array of supplier data to insert
+const suppliers = [
+  {
+    name: "Hitachi",
+    contact_name: "asitha",
+    email: "asi@gmail.com",
+    phone: "07660000",
+    address: "vennappuwa, negombo",
+    rating: 3,
+  },
+  {
+    name: "Toyota Parts Ltd",
+    contact_name: "Nimal Perera",
+    email: "nimal@toyotaparts.lk",
+    phone: "0771234567",
+    address: "123 Galle Road, Colombo",
+    rating: 4,
+  },
+  {
+    name: "Nissan Auto Supplies",
+    contact_name: "Kumari Silva",
+    email: "kumari@nissanauto.com",
+    phone: "071-9876543",
+    address: "45 Kandy Road, Kurunegala",
+    rating: 5,
+  },
+  {
+    name: "Honda Spares",
+    contact_name: "Ravi Fernando",
+    email: "ravi@hondaspares.lk",
+    phone: "076 5432109",
+    address: "78 Main Street, Gampaha",
+    rating: 2,
+  },
+  {
+    name: "Mitsubishi Distributors",
+    contact_name: "Sanjaya Wijesinghe",
+    email: "sanjaya@mitsudist.com",
+    phone: "078-4567890",
+    address: "12 Station Road, Negombo",
+    rating: 4,
+  },
+];
+
+// Function to insert a single supplier
+async function addSupplier(data) {
+  try {
+    // Validation
+    if (!data.name || typeof data.name !== 'string' || data.name.trim() === '') {
+      throw new Error('Supplier name is required and must be a non-empty string.');
+    }
+    if (!data.contact_name || typeof data.contact_name !== 'string' || data.contact_name.trim() === '') {
+      throw new Error('Contact name is required and must be a non-empty string.');
+    }
+    if (!data.email || !/^\S+@\S+\.\S+$/.test(data.email)) {
+      throw new Error('Valid email is required.');
+    }
+    if (!data.phone || !/^[0-9\s-]+$/.test(data.phone)) {
+      throw new Error('Valid phone number is required (digits, dashes, or spaces).');
+    }
+    if (!data.address || typeof data.address !== 'string' || data.address.trim() === '') {
+      throw new Error('Address is required and must be a non-empty string.');
+    }
+    if (!data.rating || typeof data.rating !== 'number' || data.rating < 1 || data.rating > 5) {
+      throw new Error('Rating is required and must be a number between 1 and 5.');
+    }
+
+    // Generate unique ID
+    const timestamp = new Date().toISOString().replace(/[-:T.]/g, '');
+    const supplierId = `${data.name.replace(/\s+/g, '_')}_${timestamp}`;
+
+    // Add createdAt
+    const supplierRecord = {
+      ...data,
+      createdAt: new Date().toISOString(),
+    };
+
+    // Log data before saving
+    console.log('Setting supplier:', supplierRecord);
+
+    // Save to Firestore
+    await db.collection('supplier_data').doc(supplierId).set(supplierRecord);
+
+    // Log success
+    console.log('Supplier added successfully:', { id: supplierId, ...supplierRecord });
+
+    return { id: supplierId, ...supplierRecord };
+  } catch (error) {
+    console.error('Error adding supplier:', error.message);
+    throw error;
+  }
+}
+
+// Function to insert all suppliers
+async function addAllSuppliers() {
+  for (const supplier of suppliers) {
+    try {
+      await addSupplier(supplier);
+    } catch (error) {
+      console.error('Failed to add supplier:', supplier.name, error.message);
+    }
+  }
+}
+
+// Execute the function
+addAllSuppliers().then(() => {
+  console.log('All suppliers processed.');
+}).catch(error => {
+  console.error('Failed to process suppliers:', error.message);
+});
+</script>

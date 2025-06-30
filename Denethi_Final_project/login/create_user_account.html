@@ -180,6 +180,7 @@
         <a href="#">Dashboard</a> > <a href="#">User Management</a> > <a href="#" class="active">Create New User</a>
     </div>
     <div class="content">
+<<<<<<< Updated upstream
         <h2>Create New User Account</h2>
         <p>Add a new user to the spare parts management system</p>
         <div class="form-group">
@@ -216,6 +217,52 @@
             <button class="create-btn" id="createAccountBtn">Create Account</button>
             <button class="cancel-btn">Cancel</button>
         </div>
+=======
+      <h2>Create New User Account</h2>
+      <p>Add a new user to the spare parts management system</p>
+      <div class="form-group">
+        <label for="full-name">Full Name*</label>
+        <input type="text" id="full-name" placeholder="Enter full name" />
+      </div>
+      <div class="form-group">
+        <label for="email">Email Address*</label>
+        <input type="email" id="email" placeholder="Enter email address" />
+        <p style="font-size: 12px; color: #657786">Corporate email preferred</p>
+      </div>
+      <div class="form-group">
+        <label for="role">User Role*</label>
+        <select id="role">
+          <option value="">Select a role</option>
+          <option value="admin">Admin</option>
+          <option value="stock">Stock Manager</option>
+          <option value="customer">Customer</option>
+        </select>
+        <p style="font-size: 12px; color: #657786">
+          Determines user access levels
+        </p>
+      </div>
+      <div class="form-group password">
+        <label for="password">Password*</label>
+        <input type="password" id="password" placeholder="Enter password" />
+        <i class="far fa-eye password-toggle"></i>
+        <p style="font-size: 12px; color: #e74c3c">
+          Minimum 8 characters, include numbers and symbols
+        </p>
+      </div>
+      <div class="form-group password">
+        <label for="confirm-password">Confirm Password*</label>
+        <input
+          type="password"
+          id="confirm-password"
+          placeholder="Re-enter password"
+        />
+        <i class="far fa-eye password-toggle"></i>
+      </div>
+      <div class="buttons">
+        <button class="create-btn" id="createAccountBtn">Create Account</button>
+        <button class="cancel-btn">Cancel</button>
+      </div>
+>>>>>>> Stashed changes
     </div>
     <div class="quick-nav">
         <div onclick="window.location.href='view_users.html'">
@@ -252,6 +299,7 @@
                 });
             });
 
+<<<<<<< Updated upstream
             // Create Account button functionality
             const createAccountBtn = document.getElementById("createAccountBtn");
             if (createAccountBtn) {
@@ -296,4 +344,121 @@
         });
     </script>
 </body>
+=======
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyB3_A8rRNbjQy-nju1j_aiLeLOe2OdjNgo",
+        authDomain: "final-project-dip-8649e.firebaseapp.com",
+        projectId: "final-project-dip-8649e",
+        storageBucket: "final-project-dip-8649e.firebasestorage.app",
+        messagingSenderId: "613008727847",
+        appId: "1:613008727847:web:623222118f1decf7bf5302",
+        measurementId: "G-P67JLCG5GW",
+      };
+
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      document.addEventListener("DOMContentLoaded", () => {
+        // Password toggle functionality
+        const passwordToggles = document.querySelectorAll(".password-toggle");
+        passwordToggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            const input = toggle.parentElement.querySelector("input");
+            const type = input.getAttribute("type") === "password" ? "text" : "password";
+            input.setAttribute("type", type);
+            toggle.classList.toggle("fa-eye");
+            toggle.classList.toggle("fa-eye-slash");
+          });
+        });
+
+        // Create Account button functionality
+        const createAccountBtn = document.getElementById("createAccountBtn");
+        if (createAccountBtn) {
+          createAccountBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            const fullName = document.getElementById("full-name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const role = document.getElementById("role").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            // Validate inputs
+            if (!fullName || !email || !role || !password || !confirmPassword) {
+              alert("Please fill in all required fields");
+              return;
+            }
+
+            if (password !== confirmPassword) {
+              alert("Passwords do not match");
+              return;
+            }
+
+            if (password.length < 8) {
+              alert("Password must be at least 8 characters");
+              return;
+            }
+
+            // Validate email format
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+              alert("Please enter a valid email address");
+              return;
+            }
+
+            try {
+              // Check for duplicate email
+              const emailQuery = await db.collection("users")
+                .where("email", "==", email)
+                .get();
+              if (!emailQuery.empty) {
+                alert("This email is already in use");
+                return;
+              }
+
+              // Add user to Firestore
+              const docRef = await db.collection("users").add({
+                full_name: fullName,
+                email: email,
+                role: role,
+                password: password, // ⚠️ In production, hash passwords using Firebase Auth
+                createdAt: new Date().toISOString(),
+              });
+
+              // Store user data in localStorage
+              const newUser = {
+                id: docRef.id,
+                name: fullName,
+                email: email,
+                role: role,
+              };
+              console.log("Setting newUser:", newUser); // Debug log
+              localStorage.setItem("newUser", JSON.stringify(newUser));
+              console.log("newUser set:", JSON.parse(localStorage.getItem("newUser"))); // Debug log
+
+              
+              window.location.href = "successfully_added_user.html";
+            } catch (error) {
+              console.error("Error adding user: ", error);
+              alert(`Failed to create user: ${error.message}`);
+            }
+          });
+        }
+
+        // Cancel button functionality
+        const cancelBtn = document.querySelector(".cancel-btn");
+        if (cancelBtn) {
+          cancelBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            window.location.href = "view_users.html"; // Changed to view_users.html for consistency
+          });
+        }
+      });
+    </script>
+  </body>
+>>>>>>> Stashed changes
 </html>
