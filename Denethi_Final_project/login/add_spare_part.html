@@ -138,8 +138,8 @@
 </head>
 <body>
     <div class="header">
-        <img src="" alt="PartsManager Logo">
-        <div class="user">Nipun</div>
+        <!-- <img src="" alt="Spare Parts Management"> -->
+        <!-- <div class="user">Nipun</div> -->
     </div>
     <div class="section">
         <h2>Add New Spare Part</h2>
@@ -277,7 +277,7 @@
                         <td>${part.quantity || 0}</td>
                         <td>Rs.${part.price ? part.price.toFixed(2) : '0.00'}</td>
                         <td class="actions">
-                            <button class="edit" data-id="${part.id}">Edit</button>
+                            
                             <button class="delete" data-id="${part.id}">Delete</button>
                         </td>
                     `;
@@ -391,12 +391,12 @@
                 category: category,
                 quantity: parseInt(quantity),
                 price: parseFloat(price),
-                created_at: new Date().toISOString(),
+                
             };
 
             try {
                 // Generate unique ID
-                const timestamp = new Date().toISOString().replace(/[-:T.]/g, '');
+                
                 const partId = `${partNumber}_${timestamp}`;
 
                 // Check for duplicate part number
